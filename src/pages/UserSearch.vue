@@ -2,20 +2,22 @@
   <div>
     <el-row>
       <el-col>
-        <el-input v-model="user" class="search-input" placeholder="请输入内容"></el-input>
-        <el-button class="search-btn" icon="el-icon-search" circle></el-button>
+        <search-input/>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import SearchInput from '_c/common/SearchInput';
+
 export default {
   name: "UserSearch",
+  components: {
+    SearchInput
+  },
   data() {
-    return {
-      user: ""
-    };
+    return {};
   }
 };
 </script>
