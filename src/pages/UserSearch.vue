@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import SearchInput from '_c/common/SearchInput';
+import SearchInput from '../components/common-components/SearchInput';
 
 export default {
   name: "UserSearch",
