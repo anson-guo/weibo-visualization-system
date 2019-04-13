@@ -9,6 +9,8 @@
   "author": "guojingan",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.1"
   }
 }
