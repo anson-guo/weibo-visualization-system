@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container">
-      <h1>基于D3.js的微博数据可视化系统</h1>
+      <h1>基于 D3 的微博数据可视化系统</h1>
 
       <div class="foot">
         <el-button type="primary">
