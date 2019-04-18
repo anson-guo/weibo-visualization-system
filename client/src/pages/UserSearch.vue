@@ -2,10 +2,16 @@
   <div class="container">
     <!-- 输入框 -->
     <div class="user-search">
-      <search-input class="input"/>
+      <el-input
+        class="input"
+        v-model="userName"
+        @keyup.enter.native="handleUserNameChange"
+        clearable
+      />
+      <el-button class="search" type="primary" @click="handleUserNameChange">查询</el-button>
     </div>
     <!-- 表格，微博用户列表 -->
-    <el-table :data="tableData" style="width: 100%"  v-loading="loading" border>
+    <el-table :data="tableData" style="width: 100%; min-height: 600px;" v-loading="loading">
       <el-table-column prop="avatar" label="头像" width="80">
         <template slot-scope="scope">
           <img style="height: 50px" :src="scope.row.avatar" alt="头像">
@@ -25,7 +31,7 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="1000"
+        :total="total"
         @current-change="handlePageChange"
       ></el-pagination>
     </div>
@@ -34,6 +40,7 @@
 
 <script>
 import SearchInput from "../components/common-components/SearchInput";
+import {getUrl} from '../lib/utils.js';
 
 export default {
   name: "UserSearch",
@@ -43,7 +50,9 @@ export default {
   data() {
     return {
       tableData: [],
-      loading: true
+      loading: true,
+      total: 0,
+      userName: ""
     };
   },
   methods: {
@@ -51,13 +60,48 @@ export default {
      * 处理分页功能
      */
     handlePageChange(num) {
-      console.log(num);
+      this.loading = true;
+      this.$axios
+        .get("/api/users/", {
+          params: {
+            pagenum: num
+          }
+        })
+        .then(res => {
+          this.tableData = res.data.data;
+          this.total = res.data.total;
+          this.loading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    /**
+     * 处理用户昵称改变后的搜索
+     */
+    handleUserNameChange() {
+      this.$axios
+        .get("/api/users/search", {
+          params: {
+            username: this.userName
+          }
+        })
+        .then(res => {
+          this.tableData = res.data.data;
+          this.loading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   mounted() {
-    this.$axios.get("http://localhost/users").then(res => {
-      console.log(res);
-      this.tableData = res.data;
+    this.$axios.get("/api/users").then(res => {
+      const { total, data } = res.data;
+
+      this.total = total;
+      this.tableData = data;
+
       this.loading = false;
     });
   }
@@ -71,6 +115,10 @@ export default {
   height: 100vh;
   .user-search {
     margin-bottom: 50px;
+    display: flex;
+    .search {
+      margin-left: 10px;
+    }
   }
   .pages {
     margin-top: 20px;

@@ -13,4 +13,15 @@ module.exports = {
       })
     })
   },
+  count(data = {}) {
+    return new Promise((resolve, reject) => {
+      UserModel.find(data).count((error, doc) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(doc)
+        }
+      })
+    });
+  }
 };

@@ -17,7 +17,7 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/user-search',
+    path: '/user-search/:username',
     component: UserSearch
   },
   {

@@ -31,6 +31,15 @@ export function getUrl({url, data}) {
   });
 };
 
+export function joinQuery2url(url, query) {
+    query = query || {};
+    const queryStr = Object.keys(query).map(key => `${key}=${query[key]}`).join('&');
+    if (url.indexOf('?') > -1) {
+        return `${url}&${queryStr}`;
+    }
+    return `${url}?${queryStr}`;
+}
+
 // 获取cookie
 export function getCookie(name) {
   let start = '';
