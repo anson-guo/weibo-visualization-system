@@ -8,7 +8,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import HomePage from './pages/HomePage'
-import UserSearch from './pages/UserSearch'
+import UserList from './pages/UserList'
 import UserInfo from './pages/UserInfo'
 
 const routes = [
@@ -17,12 +17,12 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/user-search/:username',
-    component: UserSearch
+    path: '/user/:username',
+    component: UserList
   },
   {
-    path: '/user-info/:id',
-    comppnent: UserInfo
+    path: '/user-info/:name',
+    component: UserInfo
   }
 ];
 

@@ -24,7 +24,12 @@
           <span v-else>女</span>
         </template>
       </el-table-column>
-      <el-table-column prop="description" label="描述"></el-table-column>
+      <el-table-column prop="description" width="300" label="描述"></el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="handleLink(scope.$index, scope.row)">访问</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <!-- 分页 -->
     <div class="block pages">
@@ -40,10 +45,10 @@
 
 <script>
 import SearchInput from "../components/common-components/SearchInput";
-import {getUrl} from '../lib/utils.js';
+import { getUrl } from "../lib/utils.js";
 
 export default {
-  name: "UserSearch",
+  name: "UserList",
   components: {
     SearchInput
   },
@@ -61,8 +66,9 @@ export default {
      */
     handlePageChange(num) {
       this.loading = true;
+      this.$router.push({path:'/users/all',query: {pagenum:num}});
       this.$axios
-        .get("/api/users/", {
+        .get("/api/users/all", {
           params: {
             pagenum: num
           }
@@ -80,23 +86,29 @@ export default {
      * 处理用户昵称改变后的搜索
      */
     handleUserNameChange() {
-      this.$axios
-        .get("/api/users/search", {
-          params: {
-            username: this.userName
-          }
-        })
-        .then(res => {
-          this.tableData = res.data.data;
-          this.loading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      // this.$axios
+      //   .get("/api/users/search", {
+      //     params: {
+      //       username: this.userName
+      //     }
+      //   })
+      //   .then(res => {
+      //     this.tableData = res.data.data;
+      //     this.loading = false;
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
+    },
+    /**
+     * 访问对应的用户
+     */
+    handleLink(index, row) {
+      this.$router.push({ path: `/user-info/${row.name}`});
     }
   },
   mounted() {
-    this.$axios.get("/api/users").then(res => {
+    this.$axios.get("/api/user/all").then(res => {
       const { total, data } = res.data;
 
       this.total = total;
