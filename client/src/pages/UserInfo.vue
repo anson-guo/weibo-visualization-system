@@ -1,29 +1,30 @@
 <template>
   <div class="main">
     <el-header class="header">
-      <main-header ></main-header>
+      <main-header></main-header>
     </el-header>
     <el-container>
-      <el-aside width="200px">  
-        <el-menu>
-          <el-menu-item index="1">
+      <el-aside width="200px">
+        <el-menu default-active="base" router>
+          <el-menu-item index="base">
             <i class="el-icon-document"></i>
             <span slot="title">基本信息</span>
           </el-menu-item>
-
-          <el-menu-item index="2">
+          <el-menu-item index="fans">
             <i class="el-icon-message"></i>
             <span slot="title">粉丝数据</span>
           </el-menu-item>
 
-          <el-menu-item index="3">
+          <el-menu-item index="weibos">
             <i class="el-icon-document"></i>
             <span slot="title">微博数据</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>
-        <el-main></el-main>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
         <el-footer>Footer</el-footer>
       </el-container>
     </el-container>
@@ -31,17 +32,20 @@
 </template>
 
 <script>
-import MainHeader from "../components/common-components/MainHeader";
+import MainHeader from '../components/common-components/MainHeader';
+import BaseInfo from './BaseInfo';
+import FansData from './FansData';
+
 
 export default {
   name: "UserInfo",
   components: {
-    MainHeader
+    MainHeader,
+    BaseInfo,
+    FansData
   },
   data() {
-    return {
-
-    };
+    return {};
   }
 };
 </script>
@@ -61,4 +65,3 @@ export default {
   color: #333;
 }
 </style>
-

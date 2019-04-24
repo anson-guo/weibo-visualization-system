@@ -10,6 +10,9 @@ Vue.use(VueRouter)
 import HomePage from './pages/HomePage'
 import UserList from './pages/UserList'
 import UserInfo from './pages/UserInfo'
+import BaseInfo from './pages/BaseInfo'
+import FansData from './pages/FansData'
+import WeiboData from './pages/WeiboData'
 
 const routes = [
   {
@@ -22,7 +25,21 @@ const routes = [
   },
   {
     path: '/user-info/:name',
-    component: UserInfo
+    component: UserInfo,
+    children: [
+      {
+        path: 'base',
+        component: BaseInfo
+      },
+      {
+        path: 'fans',
+        component: FansData
+      },
+      {
+        path: 'weibos',
+        component: WeiboData
+      }
+    ]
   }
 ];
 

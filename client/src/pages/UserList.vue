@@ -112,7 +112,7 @@ export default {
      * 访问对应的用户
      */
     handleLink(index, row) {
-      this.$router.push({ path: `/user-info/${row.name}` });
+      this.$router.push({ path: `/user-info/${row.name}/base` });
     }
   },
   mounted() {
