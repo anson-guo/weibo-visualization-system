@@ -32,10 +32,9 @@
 </template>
 
 <script>
-import MainHeader from '../components/common-components/MainHeader';
-import BaseInfo from './BaseInfo';
-import FansData from './FansData';
-
+import MainHeader from "../components/common-components/MainHeader";
+import BaseInfo from "./BaseInfo";
+import FansData from "./FansData";
 
 export default {
   name: "UserInfo",
@@ -46,6 +45,16 @@ export default {
   },
   data() {
     return {};
+  },
+  mounted() {
+    const newpath =
+      this.$route.path
+        .split("/")
+        .splice(0, 3)
+        .join("/") + "/base";
+    this.$router.push({
+      path: newpath
+    });
   }
 };
 </script>
