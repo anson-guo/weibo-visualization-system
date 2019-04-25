@@ -13,11 +13,13 @@ export default {
     CalendarView
   },
   mounted() {
+    const id = this.$route.path.split("/")[2];
+    const url = `/api/user-info/${id}/base`;
 
     // 获取数据
     this.$axios
-      .get("/api/user-info/base", {
-        id: '5342249696'
+      .get(url, {
+        id
       })
       .then(res => {
         console.log(res);
