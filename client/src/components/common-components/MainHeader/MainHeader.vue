@@ -6,19 +6,22 @@
     <div class="info">
       <div class="info-img">
         <img
-          src="https://tva3.sinaimg.cn/crop.0.0.640.640.180/bfc243a3jw8efzr4c9ajij20hs0hsaav.jpg"
+          :src="headerData.avatar"
           alt="头像"
         >
       </div>
-      <h3>回忆专用小马甲</h3>
-      <p>微博人气博主</p>
+      <h3>{{headerData.name}}</h3>
+      <p>{{ headerData.description}}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MainHeader"
+  name: "MainHeader",
+  props: {
+    headerData: Array
+  }
 };
 </script>
 

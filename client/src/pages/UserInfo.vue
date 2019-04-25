@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="main">
     <el-header class="header">
-      <main-header></main-header>
+      <main-header :headerData="headerData"></main-header>
     </el-header>
     <el-container>
       <el-aside width="200px">
@@ -49,7 +49,9 @@ export default {
     FansData
   },
   data() {
-    return {};
+    return {
+      headerData: {}
+    };
   },
 
   beforeMounted() {
@@ -62,6 +64,24 @@ export default {
       path: newpath
     });
   },
+  mounted() {
+    const id = this.$route.path.split("/")[2];
+    const url = `/api/user-info/${id}/base`;
+
+    // 获取数据
+    this.$axios
+      .get(url, {
+        id
+      })
+      .then(res => {
+        const data = res.data[0];
+        this.headerData = {
+          'avatar': data.avatar,
+          'description': data.description,
+          'name': data.name
+        };
+      });
+  }
 };
 </script>
 
