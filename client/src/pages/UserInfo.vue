@@ -19,6 +19,11 @@
             <i class="el-icon-document"></i>
             <span slot="title">微博数据</span>
           </el-menu-item>
+
+           <el-menu-item>
+            <i class="el-icon-document"></i>
+             <router-link to="/user">返回用户列表</router-link>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>

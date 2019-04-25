@@ -8,7 +8,7 @@
 const mongoose = require('mongoose');
 
 // 连接数据库
-mongoose.connect('mongodb://localhost:27017/weibo');
+mongoose.connect('mongodb://localhost:27017/weibo01');
 
 // 为这次连接绑定事件
 const db = mongoose.connection;
