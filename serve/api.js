@@ -40,6 +40,11 @@ router.get('/api/user', (req, res) => {
 
 // -------------------- /user-info接口相关逻辑 -------------------- //
 
+router.get('/api/user-info/:id/base', (req, res) => {
+	const id = req.body;
+	console.log(id);
+});
+
 
 
 module.exports = router;

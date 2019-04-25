@@ -51,7 +51,8 @@ export default {
   data() {
     return {};
   },
-  mounted() {
+
+  beforeMounted() {
     const newpath =
       this.$route.path
         .split("/")
@@ -60,7 +61,7 @@ export default {
     this.$router.push({
       path: newpath
     });
-  }
+  },
 };
 </script>
 
