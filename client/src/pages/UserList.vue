@@ -13,6 +13,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="昵称" width="180"></el-table-column>
+      <el-table-column prop="id" label="Id" width="180"></el-table-column>
       <el-table-column label="性别" width="60">
         <template slot-scope="scope">
           <span v-if="scope.row.gender === 'm'">男</span>
@@ -112,7 +113,7 @@ export default {
      * 访问对应的用户
      */
     handleLink(index, row) {
-      this.$router.push({ path: `/user-info/${row.name}/base` });
+      this.$router.push({ path: `/user-info/${row.id}/base` });
     }
   },
   mounted() {

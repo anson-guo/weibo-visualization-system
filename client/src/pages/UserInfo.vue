@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <div class="main">
     <el-header class="header">
       <main-header></main-header>
