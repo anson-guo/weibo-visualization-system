@@ -1,8 +1,6 @@
 <template lang="html">
   <div
-    class="header-container"
-    style="background-image: url('http://img.t.sinajs.cn/t5/skin/public/covervip/2012.jpg')"
-  >
+    class="header-container">
     <div class="info">
       <div class="info-img">
         <img
@@ -28,6 +26,7 @@ export default {
 <style lang="scss" scoped>
 .header-container {
   height: 200px;
+  background-color: #293c55;
   .info {
     text-align: center;
     color: #ffffff;

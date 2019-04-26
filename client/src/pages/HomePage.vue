@@ -1,9 +1,10 @@
 <template lang="html">
   <div class="home">
     <video
-      src="../assets/Over-the-Map.mp4"
+      class="home-video"
+      src="../assets/home-bg-video.mp4"
       autoplay="true"
-      poster="../assets/Over-the-Map.jpg"
+      poster="../assets/home-bg-video.jpg"
       loop="true"
     >抱歉，您的浏览器不支持内嵌视频，不过不用担心，你可以下载并用你喜欢的播放器观看!</video>
 
@@ -56,13 +57,16 @@ export default {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  .home-video {
+    width: 100%;
+  }
 }
 
 .container {
   width: 70%;
   background: rgba($color: #f6f6f6, $alpha: 0.3);
   border-radius: 15px;
-  color: #000000;
+  color: #ffffff;
   position: absolute;
   top: 50%;
   left: 50%;
