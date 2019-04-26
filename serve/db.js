@@ -28,7 +28,7 @@ const weiboSchema = mongoose.Schema({
 /************** 定义模型Model **************/
 const Models = {
   User: mongoose.model('users', userSchema),
-  Weibo: moogoose.model('weibo', weiboSchema),
+  Weibo: mongoose.model('weibo', weiboSchema),
 };
 
 
