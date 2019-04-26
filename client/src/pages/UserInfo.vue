@@ -53,16 +53,18 @@ export default {
       headerData: {}
     };
   },
-
-  beforeMounted() {
-    const newpath =
-      this.$route.path
-        .split("/")
-        .splice(0, 3)
-        .join("/") + "/base";
-    this.$router.push({
-      path: newpath
-    });
+  methods: {
+    jump2Base() {
+      const newpath =
+        this.$route.path
+          .split("/")
+          .splice(0, 3)
+          .join("/") + "/base";
+      this.$router.push({
+        path: newpath
+      });
+      console.log(newpath);
+    }
   },
   mounted() {
     const id = this.$route.path.split("/")[2];
@@ -76,11 +78,13 @@ export default {
       .then(res => {
         const data = res.data[0];
         this.headerData = {
-          'avatar': data.avatar,
-          'description': data.description,
-          'name': data.name
+          avatar: data.avatar,
+          description: data.description,
+          name: data.name
         };
       });
+
+      this.jump2Base();
   }
 };
 </script>

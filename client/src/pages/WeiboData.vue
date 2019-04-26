@@ -1,10 +1,18 @@
-<template>
-  <div>微博数据</div>
+<template lang="html">
+  <div>
+    <d3-bar-chart></d3-bar-chart>
+  </div>
 </template>
 
 <script>
+import D3BarChart from "../components/visual-components/D3BarChart";
+
+
 export default {
   name: 'WeiboData',
+  components: {
+    D3BarChart
+  }
 }
 </script>
 

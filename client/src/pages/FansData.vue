@@ -1,13 +1,13 @@
 <template>
   <div>
     <el-row>
-      <el-col :xs="24" :sm="24" :md="12" :lg="12">
+      <el-col class="col" :xs="24" :sm="24" :md="12" :lg="12">
         <el-card>
           粉丝性别分布
           <sex-piechart :sexData="sexData"></sex-piechart>
         </el-card>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="12">
+      <el-col class="col" :xs="24" :sm="24" :md="12" :lg="12">
         <el-card>
           粉丝年龄分布
           <age-piechart :ageData="ageData"></age-piechart>
@@ -78,6 +78,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.col {
+  box-sizing: border-box;
+  padding: 10px;
+}
 </style>
 
 

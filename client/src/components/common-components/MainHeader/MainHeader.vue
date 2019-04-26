@@ -18,7 +18,7 @@
 export default {
   name: "MainHeader",
   props: {
-    headerData: Array
+    headerData: Object
   }
 };
 </script>
