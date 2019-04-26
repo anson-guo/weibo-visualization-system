@@ -53,4 +53,18 @@ router.get('/api/user-info/:id/base', (req, res) => {
 	
 });
 
+// -------------------- 获取 用户微博数据 接口 相关逻辑 -------------------- //
+router.get('api/user-info/:id/weibos', (req, res) => {
+	const id = +req.params.id;
+
+	models.Weibo.find({'id': id}).exec((err, data) => {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(data);
+		}
+	});
+
+});
+
 module.exports = router;

@@ -21,9 +21,14 @@ const userSchema = mongoose.Schema({
   name: String,
 });
 
+const weiboSchema = mongoose.Schema({
+  id: Number,
+})
+
 /************** 定义模型Model **************/
 const Models = {
-  User: mongoose.model('users', userSchema)
+  User: mongoose.model('users', userSchema),
+  Weibo: moogoose.model('weibo', weiboSchema),
 };
 
 
