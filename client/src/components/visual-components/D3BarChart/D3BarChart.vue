@@ -7,22 +7,13 @@ const d3 = require("d3");
 
 export default {
   name: "D3BarChart",
+  props: {
+    data: Array
+  },
   data() {
     return {
-      freqData: [
-        { State: "一月", freq: { 2017: 47, 2018: 13, 2019: 2 } },
-        { State: "二月", freq: { 2017: 11, 2018: 4, 2019: 6 } },
-        { State: "三月", freq: { 2017: 9, 2018: 21, 2019: 4 } },
-        { State: "四月", freq: { 2017: 8, 2018: 11, 2019: 18 } },
-        { State: "五月", freq: { 2017: 44, 2018: 33, 2019: 9 } },
-        { State: "六月", freq: { 2017: 16, 2018: 1, 2019: 10 } },
-        { State: "七月", freq: { 2017: 18, 2018: 2, 2019: 12 } },
-        { State: "八月", freq: { 2017: 44, 2018: 38, 2019: 9 } },
-        { State: "九月", freq: { 2017: 7, 2018: 18, 2019: 15 } },
-        { State: "十月", freq: { 2017: 1, 2018: 3, 2019: 4 } },
-        { State: "十一月", freq: { 2017: 1, 2018: 3, 2019: 4 } },
-        { State: "十二月", freq: { 2017: 1, 2018: 3, 2019: 4 } }
-      ]
+      freqData: this.data,
+      isShowChart: true
     };
   },
   methods: {
@@ -389,6 +380,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#D3BarChart {
+  display: inline-block;
+}
 </style>
 
 

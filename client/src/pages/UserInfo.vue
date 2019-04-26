@@ -50,10 +50,13 @@ export default {
   },
   data() {
     return {
-      headerData: {}
+      headerData: {}, // 用户主页面头部所使用的数据
     };
   },
   methods: {
+    /**
+     * 跳转到base页面
+     */
     jump2Base() {
       const newpath =
         this.$route.path
@@ -84,7 +87,7 @@ export default {
         };
       });
 
-      this.jump2Base();
+    this.jump2Base();
   }
 };
 </script>
