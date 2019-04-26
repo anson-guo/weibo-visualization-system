@@ -66,7 +66,6 @@ export default {
       this.$router.push({
         path: newpath
       });
-      console.log(newpath);
     }
   },
   mounted() {
