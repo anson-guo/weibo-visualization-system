@@ -90,7 +90,6 @@ export default {
       bar
         .append("rect")
         .attr("fill", function(d, i) {
-          console.log(i % data.series.length);
           return color(i % data.series.length);
         })
         .style("fill", function(d, i) {
