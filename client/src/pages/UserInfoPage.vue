@@ -28,7 +28,7 @@
       </el-aside>
       <el-container>
         <el-main>
-          <router-view></router-view>
+          <router-view :userBaseInfo="userBaseInfo"></router-view>
         </el-main>
         <el-footer>Footer</el-footer>
       </el-container>
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       headerData: {}, // 用户主页面头部所使用的数据
+      userBaseInfo: {} // 用户基本信息
     };
   },
   methods: {
@@ -66,27 +67,41 @@ export default {
       this.$router.push({
         path: newpath
       });
+    },
+    /**
+     * 获取用户数据
+     */
+    fetchUserData() {
+      const id = this.$route.path.split("/")[2];
+      const url = `/api/user-info/${id}/base`;
+      this.$axios
+        .get(url, {
+          id
+        })
+        .then(res => {
+          const data = res.data[0];
+          // 用户页面头部相关数据
+          this.headerData = {
+            avatar: data.avatar,
+            description: data.description,
+            name: data.name
+          };
+          // 用户基本数据
+          this.userBaseInfo = data;
+        });
     }
   },
   mounted() {
-    const id = this.$route.path.split("/")[2];
-    const url = `/api/user-info/${id}/base`;
-
-    // 获取数据
-    this.$axios
-      .get(url, {
-        id
-      })
-      .then(res => {
-        const data = res.data[0];
-        this.headerData = {
-          avatar: data.avatar,
-          description: data.description,
-          name: data.name
-        };
-      });
-
+    this.fetchUserData();
     this.jump2Base();
+  },
+  watch: {
+    $route(to, from) {
+      const toDepth = to.path.split("/")[3];
+      if (toDepth === "base") {
+        this.fetchUserData();
+      }
+    }
   }
 };
 </script>

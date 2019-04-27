@@ -11,21 +11,9 @@
       >
     </div>
     <div class="info">
-      <p class="item">
-        <span>昵称：</span>
-        <span>小红帽</span>
-      </p>
-      <p class="item">
-        <span>Id：</span>
-        <span>3217154095</span>
-      </p>
-      <p class="item">
-        <span>性别：</span>
-        <span>男</span>
-      </p>
-       <p class="item">
-        <span>描述：</span>
-        <span>傾我至誠</span>
+      <p class="item" v-for="(item, index) of userData" :key="index">
+        <span>{{item.label}} : </span>
+        <span>{{item.value ? item.value : '暂无相关数据'}}</span>
       </p>
     </div>
   </div>
@@ -34,8 +22,8 @@
 <script>
 export default {
   name: "BaseInfo",
-  data() {
-    return {};
+  props: {
+    userData: Array
   }
 };
 </script>
@@ -43,24 +31,33 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
+  .img {
+    img {
+      width: 180px;
+      border-radius: 10px;
+    }
+  }
   .info {
     flex: 1;
     padding: 0 50px;
+
     .item {
       display: inline-block;
       width: 400px;
       margin-bottom: 0;
+      margin-top: 10px;
       > span:first-of-type {
         color: #343434;
-
       }
       > span:last-of-type {
         color: #303133;
         line-height: 22px;
         font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
-
   }
 }
 </style>
