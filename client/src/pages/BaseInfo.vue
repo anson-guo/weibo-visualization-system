@@ -1,16 +1,17 @@
 <template lang="html">
   <div>
-   
+    <d3-horizontal-bar-chart></d3-horizontal-bar-chart>
   </div>
 </template>
 
 <script>
-// import CalendarView from "../components/visual-components/CalendarView";
+import D3HorizontalBarChart from "../components/visual-components/D3HorizontalBarChart";
+
 
 export default {
   name: "BaseInfo",
   components: {
-    // CalendarView,
+    D3HorizontalBarChart,
   },
   data() {
     return {
