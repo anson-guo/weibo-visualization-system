@@ -37,12 +37,12 @@
 </template>
 
 <script>
-import MainHeader from "../components/common-components/MainHeader";
+import MainHeader from "./PageComponents/MainHeader";
 import BaseInfo from "./BaseInfo";
 import FansData from "./FansData";
 
 export default {
-  name: "UserInfo",
+  name: "UserInfoPage",
   components: {
     MainHeader,
     BaseInfo,

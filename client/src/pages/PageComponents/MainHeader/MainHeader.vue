@@ -1,3 +1,7 @@
+<!-- 
+  用户页面头部组件
+-->
+
 <template lang="html">
   <div
     class="header-container">
