@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <div id="chart">
-      <svg class="chart"></svg>
-    </div>
-  </div>
+  <svg class="chart"></svg>
 </template>
 
 <script>
@@ -15,9 +11,7 @@ export default {
   methods: {
     init() {
       var data = {
-        labels: [
-          "图表数据展示",
-        ],
+        labels: ["图表数据展示"],
         series: [
           {
             label: "粉丝数量",
@@ -33,6 +27,7 @@ export default {
           }
         ]
       };
+      const colors = ["#ef4c69", "#facd3c", "#398dff"];
 
       var chartWidth = 300,
         barHeight = 20,
@@ -95,7 +90,11 @@ export default {
       bar
         .append("rect")
         .attr("fill", function(d, i) {
+          console.log(i % data.series.length);
           return color(i % data.series.length);
+        })
+        .style("fill", function(d, i) {
+          return colors[i];
         })
         .attr("class", "bar")
         .attr("width", x)
@@ -108,7 +107,7 @@ export default {
           return x(d) + 10;
         })
         .attr("y", barHeight / 2)
-        .attr("fill", "red")
+        .attr("fill", "#343434")
         .attr("dy", ".35em")
         .text(function(d) {
           return d;
@@ -160,10 +159,7 @@ export default {
         .attr("width", legendRectSize)
         .attr("height", legendRectSize)
         .style("fill", function(d, i) {
-          return color(i);
-        })
-        .style("stroke", function(d, i) {
-          return color(i);
+          return colors[i];
         });
 
       legend
@@ -183,4 +179,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.chart .legend {
+  fill: #000;
+  font: 12px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+.chart .label {
+  fill: #343434;
+  font: 14px sans-serif;
+  text-anchor: end;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 </style>

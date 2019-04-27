@@ -3,7 +3,6 @@
 </template>
 
 <script>
-// const d3 = require("d3");
 
 export default {
   name: "D3BarChart",
@@ -18,9 +17,9 @@ export default {
   },
   methods: {
     dashboard(id, fData) {
-      var barColor = "steelblue";
+      var barColor = "#42c2c1";
       function segColor(c) {
-        return { 2017: "#807dba", 2018: "#e08214", 2019: "#41ab5d" }[c];
+        return { 2017: "#ef4c69", 2018: "#facd3c", 2019: "#398dff" }[c];
       }
 
       // compute total for each state.
@@ -407,7 +406,7 @@ export default {
   .axis path,
   .axis line {
     fill: none;
-    stroke: #000;
+    stroke: #343434;
     shape-rendering: crispEdges;
   }
 
