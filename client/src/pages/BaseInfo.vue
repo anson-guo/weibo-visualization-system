@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <personal-info :userData="userData"></personal-info>
+    <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
     <d3-horizontal-bar-chart></d3-horizontal-bar-chart>
   </div>
 </template>
@@ -20,7 +20,8 @@ export default {
   },
   data() {
     return {
-      userData: []
+      userData: [],
+      imgUrl: ''
     };
   },
   watch: {
@@ -63,6 +64,7 @@ export default {
           value: `该用户的微博数据抓取时间为 ${val.crawled_at}，仅供参考`
         }
       ];
+      this.imgUrl = val.avatar;
     }
   }
 };

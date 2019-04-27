@@ -5,7 +5,7 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu default-active="base" router>
+        <el-menu default-active="base" class="menu" router>
           <el-menu-item index="base">
             <i class="el-icon-document"></i>
             <span slot="title">基本信息</span>
@@ -112,6 +112,9 @@ export default {
 }
 .el-header {
   padding: 0;
+}
+.menu {
+  height: 100%;
 }
 .header {
   height: 200px !important;

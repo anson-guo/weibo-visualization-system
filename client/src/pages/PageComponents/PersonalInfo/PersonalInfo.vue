@@ -5,14 +5,11 @@
 <template>
   <div class="container">
     <div class="img">
-      <img
-        src="https://tvax1.sinaimg.cn/crop.0.0.664.664.180/006bQE56ly8fw956xioj6j30ig0ihjsm.jpg"
-        alt
-      >
+      <img :src="imgUrl" alt="用户头像">
     </div>
     <div class="info">
       <p class="item" v-for="(item, index) of userData" :key="index">
-        <span>{{item.label}} : </span>
+        <span>{{item.label}} :</span>
         <span>{{item.value ? item.value : '暂无相关数据'}}</span>
       </p>
     </div>
@@ -23,7 +20,8 @@
 export default {
   name: "BaseInfo",
   props: {
-    userData: Array
+    userData: Array,
+    imgUrl: String
   }
 };
 </script>
@@ -33,8 +31,9 @@ export default {
   display: flex;
   .img {
     img {
-      width: 180px;
-      border-radius: 10px;
+      width: 150px;
+      height: 180px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     }
   }
   .info {
