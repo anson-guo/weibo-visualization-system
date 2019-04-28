@@ -9,7 +9,7 @@
     </div>
     <div class="info">
       <p class="item" v-for="(item, index) of userData" :key="index">
-        <span>{{item.label}} :</span>
+        <span>{{item.label}} : </span> 
         <span>{{item.value ? item.value : '暂无相关数据'}}</span>
       </p>
     </div>
