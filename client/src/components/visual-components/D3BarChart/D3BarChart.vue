@@ -275,6 +275,7 @@ export default {
         var legend = d3
           .select(id)
           .append("table")
+          .attr("width", "200")
           .attr("class", "legend");
 
         // create one row per segment.
@@ -414,7 +415,6 @@ export default {
     display: none;
   }
   .legend {
-    margin-bottom: 76px;
     display: inline-block;
     border-collapse: collapse;
     border-spacing: 0px;
