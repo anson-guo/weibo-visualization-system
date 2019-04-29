@@ -1,6 +1,7 @@
 <template lang="html">
-  <div>
+  <div class="base-info">
     <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
+    <hr />
     <d3-horizontal-bar-chart></d3-horizontal-bar-chart>
   </div>
 </template>
@@ -71,4 +72,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.base-info {
+  hr {
+    background-color: #e6e6e6;
+    height: 1px;
+    border: none;
+  }
+}
 </style>

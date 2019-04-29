@@ -46,7 +46,8 @@ export default {
       margin-bottom: 0;
       margin-top: 10px;
       > span:first-of-type {
-        color: #343434;
+        color: #303133;
+        font-size: 15px;
       }
       > span:last-of-type {
         color: #303133;

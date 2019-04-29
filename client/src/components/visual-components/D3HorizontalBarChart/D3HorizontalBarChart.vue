@@ -106,7 +106,7 @@ export default {
           return x(d) + 10;
         })
         .attr("y", barHeight / 2)
-        .attr("fill", "#343434")
+        .attr("fill", "#303133")
         .attr("dy", ".35em")
         .text(function(d) {
           return d;
@@ -192,7 +192,7 @@ export default {
 }
 
 .chart .label {
-  fill: #343434;
+  fill: #303133;
   font: 14px sans-serif;
   text-anchor: end;
 }

@@ -31,6 +31,7 @@ export default {
 .header-container {
   height: 200px;
   background-color: #293c55;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
   .info {
     text-align: center;
     color: #ffffff;

@@ -406,7 +406,7 @@ export default {
   .axis path,
   .axis line {
     fill: none;
-    stroke: #343434;
+    stroke: #303133;
     shape-rendering: crispEdges;
   }
 
