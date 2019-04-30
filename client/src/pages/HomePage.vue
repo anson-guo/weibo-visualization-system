@@ -83,6 +83,9 @@ export default {
   .info {
     float: left;
     padding: 20px 30px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     p {
       padding-top: 30px;
     }
