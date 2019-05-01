@@ -1,53 +1,52 @@
 <template>
-  <svg class="chart"></svg>
+<div>
+  <h3>{{title}}</h3>
+  <svg v-if="this.charData.series" class="chart"></svg>
+</div>
 </template>
 
 <script>
 export default {
   name: "D3HorizontalBarChart",
+  props: {
+    title: String,
+    userCharData: Object
+  },
   data() {
-    return {};
+    return {
+      charData: {
+        labels: ["图表数据展示"],
+        series: this.userCharData
+      }
+    };
   },
   methods: {
     init() {
-      var data = {
-        labels: ["图表数据展示"],
-        series: [
-          {
-            label: "粉丝数量",
-            values: [12121]
-          },
-          {
-            label: "关注数量",
-            values: [121121]
-          },
-          {
-            label: "微博数量",
-            values: [3123]
-          }
-        ]
-      };
+      console.log(this.charData);
+
       const colors = ["#ef4c69", "#facd3c", "#398dff"];
 
-      var chartWidth = 300,
+      const _this = this;
+
+      var chartWidth = 800,
         barHeight = 20,
-        groupHeight = barHeight * data.series.length,
+        groupHeight = barHeight * this.charData.series.length,
         gapBetweenGroups = 10,
-        spaceForLabels = 150,
+        spaceForLabels = 0,
         spaceForLegend = 450;
 
       // Zip the series data together (first values, second values, etc.)
       var zippedData = [];
-      for (var i = 0; i < data.labels.length; i++) {
-        for (var j = 0; j < data.series.length; j++) {
-          zippedData.push(data.series[j].values[i]);
+      for (var i = 0; i < this.charData.labels.length; i++) {
+        for (var j = 0; j < this.charData.series.length; j++) {
+          zippedData.push(this.charData.series[j].values[i]);
         }
       }
 
       // Color scale
       var color = d3.scale.category20();
       var chartHeight =
-        barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
+        barHeight * zippedData.length + gapBetweenGroups * this.charData.labels.length;
 
       var x = d3.scale
         .linear()
@@ -81,7 +80,7 @@ export default {
             spaceForLabels +
             "," +
             (i * barHeight +
-              gapBetweenGroups * (0.5 + Math.floor(i / data.series.length))) +
+              gapBetweenGroups * (0.5 + Math.floor(i / _this.charData.series.length))) +
             ")"
           );
         });
@@ -90,7 +89,7 @@ export default {
       bar
         .append("rect")
         .attr("fill", function(d, i) {
-          return color(i % data.series.length);
+          return color(i % _this.charData.series.length);
         })
         .style("fill", function(d, i) {
           return colors[i];
@@ -112,20 +111,20 @@ export default {
           return d;
         });
 
-      // Draw labels
-      bar
-        .append("text")
-        .attr("class", "label")
-        .attr("x", function(d) {
-          return -120;
-        })
-        .attr("y", groupHeight / 2)
-        .attr("dy", ".35em")
-        .text(function(d, i) {
-          if (i % data.series.length === 0)
-            return data.labels[Math.floor(i / data.series.length)];
-          else return "";
-        });
+      // // Draw labels
+      // bar
+      //   .append("text")
+      //   .attr("class", "label")
+      //   .attr("x", function(d) {
+      //     return -120;
+      //   })
+      //   .attr("y", groupHeight / 2)
+      //   .attr("dy", ".35em")
+      //   .text(function(d, i) {
+      //     if (i % data.series.length === 0)
+      //       return data.labels[Math.floor(i / data.series.length)];
+      //     else return "";
+      //   });
 
       chart
         .append("g")
@@ -142,7 +141,7 @@ export default {
 
       var legend = chart
         .selectAll(".legend")
-        .data(data.series)
+        .data(this.charData.series)
         .enter()
         .append("g")
         .attr("transform", function(d, i) {
@@ -178,6 +177,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h3 {
+  color: #303133;
+  font-size: 16px;
+}
+
 .chart .legend {
   fill: #000;
   font: 12px sans-serif;

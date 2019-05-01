@@ -2,7 +2,8 @@
   <div class="base-info">
     <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
     <hr />
-    <d3-horizontal-bar-chart></d3-horizontal-bar-chart>
+    <d3-horizontal-bar-chart :userCharData="userCharData" title="图表数据展示"></d3-horizontal-bar-chart>
+
   </div>
 </template>
 
@@ -21,8 +22,9 @@ export default {
   },
   data() {
     return {
-      userData: [],
-      imgUrl: ''
+      userData: [], // 用户个人信息
+      imgUrl: "", // 用户头像url地址
+      userCharData: {} // 用户图表相关数据，粉丝数、关注数、微博数量等
     };
   },
   watch: {
@@ -66,6 +68,18 @@ export default {
         }
       ];
       this.imgUrl = val.avatar;
+      this.userCharData[0] = {
+        label: "粉丝数量",
+        value: [val.fans_count || 0]
+      };
+      this.userCharData[1] = {
+        label: "关注数量",
+        value: [val.follows_count || 0]
+      };
+      this.userCharData[2] = {
+        label: "微博数量",
+        value: [val.weibos_count || 0]
+      };
     }
   }
 };
