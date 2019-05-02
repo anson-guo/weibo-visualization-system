@@ -1,4 +1,4 @@
-$smallSize: 500px;
+$smallSize: 768px;
 
 @mixin tran-horizontal($percentage, $time) {
   @if $percentage != 0 {
