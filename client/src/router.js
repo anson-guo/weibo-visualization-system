@@ -13,6 +13,7 @@ import UserInfoPage from './pages/UserInfoPage'
 import BaseInfo from './pages/BaseInfo'
 import FansData from './pages/FansData'
 import WeiboData from './pages/WeiboData'
+import ImageWall from './pages/ImageWall'
 
 const routes = [
   {
@@ -38,6 +39,10 @@ const routes = [
       {
         path: 'weibos',
         component: WeiboData
+      },
+      {
+        path: 'images',
+        component: ImageWall
       }
     ]
   }
