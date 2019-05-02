@@ -39,7 +39,7 @@ export default {
         },
         {
           label: "性别",
-          value: val.data === "f" ? "女" : "男"
+          value: val.gender === "f" ? "女" : "男"
         },
         {
           label: "描述",
