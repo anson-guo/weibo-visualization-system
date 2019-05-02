@@ -14,7 +14,7 @@ export default {
     },
     value: {
       type: Number,
-      default: 720000
+      default: 0
     }
   },
   methods: {
@@ -35,6 +35,7 @@ export default {
           return;
         }
         current = start;
+        current = Math.round(current);
         ele.innerHTML = current
           .toString()
           .replace(/(\d)(?=(?:\d{3}[+]?)+$)/g, "$1,");
@@ -52,11 +53,10 @@ export default {
   transform: translateZ(0);
 }
 .number-grow {
-  font-family: "Arial-BoldMT";
-  font-size: 64px;
-  color: #ffaf00;
-  letter-spacing: 2.67px;
+  font-size: 28px;
+  font-weight: 300;
+  color: #303133;
   display: block;
-  line-height: 64px;
+
 }
 </style>

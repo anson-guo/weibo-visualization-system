@@ -143,8 +143,9 @@ export default {
       background-color: rgba(155, 155, 155, 0.1);
       color: #333;
       text-align: center;
+      padding: 0;
       .main {
-        background-color: #fff;
+        background-color: transparent;
         padding: 10px;
         border-radius: 10px;
         min-height: calc(100vh - 200px);

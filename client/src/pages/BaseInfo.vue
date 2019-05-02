@@ -1,23 +1,24 @@
-<template lang="html">
+<template>
   <div class="base-info">
-    <number-grow :value="720000"></number-grow>
+    <card-list :userCharData="userCharData"></card-list>
     <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
     <hr />
-    <d3-horizontal-bar-chart :userCharData="userCharData" title="图表数据展示"></d3-horizontal-bar-chart>
+    <!-- <d3-horizontal-bar-chart :userCharData="userCharData" title="图表数据展示"></d3-horizontal-bar-chart> -->
   </div>
 </template>
 
 <script>
+import CardList from './PageComponents/CardList';
 import PersonalInfo from './PageComponents/PersonalInfo';
 import D3HorizontalBarChart from '../components/visual-components/D3HorizontalBarChart';
-import NumberGrow from '../components/common-components/NumberGrow';
+
 
 export default {
   name: 'BaseInfo',
   components: {
     PersonalInfo,
     D3HorizontalBarChart,
-    NumberGrow
+    CardList
   },
   props: {
     userBaseInfo: Object
@@ -70,17 +71,10 @@ export default {
         }
       ];
       this.imgUrl = val.avatar;
-      this.userCharData[0] = {
-        label: "粉丝数量",
-        value: [val.fans_count || 0]
-      };
-      this.userCharData[1] = {
-        label: "关注数量",
-        value: [val.follows_count || 0]
-      };
-      this.userCharData[2] = {
-        label: "微博数量",
-        value: [val.weibos_count || 0]
+      this.userCharData = {
+        'weibos': val.weibos_count,
+        'fans': val.fans_count,
+        'follows': val.follows_count,
       };
     }
   }
