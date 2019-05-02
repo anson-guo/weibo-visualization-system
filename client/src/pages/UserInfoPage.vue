@@ -11,7 +11,7 @@
           <router-view :userBaseInfo="userBaseInfo"></router-view>
         </div>
         <div class="footer">
-          <span>版权所有 &copy; 郭敬安 四川师范大学</span>
+          <span>2019 &copy; D3 LAB by 郭敬安 | 四川师范大学</span>
         </div>
       </el-main>
     </el-container>
@@ -147,23 +147,27 @@ export default {
       color: #333;
       text-align: center;
       padding: 0;
+      height: calc(100vh - 60px);
       .main {
         background-color: transparent;
         padding: 10px;
         border-radius: 10px;
         min-height: calc(100vh - 200px);
         position: relative;
-         margin-bottom: 40px;
+        margin-bottom: 40px;
       }
     }
     .footer {
       color: #ffffff;
-      width: 100%;
+      width: calc(100% - 200px);
       padding: 10px 0;
       font-size: 12px;
       background-color: #5b6e84;
       position: absolute;
       bottom: 0;
+      @media screen and (max-width: $smallSize) {
+       width: 100%;
+      }
     }
   }
 }

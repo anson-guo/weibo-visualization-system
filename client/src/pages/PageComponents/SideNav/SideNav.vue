@@ -1,5 +1,5 @@
 <template>
-  <el-aside style="height: auto">
+  <el-aside>
     <el-menu
       default-active="base"
       class="menu"
