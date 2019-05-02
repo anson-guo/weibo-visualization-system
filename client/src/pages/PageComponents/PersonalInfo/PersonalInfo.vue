@@ -3,16 +3,17 @@
 -->
 
 <template>
-  <div class="container">
-    <div class="img">
-      <img :src="imgUrl" alt="用户头像">
-    </div>
-    <div class="info">
-      <p class="item" v-for="(item, index) of userData" :key="index">
-        <span>{{item.label}} : </span> 
-        <span>{{item.value ? item.value : '暂无相关数据'}}</span>
-      </p>
-    </div>
+  <div>
+    <h3 class="subtitle">基本信息</h3>
+    <el-row :gutter="24">
+      <el-col :sm="24" :md="12" :lg="12" v-for="(item, index) of userData" :key="index">
+        <p class="item">
+          <span>{{item.label}} :</span>
+          <span>{{item.value ? item.value : '暂无相关数据'}}</span>
+        </p>
+      </el-col>
+      <el-col :sm="24" :md="12" :lg="12"></el-col>
+    </el-row>
   </div>
 </template>
 
@@ -27,36 +28,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  display: flex;
-  .img {
-    img {
-      width: 100px;
-      border-radius: 50%;
-    }
+.subtitle {
+  text-align: left;
+  color: #303133;
+  margin: 10px 0;
+}
+.item {
+  text-align: left;
+  margin-bottom: 0;
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  > span:first-of-type {
+    color: #303133;
+    font-size: 15px;
   }
-  .info {
-    flex: 1;
-    padding: 0 50px;
-
-    .item {
-      display: inline-block;
-      width: 400px;
-      margin-bottom: 0;
-      margin-top: 10px;
-      > span:first-of-type {
-        color: #303133;
-        font-size: 15px;
-      }
-      > span:last-of-type {
-        color: #303133;
-        line-height: 22px;
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
+  > span:last-of-type {
+    color: #303133;
+    line-height: 22px;
+    font-size: 14px;
   }
 }
 </style>
