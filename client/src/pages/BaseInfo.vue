@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="base-info">
+    <number-grow :value="720000"></number-grow>
     <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
     <hr />
     <d3-horizontal-bar-chart :userCharData="userCharData" title="图表数据展示"></d3-horizontal-bar-chart>
@@ -7,14 +8,16 @@
 </template>
 
 <script>
-import PersonalInfo from "./PageComponents/PersonalInfo";
-import D3HorizontalBarChart from "../components/visual-components/D3HorizontalBarChart";
+import PersonalInfo from './PageComponents/PersonalInfo';
+import D3HorizontalBarChart from '../components/visual-components/D3HorizontalBarChart';
+import NumberGrow from '../components/common-components/NumberGrow';
 
 export default {
-  name: "BaseInfo",
+  name: 'BaseInfo',
   components: {
     PersonalInfo,
-    D3HorizontalBarChart
+    D3HorizontalBarChart,
+    NumberGrow
   },
   props: {
     userBaseInfo: Object
@@ -22,7 +25,7 @@ export default {
   data() {
     return {
       userData: [], // 用户个人信息
-      imgUrl: "", // 用户头像url地址
+      imgUrl: '', // 用户头像url地址
       userCharData: {} // 用户图表相关数据，粉丝数、关注数、微博数量等
     };
   },
