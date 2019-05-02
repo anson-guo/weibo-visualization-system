@@ -5,11 +5,12 @@
 <template>
   <div class="header-container">
     <div class="logo">
-      <img src="../../../assets/logo.png">
+      D3
+      <span>LAB</span>
     </div>
     <div class="info">
       <img :src="headerData.avatar" alt="头像">
-      <span>用户用户名用</span>
+      <span>{{ headerData.name }}</span>
     </div>
   </div>
 </template>
@@ -27,10 +28,12 @@ export default {
 .header-container {
   .logo {
     float: left;
-    img {
-      margin-left: 40px;
-      margin-top: 8px;
-      width: 60px;
+    margin-left: 42px;
+    line-height: 60px;
+    font-size: 22px;
+    color: #2e2e2e;
+    span {
+      color: #ff6c60;
     }
   }
   &:after {

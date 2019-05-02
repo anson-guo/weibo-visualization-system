@@ -150,7 +150,6 @@ export default {
         min-height: calc(100vh - 200px);
       }
     }
-
     .el-footer {
       color: #333;
       line-height: 70px;
