@@ -3,7 +3,6 @@
     <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
     <hr />
     <d3-horizontal-bar-chart :userCharData="userCharData" title="图表数据展示"></d3-horizontal-bar-chart>
-
   </div>
 </template>
 

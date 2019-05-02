@@ -31,9 +31,8 @@ export default {
   display: flex;
   .img {
     img {
-      width: 150px;
-      height: 180px;
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      width: 100px;
+      border-radius: 50%;
     }
   }
   .info {

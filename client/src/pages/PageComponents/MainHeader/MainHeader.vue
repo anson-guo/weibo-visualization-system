@@ -2,18 +2,14 @@
   用户页面头部组件
 -->
 
-<template lang="html">
-  <div
-    class="header-container">
+<template>
+  <div class="header-container">
+    <div class="logo">
+      <img src="../../../assets/logo.png">
+    </div>
     <div class="info">
-      <div class="info-img">
-        <img
-          :src="headerData.avatar"
-          alt="头像"
-        >
-      </div>
-      <h3>{{headerData.name}}</h3>
-      <p>{{ headerData.description}}</p>
+      <img :src="headerData.avatar" alt="头像">
+      <span>用户用户名用</span>
     </div>
   </div>
 </template>
@@ -29,25 +25,40 @@ export default {
 
 <style lang="scss" scoped>
 .header-container {
-  height: 200px;
-  background-color: #293c55;
-  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+  .logo {
+    float: left;
+    img {
+      margin-left: 40px;
+      margin-top: 8px;
+      width: 60px;
+    }
+  }
+  &:after {
+    content: "";
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
   .info {
-    text-align: center;
-    color: #ffffff;
-    .info-img {
-      padding-top: 30px;
-      img {
-        width: 90px;
-        border-radius: 50%;
-      }
+    width: 200px;
+    float: right;
+    color: #303133;
+    line-height: 60px;
+    text-align: right;
+    position: relative;
+    img {
+      width: 30px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-40px, -26px);
     }
-    h3 {
-      margin: 8px 0;
-    }
-    p {
-      margin: 0;
-      font-size: 14px;
+    span {
+      display: inline-block;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

@@ -1,60 +1,45 @@
 <template lang="html">
-  <div class="main">
-    <el-header class="header">
-      <main-header :headerData="headerData"></main-header>
-    </el-header>
-    <el-container>
-      <el-aside width="200px">
-        <el-menu default-active="base" class="menu" router>
-          <el-menu-item index="base">
-            <i class="el-icon-document"></i>
-            <span slot="title">基本信息</span>
-          </el-menu-item>
-          <el-menu-item index="fans">
-            <i class="el-icon-message"></i>
-            <span slot="title">粉丝数据</span>
-          </el-menu-item>
-
-          <el-menu-item index="weibos">
-            <i class="el-icon-document"></i>
-            <span slot="title">微博数据</span>
-          </el-menu-item>
-
-           <el-menu-item>
-            <i class="el-icon-document"></i>
-             <router-link to="/user">返回用户列表</router-link>
-          </el-menu-item>
-        </el-menu>
-      </el-aside>
-      <el-container>
-        <el-main>
-          <router-view :userBaseInfo="userBaseInfo"></router-view>
-        </el-main>
-        <el-footer>Footer</el-footer>
-      </el-container>
-    </el-container>
-  </div>
+  <el-container class="wrap">
+  <el-header height="60px">
+    <el-button icon="el-icon-menu" class="button" @click="handleOpen" />
+    <main-header :headerData="headerData"></main-header>
+  </el-header>
+  <el-container class="body-wrap">
+    <side-nav :class="{'open': open}" />
+    <el-main>
+      <div class="main">
+        <router-view :userBaseInfo="userBaseInfo"></router-view>
+      </div>
+    </el-main>
+  </el-container>
+</el-container>
 </template>
 
 <script>
 import MainHeader from "./PageComponents/MainHeader";
-import BaseInfo from "./BaseInfo";
-import FansData from "./FansData";
+import SideNav from "./PageComponents/SideNav";
 
 export default {
   name: "UserInfoPage",
   components: {
     MainHeader,
-    BaseInfo,
-    FansData
+    SideNav
   },
   data() {
     return {
       headerData: {}, // 用户主页面头部所使用的数据
-      userBaseInfo: {} // 用户基本信息
+      userBaseInfo: {}, // 用户基本信息
+      open: false
     };
   },
   methods: {
+    /**
+     * 控制侧边栏导航开关
+     */
+    handleOpen() {
+      this.open = !this.open;
+      console.log(this.open);
+    },
     /**
      * 跳转到base页面
      */
@@ -107,20 +92,71 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main {
-  height: 100vh;
-}
-.el-header {
-  padding: 0;
-}
-.menu {
-  height: 100%;
-}
-.header {
-  height: 200px !important;
-}
+@import "../common/css/base.scss";
+.wrap {
+  min-height: 96vh;
+  .button {
+    z-index: 999;
+  }
+  .el-header {
+    position: relative;
+    background-color: #ffffff;
+    color: #797979;
+    .el-button {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ffffff;
+      border: #ffffff;
+      &:hover {
+        color: #ff6c60;
+      }
+      @media screen and (min-width: $smallSize) {
+        display: none;
+      }
+    }
+  }
+  .body-wrap {
+    position: relative;
+    overflow: hidden;
+    .el-aside {
+      z-index: 999;
+      min-width: 200px;
+      max-width: 200px;
+      height: calc(100vh - 100px);
+      background: #1f2732;
+      @include tran-horizontal(0, 0.4s);
+      @media screen and (max-width: $smallSize) {
+        position: absolute;
+        left: -200px;
+      }
+      &.open {
+        @include tran-horizontal(100%, 0.4s);
+      }
+      .el-menu {
+        border: none !important;
+      }
+    }
+    .el-main {
+      z-index: 1;
+      background-color: rgba(155, 155, 155, 0.1);
+      color: #333;
+      text-align: center;
+      .main {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        min-height: calc(100vh - 200px);
+      }
+    }
 
-.el-aside {
-  color: #333;
+    .el-footer {
+      color: #333;
+      line-height: 70px;
+      text-align: center;
+      background-color: #d3dce6;
+    }
+  }
 }
 </style>
