@@ -1,18 +1,21 @@
-<template lang="html">
+<template>
   <el-container class="wrap">
-  <el-header height="60px">
-    <el-button icon="el-icon-menu" class="button" @click="handleOpen" />
-    <main-header :headerData="headerData"></main-header>
-  </el-header>
-  <el-container class="body-wrap">
-    <side-nav :class="{'open': open}" />
-    <el-main>
-      <div class="main">
-        <router-view :userBaseInfo="userBaseInfo"></router-view>
-      </div>
-    </el-main>
+    <el-header height="60px">
+      <el-button icon="el-icon-menu" class="button" @click="handleOpen"/>
+      <main-header :headerData="headerData"></main-header>
+    </el-header>
+    <el-container class="body-wrap">
+      <side-nav :class="{'open': open}"/>
+      <el-main>
+        <div class="main">
+          <router-view :userBaseInfo="userBaseInfo"></router-view>
+        </div>
+        <div class="footer">
+          <span>版权所有 &copy; 郭敬安 四川师范大学</span>
+        </div>
+      </el-main>
+    </el-container>
   </el-container>
-</el-container>
 </template>
 
 <script>
@@ -124,7 +127,7 @@ export default {
       z-index: 999;
       min-width: 200px;
       max-width: 200px;
-      height: calc(100vh - 100px);
+      height: calc(100vh - 60px);
       background: #1f2732;
       @include tran-horizontal(0, 0.4s);
       @media screen and (max-width: $smallSize) {
@@ -149,13 +152,18 @@ export default {
         padding: 10px;
         border-radius: 10px;
         min-height: calc(100vh - 200px);
+        position: relative;
+         margin-bottom: 40px;
       }
     }
-    .el-footer {
-      color: #333;
-      line-height: 70px;
-      text-align: center;
-      background-color: #d3dce6;
+    .footer {
+      color: #ffffff;
+      width: 100%;
+      padding: 10px 0;
+      font-size: 12px;
+      background-color: #5b6e84;
+      position: absolute;
+      bottom: 0;
     }
   }
 }
