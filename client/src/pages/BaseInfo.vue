@@ -27,7 +27,7 @@ export default {
     return {
       userData: [], // 用户个人信息
       imgUrl: '', // 用户头像url地址
-      userCharData: {} // 用户图表相关数据，粉丝数、关注数、微博数量等
+      userCharData: {} // 用户图表相关数据，粉丝数、关注数、微博数量、图片数量等
     };
   },
   watch: {
@@ -75,6 +75,7 @@ export default {
         'weibos': val.weibos_count,
         'fans': val.fans_count,
         'follows': val.follows_count,
+        'weiboImgs': val.weiboImgs
       };
     }
   }

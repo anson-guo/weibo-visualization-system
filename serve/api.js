@@ -40,26 +40,30 @@ router.get('/api/user', (req, res) => {
 // -------------------- /user-info接口相关逻辑 -------------------- //
 
 let userWeibos = []; // 存储用户的微博数据
+let userImages = []; // 存储用户的所有照片数据
 
 router.get('/api/user-info/:id/base', (req, res) => {
 	const id = +req.params.id; // 这里有个小坑：id要转换成number类型，否则在查询语句中会出异常
+
+	models.Weibo.find({ 'user': id }).exec((err, data) => {
+		userWeibos = data;
+		userImages = formatImages(userWeibos);
+	});
 
 	models.User.find({ 'id': id }).exec((err, data) => {
 		if (err) {
 			res.send(err);
 		} else {
-			res.send(data);
+			const returnData = {
+				data: data,
+				imageNum: userImages.length
+			}
+			res.send(returnData);
 		}
 	});
-
-	models.Weibo.find({ 'user': id }).exec((err, data) => {
-		userWeibos = data;
-	});
-
 });
 
 // -------------------- 获取 用户微博数据 接口 相关逻辑 -------------------- //
-
 
 router.get('/api/user-info/:id/weibos', (req, res) => {
 	const id = +req.params.id;
@@ -109,14 +113,13 @@ function formatImages(data) {
 }
 
 router.get('/api/user-info/id/weibo-images', (req, res) => {
-	
+
 	const page = req.query.page;
-	const data = formatImages(userWeibos); // 全部数据
-	const isLase = page * 20 >= data.length;
+	const isLase = page * 20 >= userImages.length;
 
 	const responseData = {
 		isLast: isLase,
-		data: page >= 2 ? data.slice(20 * (page - 1), 20 * (page - 1) + 20) : data.slice(0, 20)
+		data: page >= 2 ? userImages.slice(20 * (page - 1), 20 * (page - 1) + 20) : userImages.slice(0, 20)
 	}
 
 	res.send(responseData);

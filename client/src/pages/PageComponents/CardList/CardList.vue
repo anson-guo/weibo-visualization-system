@@ -18,7 +18,7 @@
             <i class="el-icon-share"></i>
           </div>
           <div class="card-right">
-            <number-grow  v-if="userCharData.fans" :value="userCharData.fans"></number-grow>
+            <number-grow v-if="userCharData.fans" :value="userCharData.fans"></number-grow>
             <p>粉丝</p>
           </div>
         </div>
@@ -29,7 +29,7 @@
             <i class="el-icon-view"></i>
           </div>
           <div class="card-right">
-            <number-grow  v-if="userCharData.follows" :value="userCharData.follows"></number-grow>
+            <number-grow v-if="userCharData.follows" :value="userCharData.follows"></number-grow>
             <p>关注</p>
           </div>
         </div>
@@ -40,7 +40,7 @@
             <i class="el-icon-picture"></i>
           </div>
           <div class="card-right">
-            <number-grow :value="343434"></number-grow>
+            <number-grow v-if="userCharData.weiboImgs" :value="userCharData.weiboImgs"></number-grow>
             <p>图片</p>
           </div>
         </div>

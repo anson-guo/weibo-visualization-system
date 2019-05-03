@@ -70,7 +70,8 @@ export default {
           id
         })
         .then(res => {
-          const data = res.data[0];
+          const data = res.data.data[0]; // 基本数据
+          const num = res.data.imageNum; // 微博图片
           // 用户页面头部相关数据
           this.headerData = {
             avatar: data.avatar,
@@ -78,6 +79,7 @@ export default {
             name: data.name
           };
           // 用户基本数据
+          data.weiboImgs = num;
           this.userBaseInfo = data;
           callback();
         });
