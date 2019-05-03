@@ -10,11 +10,11 @@
         <div class="main">
           <router-view :userBaseInfo="userBaseInfo"></router-view>
         </div>
-        <div class="footer">
-          <span>2019 &copy; D3 LAB by 郭敬安 | 四川师范大学</span>
-        </div>
       </el-main>
     </el-container>
+    <div class="footer">
+      <span>2019 &copy; D3 LAB by 郭敬安 | 四川师范大学</span>
+    </div>
   </el-container>
 </template>
 
@@ -157,18 +157,18 @@ export default {
         margin-bottom: 40px;
       }
     }
-    .footer {
+  }
+  .footer {
       color: #ffffff;
-      width: calc(100% - 200px);
+      width: 100%;
       padding: 10px 0;
       font-size: 12px;
+      text-align: center;
       background-color: #5b6e84;
-      position: absolute;
-      bottom: 0;
+      
       @media screen and (max-width: $smallSize) {
-       width: 100%;
+        width: 100%;
       }
     }
-  }
 }
 </style>
