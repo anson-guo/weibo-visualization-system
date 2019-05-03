@@ -20,7 +20,7 @@ export function postUrl({url, data}) {
       data: bodyFormData,
       config: {headers: {'Content-Type': 'multipart/form-data'}}
   });
-};
+}
 
 // get请求
 export function getUrl({url, data}) {
@@ -29,7 +29,7 @@ export function getUrl({url, data}) {
       method: 'get',
       url: finalUrl
   });
-};
+}
 
 export function joinQuery2url(url, query) {
     query = query || {};
@@ -56,4 +56,4 @@ export function getCookie(name) {
       }
   }
   return null;
-};
+}

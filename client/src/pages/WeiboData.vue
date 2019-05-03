@@ -42,8 +42,6 @@ export default {
         .then(res => {
           if (+res.status === 200) {
             this.userWeiboData = res.data;
-          } else {
-            console.error("获取用户微博数据异常");
           }
           callback();
         });

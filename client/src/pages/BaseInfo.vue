@@ -2,22 +2,18 @@
   <div class="base-info">
     <card-list :userCharData="userCharData"></card-list>
     <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
-    <hr />
-    <!-- <d3-horizontal-bar-chart :userCharData="userCharData" title="图表数据展示"></d3-horizontal-bar-chart> -->
+    <hr>
   </div>
 </template>
 
 <script>
-import CardList from './PageComponents/CardList';
-import PersonalInfo from './PageComponents/PersonalInfo';
-import D3HorizontalBarChart from '../components/visual-components/D3HorizontalBarChart';
-
+import CardList from "./PageComponents/CardList";
+import PersonalInfo from "./PageComponents/PersonalInfo";
 
 export default {
-  name: 'BaseInfo',
+  name: "BaseInfo",
   components: {
     PersonalInfo,
-    D3HorizontalBarChart,
     CardList
   },
   props: {
@@ -26,7 +22,7 @@ export default {
   data() {
     return {
       userData: [], // 用户个人信息
-      imgUrl: '', // 用户头像url地址
+      imgUrl: "", // 用户头像url地址
       userCharData: {} // 用户图表相关数据，粉丝数、关注数、微博数量、图片数量等
     };
   },
@@ -72,10 +68,10 @@ export default {
       ];
       this.imgUrl = val.avatar;
       this.userCharData = {
-        'weibos': val.weibos_count,
-        'fans': val.fans_count,
-        'follows': val.follows_count,
-        'weiboImgs': val.weiboImgs
+        weibos: val.weibos_count,
+        fans: val.fans_count,
+        follows: val.follows_count,
+        weiboImgs: val.weiboImgs
       };
     }
   }

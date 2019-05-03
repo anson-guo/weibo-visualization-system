@@ -91,7 +91,6 @@ export default {
      * 获取用户微博数据
      */
     fetchUserWeiboData() {
-      const id = this.$route.path.split("/")[2];
       const url = `/api/user-info/id/weibo-images`;
       this.$axios
         .get(url, {
@@ -110,7 +109,7 @@ export default {
     this.jump2Base();
   },
   watch: {
-    $route(to, from) {
+    $route(to) {
       const toDepth = to.path.split("/")[3];
       if (toDepth === "base") {
         this.fetchUserData(this.fetchUserWeiboData);

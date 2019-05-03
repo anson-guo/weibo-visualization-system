@@ -6,6 +6,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 export default {
   name: "D3HorizontalBarChart",
   props: {

@@ -4,8 +4,6 @@
       default-active="base"
       class="menu"
       router
-      @open="handleOpen"
-      @close="handleClose"
       text-color="#aeb2b7"
       active-text-color="#FF6C60"
     >
@@ -38,15 +36,7 @@
 
 <script>
 export default {
-  name: "SideNav",
-  methods: {
-    handleOpen(key, keyPath) {
-      // console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      // console.log(key, keyPath);
-    }
-  }
+  name: "SideNav"
 };
 </script>
 
