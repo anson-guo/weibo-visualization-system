@@ -80,7 +80,7 @@ export default {
 <style lang="scss" scoped>
 .col {
   box-sizing: border-box;
-  padding: 10px;
+  padding-right: 10px;
 }
 </style>
 

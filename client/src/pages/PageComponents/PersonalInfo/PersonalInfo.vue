@@ -3,7 +3,7 @@
 -->
 
 <template>
-  <div>
+  <div class="base-info">
     <h3 class="subtitle">基本信息</h3>
     <el-row :gutter="24">
       <el-col :sm="24" :md="12" :lg="12" v-for="(item, index) of userData" :key="index">
@@ -28,6 +28,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.base-info {
+  padding: 10px 15px;
+}
 .subtitle {
   text-align: left;
   color: #303133;
