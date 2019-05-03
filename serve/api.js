@@ -45,21 +45,21 @@ let userImages = []; // 存储用户的所有照片数据
 router.get('/api/user-info/:id/base', (req, res) => {
 	const id = +req.params.id; // 这里有个小坑：id要转换成number类型，否则在查询语句中会出异常
 
-	models.Weibo.find({ 'user': id }).exec((err, data) => {
+	models.Weibo.find({ 'user': id }).exec((err, data) => { 
 		userWeibos = data;
 		userImages = formatImages(userWeibos);
-	});
 
-	models.User.find({ 'id': id }).exec((err, data) => {
-		if (err) {
-			res.send(err);
-		} else {
-			const returnData = {
-				data: data,
-				imageNum: userImages.length
+		models.User.find({ 'id': id }).exec((err, data) => {
+			if (err) {
+				res.send(err);
+			} else {
+				const returnData = {
+					data: data,
+					imageNum: userImages.length
+				}
+				res.send(returnData);
 			}
-			res.send(returnData);
-		}
+		});
 	});
 });
 
