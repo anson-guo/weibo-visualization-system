@@ -1,11 +1,11 @@
 <template>
   <el-container class="wrap">
     <el-header height="60px">
-      <el-button icon="el-icon-menu" class="button" @click="handleOpen"/>
+      <el-button icon="el-icon-menu" class="button" @click="switchMenu"/>
       <main-header :headerData="headerData"></main-header>
     </el-header>
     <el-container class="body-wrap">
-      <side-nav :class="{'open': open}"/>
+      <side-nav @click.native="switchMenu" :class="{'open': open}"/>
       <el-main>
         <div class="main">
           <router-view :userBaseInfo="userBaseInfo" :userWeiboImages="userWeiboImages"></router-view>
@@ -15,20 +15,18 @@
     <div class="footer">
       <span>2019 &copy; D3 LAB by 郭敬安 | 四川师范大学</span>
     </div>
-  
   </el-container>
 </template>
 
 <script>
-import MainHeader from './PageComponents/MainHeader';
-import SideNav from './PageComponents/SideNav';
-
+import MainHeader from "./PageComponents/MainHeader";
+import SideNav from "./PageComponents/SideNav";
 
 export default {
-  name: 'UserInfoPage',
+  name: "UserInfoPage",
   components: {
     MainHeader,
-    SideNav,
+    SideNav
   },
   data() {
     return {
@@ -40,12 +38,15 @@ export default {
   },
   methods: {
     /**
-     * 控制侧边栏导航开关
+     * 控制菜单开合
      */
-    handleOpen() {
-      this.open = !this.open;
-      console.log(this.open);
+    switchMenu() {
+      const width = document.documentElement.clientWidth;
+      if (width <= 768) { // 移动端
+        this.open = !this.open;
+      }
     },
+
     /**
      * 跳转到base页面
      */
@@ -59,6 +60,7 @@ export default {
         path: newpath
       });
     },
+
     /**
      * 获取用户数据
      */
@@ -84,6 +86,7 @@ export default {
           callback();
         });
     },
+
     /**
      * 获取用户微博数据
      */
@@ -92,7 +95,7 @@ export default {
       const url = `/api/user-info/id/weibo-images`;
       this.$axios
         .get(url, {
-          'page': 0
+          page: 0
         })
         .then(res => {
           const data = res.data;
