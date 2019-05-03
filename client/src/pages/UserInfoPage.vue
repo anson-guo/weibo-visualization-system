@@ -8,7 +8,7 @@
       <side-nav :class="{'open': open}"/>
       <el-main>
         <div class="main">
-          <router-view :userBaseInfo="userBaseInfo"></router-view>
+          <router-view :userBaseInfo="userBaseInfo" :userWeiboImages="userWeiboImages"></router-view>
         </div>
       </el-main>
     </el-container>
@@ -32,6 +32,7 @@ export default {
     return {
       headerData: {}, // 用户主页面头部所使用的数据
       userBaseInfo: {}, // 用户基本信息
+      userWeiboImages: [], // 用户微博图片数据
       open: false
     };
   },
@@ -59,7 +60,7 @@ export default {
     /**
      * 获取用户数据
      */
-    fetchUserData() {
+    fetchUserData(callback) {
       const id = this.$route.path.split("/")[2];
       const url = `/api/user-info/${id}/base`;
       this.$axios
@@ -76,18 +77,33 @@ export default {
           };
           // 用户基本数据
           this.userBaseInfo = data;
+          callback();
+        });
+    },
+    /**
+     * 获取用户微博数据
+     */
+    fetchUserWeiboData() {
+      const id = this.$route.path.split("/")[2];
+      const url = `/api/user-info/${id}/weibo-images`;
+      this.$axios
+        .get(url, {
+          id
+        })
+        .then(res => {
+          this.userWeiboImages = res.data.slice(0, 20);
         });
     }
   },
   mounted() {
-    this.fetchUserData();
+    this.fetchUserData(this.fetchUserWeiboData);
     this.jump2Base();
   },
   watch: {
     $route(to, from) {
       const toDepth = to.path.split("/")[3];
       if (toDepth === "base") {
-        this.fetchUserData();
+        this.fetchUserData(this.fetchUserWeiboData);
       }
     }
   }
@@ -159,16 +175,16 @@ export default {
     }
   }
   .footer {
-      color: #ffffff;
+    color: #ffffff;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 12px;
+    text-align: center;
+    background-color: #5b6e84;
+
+    @media screen and (max-width: $smallSize) {
       width: 100%;
-      padding: 10px 0;
-      font-size: 12px;
-      text-align: center;
-      background-color: #5b6e84;
-      
-      @media screen and (max-width: $smallSize) {
-        width: 100%;
-      }
     }
+  }
 }
 </style>

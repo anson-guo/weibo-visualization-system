@@ -29,18 +29,22 @@ const routes = [
     component: UserInfoPage,
     children: [
       {
+        name: 'BaseInfo',
         path: 'base',
         component: BaseInfo
       },
       {
+        name: 'FansData',
         path: 'fans',
         component: FansData
       },
       {
+        name: 'WeiboData',
         path: 'weibos',
         component: WeiboData
       },
       {
+        name: 'ImageWall',
         path: 'images',
         component: ImageWall
       }

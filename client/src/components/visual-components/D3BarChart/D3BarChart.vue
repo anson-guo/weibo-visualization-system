@@ -3,7 +3,6 @@
 </template>
 
 <script>
-
 export default {
   name: "D3BarChart",
   props: {
@@ -38,8 +37,11 @@ export default {
         var hGsvg = d3
           .select(id)
           .append("svg")
-          .attr("width", hGDim.w + hGDim.l + hGDim.r)
-          .attr("height", hGDim.h + hGDim.t + hGDim.b)
+          .attr("width", '100%')
+          .attr("height",'100%')
+          .attr("preserveAspectRatio", "xMinYMin meet") // SVG 响应式关键
+          .attr("viewBox", "0 0 800 600")
+          .classed("svg-content-responsive", true)
           .append("g")
           .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
 
@@ -190,6 +192,8 @@ export default {
           .append("svg")
           .attr("width", pieDim.w)
           .attr("height", pieDim.h)
+          // .attr("preserveAspectRatio", "xMinYMin meet") // SVG 响应式关键
+          // .attr("viewBox", "0 0 800 600")
           .append("g")
           .attr(
             "transform",
@@ -291,6 +295,8 @@ export default {
           .append("svg")
           .attr("width", "16")
           .attr("height", "16")
+          // .attr("preserveAspectRatio", "xMinYMin meet") // SVG 响应式关键
+          // .attr("viewBox", "0 0 800 600")
           .append("rect")
           .attr("width", "16")
           .attr("height", "16")
@@ -381,10 +387,18 @@ export default {
 
 <style lang="scss" scoped>
 #D3BarChart {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 0; /* aspect ratio */
+  vertical-align: top;
+  overflow: hidden;
+  .svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
   path {
     stroke: #fff;
   }
