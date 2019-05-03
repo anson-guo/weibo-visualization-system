@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <vue-waterfall-easy
+      ref="waterfall"
       class="wall-img"
-      :imgsArr="userWeiboImages"
+      :imgsArr="images"
       height="100vh"
       @click="clickFn"
-      @scrollReachBottom="getImageData"
+      @scrollReachBottom="fetchNextUserWeiboData"
     ></vue-waterfall-easy>
   </div>
 </template>
@@ -24,8 +25,9 @@ export default {
   },
   data() {
     return {
-      images: []
-    }
+      images: this.userWeiboImages,
+      page: 1
+    };
   },
   methods: {
     /**
@@ -35,15 +37,35 @@ export default {
       // event.preventDefault(); // 禁止跳转
     },
     /**
-     * 处理滚动到容器底部后获取数据
+     * 处理滚动到容器底部后获取下一页图片
      */
-    getImageData() {
-      console.log('here');
-    }
-  },
-  watch: {
-    userWeiboImages(val) {
-      console.log(val);
+    fetchNextUserWeiboData() {
+      this.page++;
+      const id = this.$route.path.split("/")[2];
+      const url = `/api/user-info/id/weibo-images`;
+
+      const params = {
+        page: this.page
+      };
+
+      this.$router.push({
+        query: {
+          page: this.page
+        }
+      });
+      this.$axios
+        .get(url, {
+          params
+        })
+        .then(res => {
+          const data = res.data;
+          if (!data.isLast) {
+            this.images = this.images.concat(data.data);
+          } else {
+            console.log('end');
+            this.$refs.waterfall.waterfallOver();
+          }
+        });
     }
   }
 };

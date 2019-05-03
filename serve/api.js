@@ -85,7 +85,6 @@ router.get('/api/user-info/:id/weibos', (req, res) => {
  * ]
  */
 
-
 /**
  * 将图片数据转变为上面的格式
  */
@@ -97,7 +96,7 @@ function formatImages(data) {
 		}
 	});
 
-	let result = []; 
+	let result = [];
 
 	imagesArr.forEach((item, index) => {
 		result[index] = {
@@ -109,11 +108,19 @@ function formatImages(data) {
 	return result;
 }
 
+router.get('/api/user-info/id/weibo-images', (req, res) => {
+	
+	const page = req.query.page;
+	const data = formatImages(userWeibos); // 全部数据
+	const isLase = page * 20 >= data.length;
 
-router.get('/api/user-info/:id/weibo-images', (req, res) => {
-	const data = formatImages(userWeibos);
-	res.send(data);
+	const responseData = {
+		isLast: isLase,
+		data: page >= 2 ? data.slice(20 * (page - 1), 20 * (page - 1) + 20) : data.slice(0, 20)
+	}
+
+	res.send(responseData);
+
 });
-
 
 module.exports = router;

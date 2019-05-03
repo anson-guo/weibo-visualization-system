@@ -15,18 +15,20 @@
     <div class="footer">
       <span>2019 &copy; D3 LAB by 郭敬安 | 四川师范大学</span>
     </div>
+  
   </el-container>
 </template>
 
 <script>
-import MainHeader from "./PageComponents/MainHeader";
-import SideNav from "./PageComponents/SideNav";
+import MainHeader from './PageComponents/MainHeader';
+import SideNav from './PageComponents/SideNav';
+
 
 export default {
-  name: "UserInfoPage",
+  name: 'UserInfoPage',
   components: {
     MainHeader,
-    SideNav
+    SideNav,
   },
   data() {
     return {
@@ -85,13 +87,16 @@ export default {
      */
     fetchUserWeiboData() {
       const id = this.$route.path.split("/")[2];
-      const url = `/api/user-info/${id}/weibo-images`;
+      const url = `/api/user-info/id/weibo-images`;
       this.$axios
         .get(url, {
-          id
+          'page': 0
         })
         .then(res => {
-          this.userWeiboImages = res.data.slice(0, 20);
+          const data = res.data;
+          if (!data.isLast) {
+            this.userWeiboImages = data.data;
+          }
         });
     }
   },
