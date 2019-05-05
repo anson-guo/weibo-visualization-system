@@ -45,7 +45,7 @@ let userImages = []; // 存储用户的所有照片数据
 router.get('/api/user-info/:id/base', (req, res) => {
 	const id = +req.params.id; // 这里有个小坑：id要转换成number类型，否则在查询语句中会出异常
 
-	models.Weibo.find({ 'user': id }).exec((err, data) => { 
+	models.Weibo.find({ 'user': id }).exec((err, data) => {
 		userWeibos = data;
 		userImages = formatImages(userWeibos);
 
@@ -68,11 +68,10 @@ router.get('/api/user-info/:id/base', (req, res) => {
 router.get('/api/user-info/:id/weibos', (req, res) => {
 	const id = +req.params.id;
 
-	models.Weibo.find({ 'user': id }).exec((err, data) => {
+	models.Weibo.find({ 'user': id }).sort({ 'created_at': 1 }).exec((err, data) => { // 依据时间正序
 		if (err) {
 			res.send(err);
 		} else {
-
 			res.send(data);
 		}
 	});
