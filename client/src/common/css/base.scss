@@ -12,3 +12,11 @@ $smallSize: 768px;
   -webkit-transition: transform $time ease;
   -o-transition: transform $time ease;
 }
+
+@mixin h3() {
+  text-align: left;
+  color: #303133;
+  margin: 10px 0;
+  padding-left: 10px;
+  font-size: 18px;
+}

@@ -18,35 +18,35 @@ import ImageWall from './pages/ImageWall'
 const routes = [
   {
     path: '/',
-    component: HomePage
+    component: HomePage // 主页
   },
   {
-    path: '/user',
-    component: UserList
+    path: '/user', 
+    component: UserList // 用户列表页
   },
   {
     path: '/user-info/:name',
-    component: UserInfoPage,
+    component: UserInfoPage, // 用户信息页面
     children: [
       {
         name: 'BaseInfo',
         path: 'base',
-        component: BaseInfo
+        component: BaseInfo // 基本信息
       },
       {
         name: 'FansData',
         path: 'fans',
-        component: FansData
+        component: FansData // 粉丝信息
       },
       {
         name: 'WeiboData',
         path: 'weibos',
-        component: WeiboData
+        component: WeiboData // 微博数据
       },
       {
         name: 'ImageWall',
         path: 'images',
-        component: ImageWall
+        component: ImageWall // 照片数据
       }
     ]
   }

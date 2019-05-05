@@ -1,20 +1,23 @@
 <template>
   <div class="base-info">
-    <card-list :userCharData="userCharData"></card-list>
     <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
+    <card-list :userCharData="userCharData"></card-list>
     <hr>
+    <time-line></time-line>
   </div>
 </template>
 
 <script>
 import CardList from "./PageComponents/CardList";
 import PersonalInfo from "./PageComponents/PersonalInfo";
+import TimeLine from "../components/common-components/TimeLine";
 
 export default {
   name: "BaseInfo",
   components: {
     PersonalInfo,
-    CardList
+    CardList,
+    TimeLine
   },
   props: {
     userBaseInfo: Object

@@ -1,3 +1,6 @@
+<!-- 
+  此组件暂时没用
+-->
 <template>
   <div id="mountNode"></div>
 </template>

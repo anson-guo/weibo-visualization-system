@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-    <!-- 
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+  <!-- 
       在本地页面里用img标签访问页面图片返回403 forbidden。
       而浏览器可以直接打开，可能的原因是图片所在的服务器有防盗机制，会检测访问图片的referer
       所以加上下面一句话就OK了
      -->
-    <meta name="referrer" content="no-referrer" />  
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>data-visualization-system</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but data-visualization-system doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+  <meta name="referrer" content="no-referrer" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>data-visualization-system</title>
+  <script src="https://gw.alipayobjects.com/os/antv/assets/lib/jquery-3.2.1.min.js"></script>
+  <!-- 在 PC 上模拟 touch 事件 -->
+  <script src="https://gw.alipayobjects.com/os/rmsportal/NjNldKHIVQRozfbAOJUW.js"></script>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but data-visualization-system doesn't work properly without JavaScript enabled. Please enable it
+      to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

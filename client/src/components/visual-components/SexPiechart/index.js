@@ -1,1 +1,1 @@
-export {default} from './SexPiechart.vue';
+export {default} from './SexPiechart';

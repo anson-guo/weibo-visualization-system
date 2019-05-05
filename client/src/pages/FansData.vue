@@ -1,16 +1,27 @@
 <template>
   <div>
     <el-row>
-      <el-col class="col" :xs="24" :sm="24" :md="12" :lg="12">
-        <el-card>
-          粉丝性别分布
-          <sex-piechart :sexData="sexData"></sex-piechart>
+      <el-col class="col" :sm="24" :md="12" :lg="12">
+        <el-card class="char-card">
+          <h3>粉丝年龄分布</h3>
+          <p>以饼图的形式展示该用户的粉丝年龄分布情况</p>
+          <age-piechart></age-piechart>
         </el-card>
       </el-col>
-      <el-col class="col" :xs="24" :sm="24" :md="12" :lg="12">
-        <el-card>
-          粉丝年龄分布
-          <age-piechart :ageData="ageData"></age-piechart>
+      <el-col class="col" :sm="24" :md="12" :lg="12">
+        <el-card class="char-card">
+          <h3>粉丝性别分布</h3>
+          <p>以饼图的形式展示该用户的粉丝性别分布情况</p>
+          <sex-piechart></sex-piechart>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col class="col" :sm="24" :md="12" :lg="12">
+        <el-card class="char-card">
+          <h3>粉丝的粉丝数量排序</h3>
+          <p>以柱状图的形式展示该用户的粉丝的粉丝，从高到低排序并取前10位</p>
+          <fans-histogram></fans-histogram>
         </el-card>
       </el-col>
     </el-row>
@@ -18,61 +29,20 @@
 </template>
 
 <script>
-import SexPiechart from "../components/visual-components/SexPiechart";
 import AgePiechart from "../components/visual-components/AgePiechart";
+import SexPiechart from "../components/visual-components/SexPiechart";
+import FansHistogram from "../components/visual-components/FansHistogram";
 
-var sexData = [
-  {
-    item: "男性",
-    count: 40,
-    percent: 0.4
-  },
-  {
-    item: "女性",
-    count: 60,
-    percent: 0.6
-  }
-];
-
-var ageData = [
-  {
-    item: "14岁以下",
-    count: 40,
-    percent: 0.4
-  },
-  {
-    item: "15-18",
-    count: 21,
-    percent: 0.21
-  },
-  {
-    item: "18-24",
-    count: 17,
-    percent: 0.17
-  },
-  {
-    item: "24-30",
-    count: 13,
-    percent: 0.13
-  },
-  {
-    item: "其他(含未知年龄)",
-    count: 9,
-    percent: 0.09
-  }
-];
 
 export default {
   name: "FansData",
   components: {
+    AgePiechart,
     SexPiechart,
-    AgePiechart
+    FansHistogram
   },
   data() {
-    return {
-      sexData: sexData,
-      ageData: ageData
-    };
+    return {};
   }
 };
 </script>
@@ -80,7 +50,16 @@ export default {
 <style lang="scss" scoped>
 .col {
   box-sizing: border-box;
-  padding-right: 10px;
+}
+.char-card {
+  h3 {
+    font-size: 14px;
+    text-align: left;
+  }
+  p {
+    text-align: left;
+    font-size: 12px;
+  }
 }
 </style>
 

@@ -5,7 +5,7 @@
 <template>
   <div class="base-info">
     <h3 class="subtitle">基本信息</h3>
-    <el-row :gutter="24">
+    <el-row :gutter="24" class="info">
       <el-col :sm="24" :md="12" :lg="12" v-for="(item, index) of userData" :key="index">
         <p class="item">
           <span>{{item.label}} :</span>
@@ -28,13 +28,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-info {
-  padding: 10px 15px;
+@import "../../../common/css/base.scss";
+h3 {
+  @include h3();
 }
-.subtitle {
-  text-align: left;
-  color: #303133;
-  margin: 10px 0;
+.info {
+  padding-left: 15px;
+  margin-bottom: 20px;
 }
 .item {
   text-align: left;

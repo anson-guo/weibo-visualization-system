@@ -1,3 +1,6 @@
+<!-- 
+  此组件暂时没用
+-->
 <template lang="html">
   <div id="D3BarChart"></div>
 </template>

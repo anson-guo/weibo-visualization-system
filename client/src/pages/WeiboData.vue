@@ -1,24 +1,26 @@
-<template lang="html">
+<template>
   <div>
     <el-row>
       <el-col class="col" :xs="24" :sm="24" :md="24" :lg="24">
-        <el-card >
-          <h3>该用户近三年微博数目统计</h3>
-          <d3-bar-chart :data="formatUserweboData" v-if="isShowChart"></d3-bar-chart>
+        <el-card>
+          <!-- <h3>该用户近三年微博数目统计</h3> -->
+          <!-- <d3-bar-chart :data="formatUserweboData" v-if="isShowChart"></d3-bar-chart> -->
+          <d3-histogram></d3-histogram>
         </el-card>
       </el-col>
     </el-row>
-    
   </div>
 </template>
 
 <script>
 import D3BarChart from "../components/visual-components/D3BarChart";
+import D3Histogram from "../components/visual-components/D3Histogram";
 
 export default {
   name: "WeiboData",
   components: {
-    D3BarChart
+    D3BarChart,
+    D3Histogram
   },
   data() {
     return {
