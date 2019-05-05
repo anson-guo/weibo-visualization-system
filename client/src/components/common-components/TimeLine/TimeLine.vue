@@ -2,19 +2,22 @@
   <div class="container">
     <h3>微博时间线</h3>
     <el-radio-group class="buttons" v-model="reverse">
-      <el-radio :label="true">从过去到现在</el-radio>
-      <el-radio :label="false">从现在到过去</el-radio>
+      <el-radio :label="false">从过去到现在</el-radio>
+      <el-radio :label="true">从现在到过去</el-radio>
     </el-radio-group>
     <el-timeline class="time-line" :reverse="reverse">
       <el-timeline-item
-        v-for="(activity, index) in activities"
+        v-for="(activity, index) in timeLineData"
         :key="index"
         :icon="activity.icon"
         :type="activity.type"
         :color="activity.color"
         :size="activity.size"
         :timestamp="activity.timestamp"
-      >{{activity.content}}</el-timeline-item>
+      >
+        第一次使用
+        <span class="item">{{activity.content}}</span> 分享身边的新鲜事
+      </el-timeline-item>
     </el-timeline>
   </div>
 </template>
@@ -22,32 +25,12 @@
 <script>
 export default {
   name: "TimeLine",
+  props: {
+    timeLineData: Array
+  },
   data() {
     return {
-      reverse: false,
-      activities: [
-        {
-          content: "支持使用图标",
-          timestamp: "2018-04-12 20:46",
-          size: "large",
-          type: "primary",
-          icon: "el-icon-more"
-        },
-        {
-          content: "支持自定义颜色",
-          timestamp: "2018-04-03 20:46",
-          color: "#0bbd87"
-        },
-        {
-          content: "支持自定义尺寸",
-          timestamp: "2018-04-03 20:46",
-          size: "large"
-        },
-        {
-          content: "默认样式的节点",
-          timestamp: "2018-04-03 20:46"
-        }
-      ]
+      reverse: false
     };
   }
 };
@@ -73,6 +56,9 @@ export default {
     text-align: left;
     padding-top: 10px;
   }
+}
+.item {
+  color: rgb(255, 108, 96);
 }
 </style>
 
