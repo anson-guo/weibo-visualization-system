@@ -13,7 +13,7 @@
       </el-main>
     </el-container>
     <div class="footer">
-      <span>2019 &copy; D3 LAB by 郭敬安 | 四川师范大学</span>
+      <span>2019 &copy; Weble by 郭敬安 | 四川师范大学</span>
     </div>
   </el-container>
 </template>
@@ -150,14 +150,17 @@ export default {
     overflow: hidden;
     .el-aside {
       z-index: 999;
-      min-width: 200px;
-      max-width: 200px;
+      min-width: 130px;
+      max-width: 130px;
       height: calc(100vh - 60px);
-      background: #1f2732;
+      background: #fff;
+      border-top: 2px solid rgba(155, 155, 155, 0.1);
+      border-right: 3px solid darkgray;
+
       @include tran-horizontal(0, 0.4s);
       @media screen and (max-width: $smallSize) {
         position: absolute;
-        left: -200px;
+        left: -130px;
       }
       &.open {
         @include tran-horizontal(100%, 0.4s);

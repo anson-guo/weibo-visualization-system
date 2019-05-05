@@ -5,8 +5,7 @@
 <template>
   <div class="header-container">
     <div class="logo">
-      D3
-      <span>LAB</span>
+      <img src="../../../assets/logo.png" alt="logo">
     </div>
     <div class="info">
       <img :src="headerData.avatar" alt="头像">
@@ -28,12 +27,12 @@ export default {
 .header-container {
   .logo {
     float: left;
-    margin-left: 42px;
+    margin-top: 5px;
     line-height: 60px;
     font-size: 22px;
     color: #2e2e2e;
-    span {
-      color: #ff6c60;
+    img {
+      width: 160px ;
     }
   }
   &:after {
