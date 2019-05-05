@@ -12,6 +12,8 @@ import F2 from '@antv/f2';
 
 import * as d3 from 'd3';
 
+import './assets/fonts/iconfont.css'
+
 Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios;

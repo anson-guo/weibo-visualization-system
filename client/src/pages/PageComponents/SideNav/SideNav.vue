@@ -4,31 +4,31 @@
       default-active="base"
       class="menu"
       router
-      text-color="#aeb2b7"
-      active-text-color="#FF6C60"
+      text-color="#303133"
+      active-text-color="#c92828"
     >
-      <el-menu-item index="base">
-        <i class="el-icon-document"></i>
+      <el-menu-item index="base" class="menu-item">
+        <i class="iconfont icon-mydata"></i>
         <span slot="title">基本信息</span>
       </el-menu-item>
-      <el-menu-item index="fans">
-        <i class="el-icon-message"></i>
+      <el-menu-item index="fans" class="menu-item">
+        <i class="iconfont icon-fensi"></i>
         <span slot="title">粉丝数据</span>
       </el-menu-item>
 
-      <el-menu-item index="weibos">
-        <i class="el-icon-document"></i>
+      <el-menu-item index="weibos" class="menu-item">
+        <i class="iconfont icon-weibo"></i>
         <span slot="title">微博数据</span>
       </el-menu-item>
 
-      <el-menu-item index="images">
-        <i class="el-icon-document"></i>
+      <el-menu-item index="images" class="menu-item">
+        <i class="iconfont icon-tuku"></i>
         <span slot="title">用户图库</span>
       </el-menu-item>
 
-      <el-menu-item>
-        <i class="el-icon-document"></i>
-        <router-link class="white-font" to="/user">返回用户列表</router-link>
+      <el-menu-item class="menu-item">
+        <i class="iconfont icon-chaxun"></i>
+        <router-link class="white-font" to="/user">查询用户</router-link>
       </el-menu-item>
     </el-menu>
   </el-aside>
@@ -42,22 +42,39 @@ export default {
 
 <style scoped lang="scss">
 .menu {
-  border-right: none;
-  background-color: #1f2732;
+  border: none;
 
-  .el-menu-item:hover {
-    span,
-    i,
+  .el-menu-item {
+    height: auto;
+    line-height: 30px;
+  }
+
+  .menu-item {
+    padding: 10px 0 !important;
+    text-align: center;
+    font-size: 12px;
     a {
-      color: #ff6c60 !important;
+      color: #303133;
+    }
+    &:hover {
+      background: #c92828 !important;
+      span,
+      i,
+      a {
+        color: #ffffff !important;
+      }
+    }
+    i {
+      display: block;
+      font-size: 28px;
+    }
+    a {
+      text-decoration: none;
     }
   }
-  .el-menu-item:focus,
-  .el-menu-item:hover {
-    background: none;
+  .is-active {
+    background: #c92828 !important;
+    color: #ffffff !important;
   }
-}
-.white-font {
-  color: #aeb2b7;
 }
 </style>
