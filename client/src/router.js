@@ -14,6 +14,8 @@ import BaseInfo from './pages/BaseInfo'
 import FansData from './pages/FansData'
 import WeiboData from './pages/WeiboData'
 import ImageWall from './pages/ImageWall'
+import FollowsData from './pages/FollowsData'
+import RelatedApp from './pages/RelatedApp'
 
 const routes = [
   {
@@ -21,7 +23,7 @@ const routes = [
     component: HomePage // 主页
   },
   {
-    path: '/user', 
+    path: '/user',
     component: UserList // 用户列表页
   },
   {
@@ -39,9 +41,19 @@ const routes = [
         component: FansData // 粉丝信息
       },
       {
+        name: 'FollowsData',
+        path: 'follows',
+        component: FollowsData // 关注者信息
+      },
+      {
         name: 'WeiboData',
         path: 'weibos',
         component: WeiboData // 微博数据
+      },
+      {
+        name: 'RelatedApp',
+        path: 'related',
+        component: RelatedApp // 微博数据
       },
       {
         name: 'ImageWall',

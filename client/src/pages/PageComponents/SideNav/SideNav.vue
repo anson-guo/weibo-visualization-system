@@ -11,9 +11,15 @@
         <i class="iconfont icon-mydata"></i>
         <span slot="title">基本信息</span>
       </el-menu-item>
+
       <el-menu-item index="fans" class="menu-item">
         <i class="iconfont icon-fensi"></i>
         <span slot="title">粉丝数据</span>
+      </el-menu-item>
+
+      <el-menu-item index="follows" class="menu-item">
+        <i class="iconfont icon-guanzhu-"></i>
+        <span slot="title">关注者数据</span>
       </el-menu-item>
 
       <el-menu-item index="weibos" class="menu-item">
@@ -21,15 +27,22 @@
         <span slot="title">微博数据</span>
       </el-menu-item>
 
+      <el-menu-item index="related" class="menu-item">
+        <i class="iconfont icon-shijianzhou"></i>
+        <span slot="title">时间轴</span>
+      </el-menu-item>
+
       <el-menu-item index="images" class="menu-item">
         <i class="iconfont icon-tuku"></i>
         <span slot="title">用户图库</span>
       </el-menu-item>
 
-      <el-menu-item class="menu-item">
-        <i class="iconfont icon-chaxun"></i>
-        <router-link class="white-font" to="/user">查询用户</router-link>
-      </el-menu-item>
+      <router-link class="white-font" to="/user">
+        <el-menu-item class="menu-item">
+          <i class="iconfont icon-chaxun"></i>
+          <span>查询用户</span>
+        </el-menu-item>
+      </router-link>
     </el-menu>
   </el-aside>
 </template>
@@ -47,6 +60,7 @@ export default {
   .el-menu-item {
     height: auto;
     line-height: 30px;
+    margin-bottom: 10px;
   }
 
   .menu-item {
@@ -75,6 +89,12 @@ export default {
   .is-active {
     background: #c92828 !important;
     color: #ffffff !important;
+  }
+  .white-font {
+    text-decoration: none;
+    &:hover {
+      color: #ffffff;
+    }
   }
 }
 </style>
