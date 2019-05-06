@@ -24,6 +24,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../../common/css/base.scss";
+
 .header-container {
   .logo {
     float: left;
@@ -32,17 +34,13 @@ export default {
     font-size: 22px;
     color: #2e2e2e;
     img {
-      width: 160px ;
+      width: 160px;
     }
   }
   &:after {
-    content: "";
-    display: block;
-    visibility: hidden;
-    clear: both;
+    @include clearfix();
   }
   .info {
-    width: 200px;
     float: right;
     color: #303133;
     line-height: 60px;

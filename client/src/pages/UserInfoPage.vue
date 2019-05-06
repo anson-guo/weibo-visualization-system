@@ -1,17 +1,23 @@
 <template>
   <el-container class="wrap">
-    <el-header height="60px">
-      <el-button icon="el-icon-menu" class="button" @click="switchMenu"/>
+    <div class="float-button" @click="switchMenu">
+      <i class="el-icon-menu icon"></i>
+    </div>
+
+    <el-header>
       <main-header :headerData="headerData"></main-header>
     </el-header>
+
     <el-container class="body-wrap">
       <side-nav @click.native="switchMenu" :class="{'open': open}"/>
+
       <el-main>
         <div class="main">
           <router-view :userBaseInfo="userBaseInfo" :userWeiboImages="userWeiboImages"></router-view>
         </div>
       </el-main>
     </el-container>
+
     <div class="footer">
       <span>2019 &copy; Weble by 郭敬安 | 四川师范大学</span>
     </div>
@@ -42,7 +48,8 @@ export default {
      */
     switchMenu() {
       const width = document.documentElement.clientWidth;
-      if (width <= 768) { // 移动端
+      if (width <= 768) {
+        // 移动端
         this.open = !this.open;
       }
     },
@@ -123,27 +130,25 @@ export default {
 @import "../common/css/base.scss";
 .wrap {
   min-height: 96vh;
-  .button {
-    z-index: 999;
+
+  .float-button {
+    // 悬浮按钮样式，注意：悬浮按钮只出现在移动端设备（width<768px）
+    position: absolute;
+    z-index: 5201314;
+    display: inline;
+
+    @media screen and (min-width: $smallSize) {
+      display: none;
+    }
+
+    .icon {
+      opacity: 0.5;
+    }
   }
   .el-header {
     position: relative;
     background-color: #ffffff;
     color: #797979;
-    .el-button {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #ffffff;
-      border: #ffffff;
-      &:hover {
-        color: #ff6c60;
-      }
-      @media screen and (min-width: $smallSize) {
-        display: none;
-      }
-    }
   }
   .body-wrap {
     position: relative;
