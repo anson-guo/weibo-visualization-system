@@ -49,7 +49,7 @@ router.get('/api/user-info/:id/base-info', (req, res) => {
 		userWeibos = data;
 		userImages = formatImages(userWeibos);
 
-		models.User.find({ 'id': id }).exec((err, data) => {
+		models.User.find({ 'id': id }, { 'fans': 0, 'follows': 0, '_id': 0 }).exec((err, data) => {
 			if (err) {
 				res.send(err);
 			} else {
@@ -82,13 +82,46 @@ router.get('/api/user-info/:id/weibo-timeline', (req, res) => {
 	const id = +req.params.id;
 
 	models.Weibo.find({ 'user': id }).sort({ 'created_at': 1 }).exec((err, data) => { // 依据时间正序
+		const result = formatTimeLineData(data);
+
 		if (err) {
 			res.send(err);
 		} else {
-			res.send(data);
+			res.send(result);
 		}
 	});
 });
+
+/**
+* 构造时间线格式的数据
+*/
+function formatTimeLineData(data) {
+
+	const sources = data.map(item => {
+		return item.source;
+	});
+
+	const sourceList = new Set(sources); //去重
+	const timeLineData = [];
+
+	// 获取第一条微博
+	timeLineData.push({
+		content: "微博",
+		timestamp: data[0].created_at,
+	});
+
+	data.forEach((item, index) => {
+		if (sourceList.has(item.source)) {
+			timeLineData.push({
+				content: item.source,
+				timestamp: item.created_at,
+			});
+			sourceList.delete(item.source);
+		}
+	});
+
+	return timeLineData;
+}
 
 // -------------------- 获取 用户图片接口 相关逻辑 -------------------- //
 /**

@@ -24,6 +24,7 @@ const userSchema = mongoose.Schema({
 const weiboSchema = mongoose.Schema({
   id: Number,
   pictures: Array,
+  source: String
 })
 
 /************** 定义模型Model **************/
