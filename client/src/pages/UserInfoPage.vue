@@ -104,6 +104,7 @@ export default {
 
       @include tran-horizontal(0, 0.4s);
       @media screen and (max-width: $smallSize) {
+        background: transparent;
         position: absolute;
         left: -130px;
       }
@@ -121,6 +122,9 @@ export default {
       text-align: center;
       padding: 20px;
       height: calc(100vh - 60px);
+      @media screen and (max-width: $smallSize) {
+        padding: 6px;
+      }
     }
   }
   .footer {

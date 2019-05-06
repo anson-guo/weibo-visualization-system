@@ -49,19 +49,27 @@
 
 <script>
 export default {
-  name: 'SideNav',
+  name: "SideNav",
   data() {
     return {
-      currentMenu: '' // 当前菜单项
+      currentMenu: "" // 当前菜单项
     };
   },
   mounted() {
-    this.currentMenu = this.$route.path.split('/')[3];
+    this.currentMenu = this.$route.path.split("/")[3];
   }
 };
 </script>
 
 <style scoped lang="scss">
+@import "../../../common/css/base.scss";
+
+.el-menu {
+  background-color: none !important;
+  @media screen and (max-width: $smallSize) {
+    background-color: rgba(255, 255, 255, 0.93);
+  }
+}
 .menu {
   border: none;
 
