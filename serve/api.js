@@ -63,6 +63,19 @@ router.get('/api/user-info/:id/base-info', (req, res) => {
 	});
 });
 
+router.get('/api/user-info/:id/base-header-info', (req, res) => {
+	const id = +req.params.id;
+
+	models.User.find({ 'id': id }, { 'name': 1, 'avatar': 1 }).exec((err, data) => {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(data);
+		}
+	});
+
+});
+
 // -------------------- 获取 用户微博数据 接口 相关逻辑 -------------------- //
 
 router.get('/api/user-info/:id/weibo-timeline', (req, res) => {

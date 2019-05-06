@@ -7,12 +7,10 @@
     </el-header>
 
     <el-container class="body-wrap">
-      <side-nav @click.native="switchMenu" :class="{'open': open}"/>
+      <side-nav @click.native="switchMenu" :class="{'open': open}"></side-nav>
 
       <el-main>
-        <div class="main">
-          <router-view></router-view>
-        </div>
+        <router-view></router-view>
       </el-main>
     </el-container>
 
@@ -23,12 +21,12 @@
 </template>
 
 <script>
-import MainHeader from './PageComponents/MainHeader';
-import SideNav from './PageComponents/SideNav';
-import FloatButton from '../components/common-components/FloatButton';
+import MainHeader from "./PageComponents/MainHeader";
+import SideNav from "./PageComponents/SideNav";
+import FloatButton from "../components/common-components/FloatButton";
 
 export default {
-  name: 'UserInfoPage',
+  name: "UserInfoPage",
   components: {
     MainHeader,
     SideNav,
@@ -36,7 +34,7 @@ export default {
   },
   data() {
     return {
-      headerData: {}, // 用户主页面头部所使用的数据
+      headerData: {},
       open: false
     };
   },
@@ -50,7 +48,26 @@ export default {
         // 移动端
         this.open = !this.open;
       }
+    },
+
+    /**
+     * 获取用户头部数据
+     */
+    fetchUserData() {
+      const id = this.$route.path.split("/")[2];
+      const url = `/api/user-info/${id}/base-header-info`;
+
+      this.$axios
+        .get(url, {
+          id
+        })
+        .then(res => {
+          this.headerData = res.data[0];
+        });
     }
+  },
+  mounted() {
+    this.fetchUserData();
   }
 };
 </script>
@@ -102,16 +119,8 @@ export default {
       background-color: rgba(155, 155, 155, 0.1);
       color: #333;
       text-align: center;
-      padding: 0;
+      padding: 20px;
       height: calc(100vh - 60px);
-      .main {
-        background-color: transparent;
-        padding: 10px;
-        border-radius: 10px;
-        min-height: calc(100vh - 200px);
-        position: relative;
-        margin-bottom: 40px;
-      }
     }
   }
   .footer {
