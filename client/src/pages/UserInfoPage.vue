@@ -1,8 +1,7 @@
 <template>
   <el-container class="wrap">
-    <div class="float-button" @click="switchMenu">
-      <i class="el-icon-menu icon"></i>
-    </div>
+
+    <float-button class="float-button" @onFloatBtnClicked="switchMenu"></float-button>
 
     <el-header>
       <main-header :headerData="headerData"></main-header>
@@ -16,7 +15,7 @@
           <router-view :userBaseInfo="userBaseInfo" :userWeiboImages="userWeiboImages"></router-view>
         </div>
       </el-main>
-    </el-container>
+    </el-container> 
 
     <div class="footer">
       <span>2019 &copy; Weble by 郭敬安 | 四川师范大学</span>
@@ -25,14 +24,16 @@
 </template>
 
 <script>
-import MainHeader from "./PageComponents/MainHeader";
-import SideNav from "./PageComponents/SideNav";
+import MainHeader from './PageComponents/MainHeader';
+import SideNav from './PageComponents/SideNav';
+import FloatButton from '../components/common-components/FloatButton';
 
 export default {
-  name: "UserInfoPage",
+  name: 'UserInfoPage',
   components: {
     MainHeader,
-    SideNav
+    SideNav,
+    FloatButton
   },
   data() {
     return {
@@ -60,9 +61,9 @@ export default {
     jump2Base() {
       const newpath =
         this.$route.path
-          .split("/")
+          .split('/')
           .splice(0, 3)
-          .join("/") + "/base";
+          .join('/') + '/base';
       this.$router.push({
         path: newpath
       });
@@ -72,7 +73,7 @@ export default {
      * 获取用户数据
      */
     fetchUserData(callback) {
-      const id = this.$route.path.split("/")[2];
+      const id = this.$route.path.split('/')[2];
       const url = `/api/user-info/${id}/base`;
       this.$axios
         .get(url, {
@@ -109,7 +110,7 @@ export default {
             this.userWeiboImages = data.data;
           }
         });
-    }
+    },
   },
   mounted() {
     this.fetchUserData(this.fetchUserWeiboData);
@@ -117,8 +118,8 @@ export default {
   },
   watch: {
     $route(to) {
-      const toDepth = to.path.split("/")[3];
-      if (toDepth === "base") {
+      const toDepth = to.path.split('/')[3];
+      if (toDepth === 'base') {
         this.fetchUserData(this.fetchUserWeiboData);
       }
     }
@@ -133,16 +134,10 @@ export default {
 
   .float-button {
     // 悬浮按钮样式，注意：悬浮按钮只出现在移动端设备（width<768px）
-    position: absolute;
     z-index: 5201314;
-    display: inline;
 
     @media screen and (min-width: $smallSize) {
       display: none;
-    }
-
-    .icon {
-      opacity: 0.5;
     }
   }
   .el-header {
