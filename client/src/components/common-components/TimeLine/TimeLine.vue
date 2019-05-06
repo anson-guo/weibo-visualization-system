@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div id="line-container">
     <h3>微博时间线</h3>
     <el-radio-group class="buttons" v-model="reverse">
       <el-radio :label="false">从过去到现在</el-radio>
       <el-radio :label="true">从现在到过去</el-radio>
     </el-radio-group>
-    <el-timeline class="time-line" :reverse="reverse">
+    <el-timeline id="time-line" class="time-line" :reverse="reverse">
       <el-timeline-item
         v-for="(activity, index) in timeLineData"
         :key="index"
@@ -34,16 +34,14 @@ export default {
     };
   },
   methods: {
-    handleClickTimeLine(item) {
-      console.log(item);
-    }
+    handleClickTimeLine(item) {}
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../../common/css/base.scss";
-.container {
+#line-container {
   width: 50%;
   position: relative;
   .buttons {
@@ -61,9 +59,31 @@ export default {
     text-align: left;
     padding-top: 10px;
   }
+  .el-radio {
+    margin-right: 10px;
+  }
 }
 .item {
   color: rgb(255, 108, 96);
   cursor: pointer;
+}
+
+// 覆盖时间线样式
+#time-line {
+  margin-left: 50px;
+  .el-timeline-item__wrapper {
+    padding-bottom: 30px;
+
+    .el-timeline-item__timestamp {
+      position: relative;
+      top: 29px;
+      left: -105px;
+    }
+
+    .el-timeline-item__content {
+      position: absolute;
+      top: 40px;
+    }
+  }
 }
 </style>

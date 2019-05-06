@@ -106,15 +106,15 @@ function formatTimeLineData(data) {
 
 	// 获取第一条微博
 	timeLineData.push({
-		content: "微博",
-		timestamp: data[0].created_at,
+		'content': "微博",
+		'timestamp': data[0].created_at,
 	});
 
 	data.forEach((item, index) => {
 		if (sourceList.has(item.source)) {
 			timeLineData.push({
-				content: item.source,
-				timestamp: item.created_at,
+				'content': item.source,
+				'timestamp': item.created_at,
 			});
 			sourceList.delete(item.source);
 		}
