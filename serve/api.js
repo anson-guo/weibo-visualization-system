@@ -42,7 +42,7 @@ router.get('/api/user', (req, res) => {
 let userWeibos = []; // 存储用户的微博数据
 let userImages = []; // 存储用户的所有照片数据
 
-router.get('/api/user-info/:id/base', (req, res) => {
+router.get('/api/user-info/:id/base-info', (req, res) => {
 	const id = +req.params.id; // 这里有个小坑：id要转换成number类型，否则在查询语句中会出异常
 
 	models.Weibo.find({ 'user': id }).exec((err, data) => {
@@ -65,7 +65,7 @@ router.get('/api/user-info/:id/base', (req, res) => {
 
 // -------------------- 获取 用户微博数据 接口 相关逻辑 -------------------- //
 
-router.get('/api/user-info/:id/weibos', (req, res) => {
+router.get('/api/user-info/:id/weibo-timeline', (req, res) => {
 	const id = +req.params.id;
 
 	models.Weibo.find({ 'user': id }).sort({ 'created_at': 1 }).exec((err, data) => { // 依据时间正序
@@ -111,7 +111,7 @@ function formatImages(data) {
 	return result;
 }
 
-router.get('/api/user-info/id/weibo-images', (req, res) => {
+router.get('/api/user-info/id/weibo-imageslist', (req, res) => {
 
 	const page = req.query.page;
 	const isLase = page * 20 >= userImages.length;
