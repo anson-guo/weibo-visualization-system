@@ -122,8 +122,11 @@ export default {
       text-align: center;
       padding: 20px;
       height: calc(100vh - 60px);
+      &::-webkit-scrollbar {
+        display: none;
+      }
       @media screen and (max-width: $smallSize) {
-        padding: 6px;
+        padding: 10px;
       }
     }
   }
