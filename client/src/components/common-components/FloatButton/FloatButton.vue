@@ -16,23 +16,22 @@ export default {
   props: {
     text: {
       type: String,
-      default: "菜单"
     },
     itemWidth: {
       type: Number,
-      default: 40
+      default: 20
     },
     itemHeight: {
       type: Number,
-      default: 40
+      default: 20
     },
     gapWidth: {
       type: Number,
-      default: 10
+      default: 12
     },
     coefficientHeight: {
       type: Number,
-      default: 0.8
+      default: 0.2
     }
   },
   created() {
@@ -42,7 +41,7 @@ export default {
     this.top = this.clientHeight * this.coefficientHeight;
   },
   mounted() {
-    window.addEventListener("scroll", this.handleScrollStart);
+    // window.addEventListener("scroll", this.handleScrollStart);
     this.$nextTick(() => {
       const div = this.$refs.div;
       div.addEventListener("touchstart", () => {
@@ -114,7 +113,8 @@ export default {
 <style lang="scss" scoped>
 .float-btn {
   background: rgb(255, 255, 255);
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 12px gray;
+
   border-radius: 50%;
   color: #666666;
   z-index: 20;
