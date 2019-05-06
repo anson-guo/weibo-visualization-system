@@ -16,7 +16,7 @@
         :timestamp="activity.timestamp"
       >
         第一次使用
-        <span class="item">{{activity.content}}</span> 分享身边的新鲜事
+        <span class="item" @click="handleClickTimeLine(activity.content)">{{activity.content}}</span> 分享身边的新鲜事
       </el-timeline-item>
     </el-timeline>
   </div>
@@ -32,6 +32,11 @@ export default {
     return {
       reverse: false
     };
+  },
+  methods: {
+    handleClickTimeLine(item) {
+      console.log(item);
+    }
   }
 };
 </script>
@@ -59,7 +64,6 @@ export default {
 }
 .item {
   color: rgb(255, 108, 96);
+  cursor: pointer;
 }
 </style>
-
-
