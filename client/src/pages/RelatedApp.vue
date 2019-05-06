@@ -24,7 +24,7 @@ export default {
      */
     fetchWeiboData(callback) {
       const id = this.$route.path.split("/")[2];
-      const url = `/api/user-info/${id}/weibos`;
+      const url = `/api/user-info/${id}/weibo-timeline`;
 
       this.$axios
         .get(url, {

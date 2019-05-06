@@ -21,8 +21,7 @@
 export default {
   name: "BaseInfo",
   props: {
-    userData: Array,
-    imgUrl: String
+    userData: Array
   }
 };
 </script>

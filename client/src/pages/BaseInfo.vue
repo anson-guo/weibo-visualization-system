@@ -1,6 +1,6 @@
 <template>
   <div class="base-info">
-    <personal-info :userData="userData" :imgUrl="imgUrl"></personal-info>
+    <personal-info :userData="userData"></personal-info>
     <card-list :userCharData="userCharData"></card-list>
     <hr>
   </div>
@@ -16,15 +16,37 @@ export default {
     PersonalInfo,
     CardList
   },
-  props: {
-    userBaseInfo: Object
-  },
   data() {
     return {
-      userData: [], // 用户个人信息
-      imgUrl: "", // 用户头像url地址
-      userCharData: {} // 用户图表相关数据，粉丝数、关注数、微博数量、图片数量等
+      userData: [], // 用户个人信息，用于传递给子组件，循环渲染
+      userCharData: {}, // 用户图表相关数据，粉丝数、关注数、微博数量、图片数量等
+      userBaseInfo: {}, // 用户基本信息
+      userWeiboImages: [] // 用户微博图片数据
     };
+  },
+  methods: {
+    /**
+     * 获取用户数据
+     */
+    fetchUserData() {
+      const id = this.$route.path.split("/")[2];
+      const url = `/api/user-info/${id}/base-info`;
+      this.$axios
+        .get(url, {
+          id
+        })
+        .then(res => {
+          const data = res.data.data[0]; // 基本数据
+          const num = res.data.imageNum; // 微博图片
+
+          // 用户基本数据
+          data.weiboImgs = num;
+          this.userBaseInfo = data;
+        });
+    },
+  },
+  mounted() {
+    this.fetchUserData();
   },
   watch: {
     userBaseInfo(val) {
@@ -66,7 +88,7 @@ export default {
           value: `该用户的微博数据抓取时间为 ${val.crawled_at}，仅供参考`
         }
       ];
-      this.imgUrl = val.avatar;
+
       this.userCharData = {
         weibos: val.weibos_count,
         fans: val.fans_count,

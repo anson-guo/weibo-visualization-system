@@ -20,13 +20,10 @@ export default {
   components: {
     VueWaterfallEasy
   },
-  props: {
-    userWeiboImages: Array
-  },
   data() {
     return {
-      images: this.userWeiboImages,
-      page: 1
+      images: [],
+      page: 0
     };
   },
   methods: {
@@ -36,13 +33,14 @@ export default {
     clickFn() {
       // event.preventDefault(); // 禁止跳转
     },
+
     /**
      * 处理滚动到容器底部后获取下一页图片
      */
     fetchNextUserWeiboData() {
       this.page++;
-      const id = this.$route.path.split("/")[2];
-      const url = `/api/user-info/id/weibo-images`;
+
+      const url = `/api/user-info/id/weibo-imageslist`;
 
       const params = {
         page: this.page
@@ -62,11 +60,13 @@ export default {
           if (!data.isLast) {
             this.images = this.images.concat(data.data);
           } else {
-            console.log('end');
             this.$refs.waterfall.waterfallOver();
           }
         });
     }
+  },
+  mounted() {
+    this.fetchNextUserWeiboData();
   }
 };
 </script>

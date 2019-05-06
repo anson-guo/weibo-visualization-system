@@ -1,6 +1,5 @@
 <template>
   <el-container class="wrap">
-
     <float-button class="float-button" @onFloatBtnClicked="switchMenu"></float-button>
 
     <el-header>
@@ -12,10 +11,10 @@
 
       <el-main>
         <div class="main">
-          <router-view :userBaseInfo="userBaseInfo" :userWeiboImages="userWeiboImages"></router-view>
+          <router-view></router-view>
         </div>
       </el-main>
-    </el-container> 
+    </el-container>
 
     <div class="footer">
       <span>2019 &copy; Weble by 郭敬安 | 四川师范大学</span>
@@ -38,8 +37,6 @@ export default {
   data() {
     return {
       headerData: {}, // 用户主页面头部所使用的数据
-      userBaseInfo: {}, // 用户基本信息
-      userWeiboImages: [], // 用户微博图片数据
       open: false
     };
   },
@@ -52,75 +49,6 @@ export default {
       if (width <= 768) {
         // 移动端
         this.open = !this.open;
-      }
-    },
-
-    /**
-     * 跳转到base页面
-     */
-    jump2Base() {
-      const newpath =
-        this.$route.path
-          .split('/')
-          .splice(0, 3)
-          .join('/') + '/base';
-      this.$router.push({
-        path: newpath
-      });
-    },
-
-    /**
-     * 获取用户数据
-     */
-    fetchUserData(callback) {
-      const id = this.$route.path.split('/')[2];
-      const url = `/api/user-info/${id}/base`;
-      this.$axios
-        .get(url, {
-          id
-        })
-        .then(res => {
-          const data = res.data.data[0]; // 基本数据
-          const num = res.data.imageNum; // 微博图片
-          // 用户页面头部相关数据
-          this.headerData = {
-            avatar: data.avatar,
-            description: data.description,
-            name: data.name
-          };
-          // 用户基本数据
-          data.weiboImgs = num;
-          this.userBaseInfo = data;
-          callback();
-        });
-    },
-
-    /**
-     * 获取用户微博数据
-     */
-    fetchUserWeiboData() {
-      const url = `/api/user-info/id/weibo-images`;
-      this.$axios
-        .get(url, {
-          page: 0
-        })
-        .then(res => {
-          const data = res.data;
-          if (!data.isLast) {
-            this.userWeiboImages = data.data;
-          }
-        });
-    },
-  },
-  mounted() {
-    this.fetchUserData(this.fetchUserWeiboData);
-    this.jump2Base();
-  },
-  watch: {
-    $route(to) {
-      const toDepth = to.path.split('/')[3];
-      if (toDepth === 'base') {
-        this.fetchUserData(this.fetchUserWeiboData);
       }
     }
   }

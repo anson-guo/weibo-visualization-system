@@ -1,7 +1,7 @@
 <template>
   <el-aside>
     <el-menu
-      default-active="base"
+      :default-active="currentMenu"
       class="menu"
       router
       text-color="#303133"
@@ -49,7 +49,15 @@
 
 <script>
 export default {
-  name: "SideNav"
+  name: 'SideNav',
+  data() {
+    return {
+      currentMenu: '' // 当前菜单项
+    };
+  },
+  mounted() {
+    this.currentMenu = this.$route.path.split('/')[3];
+  }
 };
 </script>
 
