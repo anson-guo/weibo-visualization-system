@@ -28,6 +28,9 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../../common/css/base.scss";
+.base-info {
+  min-height: 200px;
+}
 h3 {
   @include h3();
 }

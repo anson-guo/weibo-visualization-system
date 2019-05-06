@@ -1,6 +1,6 @@
 <template>
-  <div class="base-info">
-    <personal-info :userData="userData"></personal-info>
+  <div class="base-info-container">
+    <personal-info v-loading="loading" :userData="userData"></personal-info>
     <card-list :userCharData="userCharData"></card-list>
     <hr>
   </div>
@@ -21,7 +21,8 @@ export default {
       userData: [], // 用户个人信息，用于传递给子组件，循环渲染
       userCharData: {}, // 用户图表相关数据，粉丝数、关注数、微博数量、图片数量等
       userBaseInfo: {}, // 用户基本信息
-      userWeiboImages: [] // 用户微博图片数据
+      userWeiboImages: [], // 用户微博图片数据
+      loading: true
     };
   },
   methods: {
@@ -42,6 +43,7 @@ export default {
           // 用户基本数据
           data.weiboImgs = num;
           this.userBaseInfo = data;
+          this.loading = false;
         });
     },
   },
@@ -101,7 +103,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-info {
+.base-info-container {
   hr {
     background-color: #e6e6e6;
     height: 1px;

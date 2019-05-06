@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>微博数据</div>
 </template>
 
 <script>
@@ -17,5 +17,3 @@ export default {
 
 <style lang="scss" scoped>
 </style>
-
-

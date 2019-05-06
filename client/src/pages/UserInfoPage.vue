@@ -104,7 +104,7 @@ export default {
 
       @include tran-horizontal(0, 0.4s);
       @media screen and (max-width: $smallSize) {
-        background: transparent;
+        background-color: rgba(255, 255, 255, 0.93);
         position: absolute;
         left: -130px;
       }
