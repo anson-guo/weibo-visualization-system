@@ -19,10 +19,7 @@
           <p>———— 一个集数据采集和数据可视化与一体的微博数据可视化平台</p>
           <div class="info-btn">
             <el-button type="primary">
-              <router-link to="/user">查找用户</router-link>
-            </el-button>
-            <el-button type="primary">
-              <router-link to>热门微博</router-link>
+              <router-link to="/user">用户列表</router-link>
             </el-button>
           </div>
         </div>
