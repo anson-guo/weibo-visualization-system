@@ -5,7 +5,11 @@
 <template>
   <div class="header-container">
     <div class="logo">
-      <img src="../../../assets/logo.png" alt="logo">
+      <img
+        src="../../../assets/logo.png"
+        alt="logo"
+        @click="() => {this.$router.push({ path: '/' });}"
+      >
     </div>
     <div class="info">
       <img :src="headerData.avatar" alt="头像">
@@ -35,6 +39,7 @@ export default {
     color: #2e2e2e;
     img {
       width: 160px;
+      cursor: pointer;
     }
   }
   &:after {
