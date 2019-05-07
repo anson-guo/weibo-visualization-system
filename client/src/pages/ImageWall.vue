@@ -7,7 +7,9 @@
       height="100vh"
       @click="clickFn"
       @scrollReachBottom="fetchNextUserWeiboData"
-    ></vue-waterfall-easy>
+    >
+      <div slot="waterfall-over">图片已经全部加载完毕</div>
+    </vue-waterfall-easy>
   </div>
 </template>
 
@@ -57,7 +59,7 @@ export default {
         })
         .then(res => {
           const data = res.data;
-          if (!data.isLast) {
+          if (!data.isLast || this.page === 1) {
             this.images = this.images.concat(data.data);
           } else {
             this.$refs.waterfall.waterfallOver();
