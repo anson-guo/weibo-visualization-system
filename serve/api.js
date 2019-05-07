@@ -76,12 +76,15 @@ router.get('/api/user-info/:id/base-header-info', (req, res) => {
 
 });
 
-// -------------------- 获取 用户微博数据 接口 相关逻辑 -------------------- //
+// -------------------- 用户微博时间线 相关逻辑 -------------------- //
+
+let userAllWeibos = []; // 用户的所有微博 
 
 router.get('/api/user-info/:id/weibo-timeline', (req, res) => {
 	const id = +req.params.id;
 
 	models.Weibo.find({ 'user': id }).sort({ 'created_at': 1 }).exec((err, data) => { // 依据时间正序
+		userAllWeibos = data;
 		const result = formatTimeLineData(data);
 
 		if (err) {
@@ -90,6 +93,36 @@ router.get('/api/user-info/:id/weibo-timeline', (req, res) => {
 			res.send(result);
 		}
 	});
+});
+
+router.get('/api/user-info/weibo-timeline-detail', (req, res) => {
+	const queryString = req.query.source;
+
+	const result = [];
+
+	if (queryString === '微博') {
+		result.push({
+			text: userAllWeibos[0].text,
+			created_at: userAllWeibos[0].created_at,
+			attitudes_count: userAllWeibos[0].attitudes_count,
+			comments_count: userAllWeibos[0].comments_count,
+		});
+	} else {
+		userAllWeibos.forEach(item => {
+			if (item.source === queryString) {
+				result.push({
+					text: item.text,
+					created_at: item.created_at,
+					attitudes_count: item.attitudes_count,
+					comments_count: item.comments_count,
+					reposts_count: item.reposts_count
+
+				});
+			}
+		});
+	}
+
+	res.send(result);
 });
 
 /**
@@ -110,7 +143,7 @@ function formatTimeLineData(data) {
 		'timestamp': data[0].created_at,
 	});
 
-	data.forEach((item, index) => {
+	data.forEach(item => {
 		if (sourceList.has(item.source)) {
 			timeLineData.push({
 				'content': item.source,

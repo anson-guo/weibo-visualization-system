@@ -30,11 +30,13 @@ export default {
   },
   data() {
     return {
-      reverse: false
+      reverse: false,
     };
   },
   methods: {
-    handleClickTimeLine(item) {}
+    handleClickTimeLine(item) {
+      this.$emit('clickSource', item);
+    }
   }
 };
 </script>
@@ -71,6 +73,9 @@ export default {
 // 覆盖时间线样式
 #time-line {
   margin-left: 50px;
+  .el-timeline-item__tail {
+    height: 150px;
+  }
   .el-timeline-item__wrapper {
     padding-bottom: 30px;
 

@@ -25,7 +25,11 @@ const weiboSchema = mongoose.Schema({
   id: Number,
   pictures: Array,
   source: String,
-  created_at: String
+  created_at: String,
+  text: String,
+  attitudes_count: Number,
+  comments_count: Number,
+  reposts_count: Number
 })
 
 /************** 定义模型Model **************/
