@@ -1,10 +1,6 @@
-<!-- 
-component name: 性别分布饼图
--->
-
 <template>
   <div class="chart-wrapper">
-    <canvas id="mountNode"></canvas>
+    <canvas class="basePiechar" :id="container"></canvas>
   </div>
 </template>
 
@@ -12,7 +8,7 @@ component name: 性别分布饼图
 export default {
   name: "AgePiechart",
   props: {
-    ageData: Array
+    container: String
   },
   data() {
     return {
@@ -55,7 +51,7 @@ export default {
   mounted() {
     const _this = this;
     var chart = new this.$F2.Chart({
-      id: "mountNode",
+      id: this.container,
       pixelRatio: window.devicePixelRatio
     });
     chart.source(_this.testData, {
@@ -66,7 +62,7 @@ export default {
       }
     });
     chart.legend({
-      position: "right",
+      position: "bottom",
       itemFormatter: function itemFormatter(val) {
         return val + "  " + _this.map[val];
       }
@@ -107,8 +103,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#mountNode {
-  display: inline-block;
+.basePiechar {
   width: 100%;
   height: 50%;
 }
