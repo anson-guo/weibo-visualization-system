@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "AgePiechart",
+  name: "F2BasePiechart",
   props: {
     container: String
   },
@@ -62,7 +62,7 @@ export default {
       }
     });
     chart.legend({
-      position: "bottom",
+      position: "right",
       itemFormatter: function itemFormatter(val) {
         return val + "  " + _this.map[val];
       }
@@ -108,5 +108,3 @@ export default {
   height: 50%;
 }
 </style>
-
-
