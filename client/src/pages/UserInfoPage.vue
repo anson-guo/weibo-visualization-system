@@ -13,10 +13,6 @@
         <router-view></router-view>
       </el-main>
     </el-container>
-
-    <div class="footer">
-      <span>2019 &copy; Weble by 郭敬安 | 四川师范大学</span>
-    </div>
   </el-container>
 </template>
 
@@ -113,6 +109,9 @@ export default {
       }
       .el-menu {
         border: none !important;
+        @media screen and (max-width: $smallSize) {
+          background-color: rgba(255, 255, 255, 0.93);
+        }
       }
     }
     .el-main {
@@ -128,18 +127,6 @@ export default {
       @media screen and (max-width: $smallSize) {
         padding: 10px;
       }
-    }
-  }
-  .footer {
-    color: #ffffff;
-    width: 100%;
-    padding: 10px 0;
-    font-size: 12px;
-    text-align: center;
-    background-color: #5b6e84;
-
-    @media screen and (max-width: $smallSize) {
-      width: 100%;
     }
   }
 }
