@@ -48,7 +48,7 @@ export default {
   position: relative;
   .buttons {
     position: absolute;
-    top: 5px;
+    top: 16px;
     left: 120px;
   }
   @media screen and (max-width: $smallSize) {
