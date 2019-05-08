@@ -8,7 +8,6 @@
 
     <el-container class="body-wrap">
       <side-nav @click.native="switchMenu" :class="{'open': open}"></side-nav>
-
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -83,8 +82,8 @@ export default {
   }
   .el-header {
     position: relative;
-    background-color: #ffffff;
-    color: #797979;
+    background-color: #ffffff;                         
+    color: #242424;
   }
   .body-wrap {
     position: relative;
@@ -119,13 +118,10 @@ export default {
       background-color: rgba(155, 155, 155, 0.1);
       color: #333;
       text-align: center;
-      padding: 20px;
+      padding: 0;
       height: calc(100vh - 60px);
       &::-webkit-scrollbar {
         display: none;
-      }
-      @media screen and (max-width: $smallSize) {
-        padding: 10px;
       }
     }
   }

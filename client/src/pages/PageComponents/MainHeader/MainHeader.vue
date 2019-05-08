@@ -31,12 +31,12 @@ export default {
 @import "../../../common/css/base.scss";
 
 .header-container {
+  height: 60px;
   .logo {
     float: left;
     margin-top: 5px;
     line-height: 60px;
     font-size: 22px;
-    color: #2e2e2e;
     img {
       width: 160px;
       cursor: pointer;
@@ -47,7 +47,6 @@ export default {
   }
   .info {
     float: right;
-    color: #303133;
     line-height: 60px;
     text-align: right;
     position: relative;
