@@ -76,10 +76,13 @@ router.get('/api/user-info/:id/base-header-info', (req, res) => {
 
 });
 
-// -------------------- 用户微博时间线 相关逻辑 -------------------- //
+// ------------------------------------------------- //
+// ------------------------------------------------- //
+// -------------------- 微博数据 -------------------- //
+// ------------------------------------------------- //
+// ------------------------------------------------- //
 
-let userAllWeibos = []; // 用户的所有微博 
-
+let userAllWeibos = [];
 router.get('/api/user-info/:id/weibo-timeline', (req, res) => {
 	const id = +req.params.id;
 
@@ -155,6 +158,101 @@ function formatTimeLineData(data) {
 
 	return timeLineData;
 }
+
+/**
+ * 接口名称：微博活跃度
+ * 接口位置：用户主页 > 微博数据 > 微博活跃度统计
+ * 接口参数：id, tabActiveName
+ */
+router.get('/api/user-info/:id/weibo-activity-data', (req, res) => {
+	const id = +req.params.id;
+	const { period } = req.query;
+
+	models.Weibo.find({ 'user': id }, { 'created_at': 1 }).sort({ 'created_at': 1 }).exec((err, data) => {
+		const dataArr = data.map(item => {
+			return item.created_at.slice(0, 10);
+		});
+		const result = formatDataToHistogram(findCountByDate(period, dataArr));
+		res.send(result);
+	});
+});
+
+/**
+ * 根据时间统计次数
+ * 
+ * @param {String} period 'week' | 'month' | 'year'
+ * @param {Array} dataArr 例如：['2019-02-06', '2013-12-08'];
+ * @return {} key: week、month、year， value: 出现的次数
+ */
+function findCountByDate(period, dataArr) {
+	let arr = [];
+
+	switch (period) {
+		case 'week':
+			arr = dataArr.map(item => new Date(item).getDay());
+			break;
+		case 'month':
+			arr = dataArr.map(item => new Date(item).getMonth());
+			break;
+		case 'year':
+			arr = dataArr.map(item => new Date(item).getFullYear());
+			break
+	}
+
+	const result = arr.reduce((o, k) => {
+		k in o ? o[k]++ : (o[k] = 1);
+		return o;
+	}, {});
+
+	return result;
+}
+
+/**
+ * 将数据转换成前端所需要的格式
+ * 
+ * @param {Object} data 例如 {"2017":15,"2018":27,"2019":26} 转换成如下：
+ * @return [] [{'key': '2017', 'value': 15}, {'key': '2018', 'value': 27}]
+ */
+function formatDataToHistogram(data) {
+	const result = []
+
+	for (key in data) {
+		result.push({
+			'key': key,
+			'value': data[key]
+		});
+	}
+
+	return result;
+}
+
+/**
+ * 接口名称：发博平台、设备统计
+ * 接口位置：用户主页 > 微博数据 > 用户发博平台统计
+ * 接口参数：id
+ */
+router.get('/api/user-info/:id/weibo-source-data', (req, res) => {
+	const id = +req.params.id;
+
+	models.Weibo.find({ 'user': id }, { 'source': 1, '_id': 0 }).exec((err, data) => {
+		const sources = data.map(item => item.source);
+
+		let result = sources.reduce((o, k) => {
+			k in o ? o[k]++ : (o[k] = 1);
+			return o;
+		}, {});
+
+		result = formatDataToHistogram(result);
+
+		res.send(result);
+	});
+});
+
+
+
+
+
+
 
 // -------------------- 获取 用户图片接口 相关逻辑 -------------------- //
 /**
