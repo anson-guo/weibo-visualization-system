@@ -92,3 +92,26 @@ export function drag(obj) {
     return false;
   };
 }
+
+/**
+ * 利用sort方法对对象数组按照对象属性进行排序 - 升序
+ * eg: result = obj.sort(compare("age"))
+ */
+export function sortAscending(property) {
+  return function(obj1,obj2){
+      var value1 = obj1[property];
+      var value2 = obj2[property];
+      return value1 - value2;
+  }
+}
+
+/**
+ * 利用sort方法对对象数组按照对象属性进行排序 - 降序
+ */
+export function sortDescending(property) {
+  return function(obj1,obj2){
+      var value1 = obj1[property];
+      var value2 = obj2[property];
+      return value2 - value1; 
+  }
+}
