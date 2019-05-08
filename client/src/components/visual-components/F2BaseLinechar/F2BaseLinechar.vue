@@ -5,41 +5,12 @@
 </template>
 
 <script>
-var data = [
-  {
-    day: "周一",
-    value: 300
-  },
-  {
-    day: "周二",
-    value: 400
-  },
-  {
-    day: "周三",
-    value: 350
-  },
-  {
-    day: "周四",
-    value: 500
-  },
-  {
-    day: "周五",
-    value: 490
-  },
-  {
-    day: "周六",
-    value: 600
-  },
-  {
-    day: "周日",
-    value: 900
-  }
-];
 
 export default {
   name: "F2BaseLinechar",
   props: {
-    container: String
+    container: String,
+    activityData: Array
   },
   methods: {
     init() {
@@ -48,7 +19,7 @@ export default {
         pixelRatio: window.devicePixelRatio
       });
 
-      chart.source(data, {
+      chart.source(this.activityData, {
         value: {
           tickCount: 5,
           min: 0
@@ -63,7 +34,7 @@ export default {
         onShow: function onShow(ev) {
           var items = ev.items;
           items[0].name = null;
-          items[0].value = "$ " + items[0].value;
+          items[0].value = `${items[0].value}条`;
         }
       });
       chart.axis("day", {
@@ -77,15 +48,20 @@ export default {
           return textCfg;
         }
       });
-      chart.line().position("day*value");
+      chart.line().position("key*value");
       chart
         .point()
-        .position("day*value")
+        .position("key*value")
         .style({
           stroke: "#fff",
           lineWidth: 1
         });
       chart.render();
+    }
+  },
+  watch: {
+    activityData: function() {
+      this.init();
     }
   },
   mounted() {

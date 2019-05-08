@@ -5,38 +5,11 @@
 </template>
 
 <script>
-var data = [
-  
-  {
-    year: "1958 年",
-    sales: 48
-  },
-  {
-    year: "1959 年",
-    sales: 38
-  },
-  {
-    year: "1990 年",
-    sales: 38
-  },
-  {
-    year: "1992 年",
-    sales: 38
-  },
-  {
-    year: "1996 年",
-    sales: 38
-  },
-  {
-    year: "1997 年",
-    sales: 38
-  }
-];
-
 export default {
   name: "F2BaseHistogram",
   props: {
-    container: String
+    container: String,
+    activityData: Array
   },
   methods: {
     init() {
@@ -45,7 +18,7 @@ export default {
         pixelRatio: window.devicePixelRatio
       });
 
-      chart.source(data, {
+      chart.source(this.activityData, {
         sales: {
           tickCount: 5
         }
@@ -56,11 +29,16 @@ export default {
           var items = ev.items;
           items[0].name = null;
           items[0].name = items[0].title;
-          items[0].value = "¥ " + items[0].value;
+          items[0].value = `${items[0].value}条`;
         }
       });
-      chart.interval().position("year*sales");
+      chart.interval().position("key*value");
       chart.render();
+    }
+  },
+  watch: {
+    activityData: function() {
+      this.init();
     }
   },
   mounted() {
