@@ -1,22 +1,12 @@
 <template>
   <div class="weibo-data">
-    <el-menu
-      default-active="1"
-      class="el-menu-demo"
-      mode="horizontal"
-      background-color="gray"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-      @select="handleSubmenuClick"
-    >
-      <el-menu-item index="1">微博活跃度统计</el-menu-item>
-      <el-menu-item index="2">用户发博平台统计</el-menu-item>
-    </el-menu>
+    <sub-menu :tabsTitle="tabsTitle" @changeTabs="(index) => {this.currentMenuContent = +index}"></sub-menu>
 
     <el-row type="flex" justify="center">
+      <!-- 微博活跃度统计 -->
       <el-col v-if="currentMenuContent === 1" class="col" :sm="24" :md="16" :lg="16">
         <el-card class="char-card">
-          <h3>微博活跃度统计</h3>
+          <h3>{{ tabsTitle[0] }}</h3>
           <p class="description">根据用户发微博数据统计用户活跃度</p>
 
           <p>
@@ -40,10 +30,21 @@
           </el-tabs>
         </el-card>
       </el-col>
+
+      <!-- 用户发博平台统计 -->
       <el-col v-if="currentMenuContent === 2" class="col" :sm="24" :md="16" :lg="16">
         <el-card class="char-card">
-          <h3>用户发博平台统计</h3>
+          <h3>{{ tabsTitle[1] }}</h3>
           <p>以用户发送微博消息的设备或者其他三方平台为数据基础</p>
+          <p>
+            <span style="margin-right: 10px;">{{ sortLable }}</span>
+            <el-switch
+              v-model="sortSourceStatus"
+              active-color="#c92828"
+              inactive-color="gray"
+              @change="sortSource"
+            ></el-switch>
+          </p>
           <f2-horizontal-barchart :sourceData="sourceData" container="source-barchar"></f2-horizontal-barchart>
         </el-card>
       </el-col>
@@ -56,8 +57,10 @@ import F2RosePiechar from "../components/visual-components/F2RosePiechar";
 import F2BaseHistogram from "../components/visual-components/F2BaseHistogram";
 import F2BaseLinechar from "../components/visual-components/F2BaseLinechar";
 import F2HorizontalBarchart from "../components/visual-components/F2HorizontalBarchart";
+import SubMenu from "./PageComponents/SubMenu";
 
 import { mapWeek, mapMonth } from "../lib/const";
+import { sortAscending, sortDescending } from "../lib/utils";
 
 export default {
   name: "WeiboData",
@@ -65,7 +68,8 @@ export default {
     F2RosePiechar,
     F2BaseHistogram,
     F2BaseLinechar,
-    F2HorizontalBarchart
+    F2HorizontalBarchart,
+    SubMenu
   },
   data() {
     return {
@@ -74,7 +78,10 @@ export default {
       lazyLoad: true,
       activityData: [],
       sourceData: [],
-      currentMenuContent: 1
+      tabsTitle: ["微博活跃度统计", "用户发博平台统计"],
+      currentMenuContent: 1,
+      sortSourceStatus: false,
+      sortLable: "排序"
     };
   },
   methods: {
@@ -144,11 +151,18 @@ export default {
     },
 
     /**
-     *
-     *
+     * 用户发博平台统计 数据排序
      */
-    handleSubmenuClick(index) {
-      this.currentMenuContent = +index;
+    sortSource() {
+      let result = [];
+      if (this.sortSourceStatus) {
+        result = this.sourceData.sort(sortAscending("value"));
+        this.sortLable = "升序";
+      } else {
+        result = this.sourceData.sort(sortDescending("value"));
+        this.sortLable = "降序";
+      }
+      this.sourceData = result;
     }
   },
   created() {
@@ -162,15 +176,8 @@ export default {
 @import "../common/css/base.scss";
 
 .weibo-data {
-  .el-menu--horizontal {
-    .el-menu-item {
-      height: 40px;
-      line-height: 40px;
-    }
-    .is-active {
-      color: #ffffff !important;
-      border-bottom-color: #c92828 !important;
-    }
+  .col {
+    margin-top: 41px;
   }
   .char-card {
     h3 {
