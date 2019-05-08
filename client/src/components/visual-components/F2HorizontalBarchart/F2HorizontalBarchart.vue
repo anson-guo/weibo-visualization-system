@@ -18,7 +18,10 @@ export default {
       var chart = new this.$F2.Chart({
         id: this.container,
         pixelRatio: window.devicePixelRatio,
-        height: 30 * this.sourceData.length
+        height:
+          this.sourceData.length < 8
+            ? 50 * this.sourceData.length
+            : 35 * this.sourceData.length
       });
 
       chart.source(this.sourceData, {
