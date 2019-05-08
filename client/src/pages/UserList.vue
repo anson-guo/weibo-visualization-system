@@ -2,11 +2,18 @@
   <div class="container">
     <!-- 输入框 -->
     <div class="user-search">
-      <el-input class="input" v-model="userName" @keyup.enter.native="searchUserByName" clearable/>
-      <el-button class="search" type="primary" @click="searchUserByName">查询</el-button>
+      <el-input
+        class="input"
+        v-model="userName"
+        @keyup.enter.native="searchUserByName"
+        clearable
+        placeholder="请输入用户id"
+      />
+      <!-- <el-button class="search" type="primary" @click="searchUserByName">查询</el-button> -->
     </div>
+
     <!-- 表格，微博用户列表 -->
-    <el-table :data="tableData" style="width: 100%; min-height: 600px;" v-loading="loading">
+    <!-- <el-table :data="tableData" style="width: 100%; min-height: 600px;" v-loading="loading">
       <el-table-column prop="avatar" label="头像" width="80">
         <template slot-scope="scope">
           <img style="height: 50px" :src="scope.row.avatar" alt="头像">
@@ -23,11 +30,26 @@
       <el-table-column prop="description" width="300" label="描述"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleLink(scope.$index, scope.row)">访问</el-button>
+          <el-button size="mini">访问</el-button>
         </template>
       </el-table-column>
-    </el-table>
+    </el-table>-->
     <!-- 分页 -->
+    <div class="user-list">
+      <div
+        class="item"
+        v-for="(item, index) in tableData"
+        :key="index"
+        @click="handleLink(item.id)"
+      >
+        <img :src="item.avatar" alt>
+        <div class="user-info">
+          <p>{{ item.name }}</p>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+
     <div class="block pages">
       <el-pagination
         background
@@ -102,6 +124,7 @@ export default {
         })
         .then(res => {
           this.tableData = res.data.data;
+          console.log(this.tableData);
           this.total = res.data.total;
           this.loading = false;
         })
@@ -112,8 +135,8 @@ export default {
     /**
      * 访问对应的用户
      */
-    handleLink(index, row) {
-      this.$router.push({ path: `/user-info/${row.id}/base` });
+    handleLink(id) {
+      this.$router.push({ path: `/user-info/${id}/base` });
     }
   },
   mounted() {
@@ -124,21 +147,68 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../common/css/base.scss";
 .container {
   width: 70%;
-  margin: 100px auto;
+  margin: 0 auto;
   height: 100vh;
   .user-search {
-    margin-bottom: 50px;
+    height: 80px;
+    background: red;
+    padding: 0 10px;
+    .input {
+      line-height: 80px;
+    }
+
+    // .search {
+    //   margin-left: 10px;
+    // }
+  }
+
+  .user-list {
+    padding: 50px 20px;
     display: flex;
-    .search {
-      margin-left: 10px;
+    flex-wrap: wrap;
+    .item {
+      box-sizing: border-box;
+      width: 50%;
+      padding: 10px 20px;
+      border: 1px solid red;
+      img {
+        float: left;
+        width: 70px;
+        border-radius: 50%;
+      }
+      .user-info {
+        float: left;
+      }
     }
   }
+
   .pages {
     margin-top: 20px;
     margin-bottom: 50px;
     float: right;
+  }
+}
+
+@media screen and (max-width: $smallSize) {
+  .container {
+    width: 100%;
+    .user-list {
+      padding: 30px 10px;
+      display: flex;
+      .item {
+        box-sizing: border-box;
+        width: 50%;
+        padding: 10px 0;
+        img {
+          float: left;
+          width: 50px;
+          border-radius: 50%;
+        }
+      }
+    }
   }
 }
 </style>
