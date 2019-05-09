@@ -199,10 +199,24 @@ function findCountByDate(period, dataArr) {
 			break
 	}
 
-	const result = arr.reduce((o, k) => {
+	const temp = arr.reduce((o, k) => {
 		k in o ? o[k]++ : (o[k] = 1);
 		return o;
-	}, {});
+	}, {}); // { '0': 56, '1': 43, '2': 72, '3': 49, '4': 4, '10': 50, '11': 62 } 存在一个问题 可能有的月份或者周数不存在
+
+	let result = {};
+	let i = 0;
+	if (period === 'month') {
+		for (let i = 0; i < 12; i++) {
+			result[i] = temp[i] || 0;
+		}
+	} else if (period === 'week') {
+		for (let i = 0; i < 7; i++) {
+			result[i] = temp[i] || 0;
+		}
+	} else {
+		result = temp;
+	}
 
 	return result;
 }
