@@ -19,6 +19,8 @@ db.once('open', () => console.log('MongoDB connection successed'));
 /************** 定义模式userSchema **************/
 const userSchema = mongoose.Schema({
   name: String,
+  fans: Array,
+  follows: Array
 });
 
 const weiboSchema = mongoose.Schema({

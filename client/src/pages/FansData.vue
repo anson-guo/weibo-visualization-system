@@ -1,29 +1,43 @@
 <template>
   <div>
+    <sub-menu :tabsTitle="tabsTitle" @changeTabs="(index) => {this.currentMenuContent = +index}"></sub-menu>
     <el-row>
-      <el-col class="col" :sm="24" :md="12" :lg="12">
-        <el-card class="char-card">
-          <h3>粉丝年龄分布</h3>
-          <p>以饼图的形式展示该用户的粉丝年龄分布情况</p>
-          <f2-base-piechart container="fans-ages-char"></f2-base-piechart>
-        </el-card>
-      </el-col>
-      <el-col class="col" :sm="24" :md="12" :lg="12">
-        <el-card class="char-card">
-          <h3>粉丝性别分布</h3>
-          <p>以饼图的形式展示该用户的粉丝性别分布情况</p>
-          <f2-donut-char container="fans-sex-char"></f2-donut-char>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col class="col" :sm="24" :md="12" :lg="12">
-        <el-card class="char-card">
-          <h3>粉丝的粉丝数量排序</h3>
-          <p>以柱状图的形式展示该用户的粉丝的粉丝，从高到低排序并取前10位</p>
-          <f2-base-histogram container="fans-count-histogram"></f2-base-histogram>
-        </el-card>
-      </el-col>
+      <el-row type="flex" justify="center">
+        <!-- 粉丝年龄分布 -->
+        <el-col v-if="currentMenuContent === 1" class="col" :sm="24" :md="16" :lg="16">
+          <el-card class="char-card">
+            <h3>{{ tabsTitle[0] }}</h3>
+            <p>以饼图的形式展示该用户的粉丝年龄分布情况</p>
+            <f2-base-piechart container="fans-ages-char"></f2-base-piechart>
+          </el-card>
+        </el-col>
+
+        <!-- 粉丝性别分布 -->
+        <el-col v-if="currentMenuContent === 2" class="col" :sm="24" :md="16" :lg="16">
+          <el-card class="char-card">
+            <h3>{{ tabsTitle[1] }}</h3>
+            <p>以饼图的形式展示该用户的粉丝性别分布情况</p>
+            <f2-donut-char container="fans-sex-char"></f2-donut-char>
+          </el-card>
+        </el-col>
+
+        <!-- 粉丝的粉丝数量排序 -->
+        <el-col v-if="currentMenuContent === 3" class="col" :sm="24" :md="16" :lg="16">
+          <el-card class="char-card">
+            <h3>{{ tabsTitle[2] }}</h3>
+            <p>粉丝的粉丝数</p>
+            <f2-base-histogram :charData="fansFansData" container="fans-fans-number"></f2-base-histogram>
+          </el-card>
+        </el-col>
+
+        <!-- 粉丝认证统计 -->
+        <el-col v-if="currentMenuContent === 4" class="col" :sm="24" :md="16" :lg="16">
+          <el-card class="char-card">
+            <h3>{{ tabsTitle[3] }}</h3>
+            <p>粉丝认证统计</p>
+          </el-card>
+        </el-col>
+      </el-row>
     </el-row>
   </div>
 </template>
@@ -32,23 +46,94 @@
 import F2BasePiechart from "../components/visual-components/F2BasePiechart";
 import F2BaseHistogram from "../components/visual-components/F2BaseHistogram";
 import F2DonutChar from "../components/visual-components/F2DonutChar";
+import SubMenu from "./PageComponents/SubMenu";
+
+import { uniqueObjProperty, findNumberWithRange } from "../lib/utils";
+import { mapNumberRange } from "../lib/const";
 
 export default {
   name: "FansData",
   components: {
     F2BasePiechart,
     F2BaseHistogram,
-    F2DonutChar
+    F2DonutChar,
+    SubMenu
   },
   data() {
-    return {};
+    return {
+      tabsTitle: [
+        "粉丝年龄分布",
+        "粉丝性别分布",
+        "粉丝的粉丝数量统计",
+        "粉丝认证统计"
+      ],
+      currentMenuContent: 1,
+      allFansArray: [],
+      fansFansData: []
+    };
+  },
+  methods: {
+    /**
+     * 获取粉丝的全部数据
+     */
+    fetchFansData() {
+      const id = this.$route.path.split("/")[2];
+
+      this.$axios.get(`/api/user-info/${id}/fans-fans-data`).then(res => {
+        const data = res.data;
+        this.allFansArray = data[0].fans;
+        this.allFansArray = uniqueObjProperty(this.allFansArray, "id");
+      });
+    },
+
+    /**
+     * 整理出粉丝的粉丝数据范围
+     */
+    getFansFansData() {
+      const keys = [
+        "3",
+        "10",
+        "100",
+        "500",
+        "1000",
+        "5000",
+        "10000",
+        "20000",
+        "50000",
+        "100000"
+      ];
+      const follow_count = this.allFansArray.map(item => item.follow_count);
+
+      for (let i = 0; i < keys.length; i++) {
+        this.fansFansData.push({
+          key: mapNumberRange(keys[i]),
+          value: findNumberWithRange(follow_count, [keys[i - 1], keys[i]])
+        });
+      }
+    }
+  },
+  watch: {
+    currentMenuContent: function(val) {
+      switch (+val) {
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          this.getFansFansData();
+          break;
+      }
+    }
+  },
+  created() {
+    this.fetchFansData();
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .col {
-  box-sizing: border-box;
+  margin-top: 41px;
 }
 .char-card {
   h3 {
