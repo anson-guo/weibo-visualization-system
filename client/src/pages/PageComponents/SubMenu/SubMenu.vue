@@ -31,6 +31,8 @@ export default {
   position: fixed;
   z-index: 999;
   width: 100%;
+  overflow-x: scroll;
+  display: flex;
 }
 .el-menu--horizontal {
   .el-menu-item {
