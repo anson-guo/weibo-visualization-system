@@ -3,6 +3,7 @@
  */
 
 /**
+ * 数字星期映射到对应的文字
  * 
  * @param {number} weeknum 数字 0 - 6 分别映射为星期天-星期六
  */
@@ -35,6 +36,7 @@ export function mapWeek(weeknum) {
 }
 
 /**
+ * 数字月份映射到对应的文字
  * 
  * @param {number} month 数字 0 - 1 分别映射为一月-十二月
  */
@@ -79,4 +81,46 @@ export function mapMonth(month) {
       break;
   }
   return monthString;
+}
+
+/**
+ * 数字映射到对应的文字 描述粉丝或者关注人数范围时使用
+ * 
+ * @param {number} range 
+ */
+export function mapNumberRange(num) {
+  let rangeString = '';
+  switch (+num) {
+    case 3:
+      rangeString = '小于3人';
+      break;
+    case 10:
+      rangeString = "3-9人";
+      break;
+    case 100:
+      rangeString = "10-99人";
+      break;
+    case 500:
+      rangeString = "100-499人";
+      break;
+    case 1000:
+      rangeString = "500-999人";
+      break;
+    case 5000:
+      rangeString = "1000-4999人";
+      break;
+    case 10000:
+      rangeString = "5000-9999人";
+      break;
+    case 20000:
+      rangeString = "10000-19999人";
+      break;
+    case 50000:
+      rangeString = "20000-49999人";
+      break;
+    case 100000:
+      rangeString = "50000人以上";
+      break;
+  }
+  return rangeString;
 }

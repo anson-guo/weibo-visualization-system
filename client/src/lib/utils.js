@@ -98,10 +98,10 @@ export function drag(obj) {
  * eg: result = obj.sort(compare("age"))
  */
 export function sortAscending(property) {
-  return function(obj1,obj2){
-      var value1 = obj1[property];
-      var value2 = obj2[property];
-      return value1 - value2;
+  return function (obj1, obj2) {
+    var value1 = obj1[property];
+    var value2 = obj2[property];
+    return value1 - value2;
   }
 }
 
@@ -109,9 +109,42 @@ export function sortAscending(property) {
  * 利用sort方法对对象数组按照对象属性进行排序 - 降序
  */
 export function sortDescending(property) {
-  return function(obj1,obj2){
-      var value1 = obj1[property];
-      var value2 = obj2[property];
-      return value2 - value1; 
+  return function (obj1, obj2) {
+    var value1 = obj1[property];
+    var value2 = obj2[property];
+    return value2 - value1;
   }
+}
+
+/**
+ * 对数组对象中某个属性进行去重
+ */
+export function uniqueObjProperty(arr, u_key) {
+  let map = new Map();
+  arr.forEach((item, index) => {
+    if (!map.has(item[u_key])) {
+      map.set(item[u_key], item);
+    }
+  });
+  return [...map.values()];
+}
+
+/**
+ * 寻找数组中指定范围内的数字的个数
+ * 
+ * @param {Array} arr 目标数组
+ * @param {Array} range 范围
+ * 例如：arr = [1, 3, 5, 2, 6, 7, 10]; range = [0, 5]; 则此函数返回 3;
+ */
+export function findNumberWithRange(arr, range) {
+  if (typeof range[0] == undefined) {
+    range[0] = 0;
+  }
+  let i = 0;
+  arr.find(item => {
+    if (item >= range[0] && item < range[1]) {
+      i++;
+    }
+  });
+  return i;
 }
