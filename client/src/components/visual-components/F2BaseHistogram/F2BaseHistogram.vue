@@ -9,7 +9,7 @@ export default {
   name: "F2BaseHistogram",
   props: {
     container: String,
-    activityData: Array
+    charData: Array
   },
   methods: {
     init() {
@@ -18,7 +18,7 @@ export default {
         pixelRatio: window.devicePixelRatio
       });
 
-      chart.source(this.activityData, {
+      chart.source(this.charData, {
         sales: {
           tickCount: 5
         }
@@ -37,7 +37,7 @@ export default {
     }
   },
   watch: {
-    activityData: function() {
+    charData: function() {
       this.init();
     }
   },
