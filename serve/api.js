@@ -87,11 +87,10 @@ router.get('/api/user-info/:id/base-header-info', (req, res) => {
  * 接口位置：用户主页 > 粉丝数据 > 粉丝的粉丝数量统计
  * 接口参数：id
  */
-router.get('/api/user-info/:id/fans-fans-data', (req, res) => {
+router.get('/api/user-info/:id/fans-data', (req, res) => {
 	const id = +req.params.id;
 
 	models.User.find({ 'id': id }, { 'fans': 1 }).exec((err, data) => {
-
 		if (err) {
 			res.send(err);
 		} else {

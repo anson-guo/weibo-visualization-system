@@ -79,7 +79,7 @@ export default {
     fetchFansData() {
       const id = this.$route.path.split("/")[2];
 
-      this.$axios.get(`/api/user-info/${id}/fans-fans-data`).then(res => {
+      this.$axios.get(`/api/user-info/${id}/fans-data`).then(res => {
         const data = res.data;
         this.allFansArray = data[0].fans;
         this.allFansArray = uniqueObjProperty(this.allFansArray, "id");
