@@ -8,7 +8,7 @@ export default function loadConsole() {
       // console内容  
       const consoleConfig = {
         // 项目简介
-        staff: "Weble 项目是我的毕业设计作品，主要使用图表描述用户的微博数据。\n\n"
+        staff: "\n\n\nWeble 项目是我的毕业设计作品，主要使用图表描述用户的微博数据。\n\n"
           + "相关的技术栈：Vue.js、node.js、Python\n\n"
           + "感谢开源团队：ElementUI 和 F2 的开发团队\n\n"
           + "如果你感兴趣，欢迎访问我的github： https://github.com/JinganGuo/\n\n"
@@ -23,9 +23,7 @@ export default function loadConsole() {
 
         console.log("%c    ", "background: url(http://pr8jlwqml.bkt.clouddn.com/leave-school.png) no-repeat left center;font-size: 100px;", "\n");
 
-        console.log(consoleConfig.staff + "%c❤❤❤", "color: red");
-
-        console.log("%c    ", "font-size: 50px");
+        console.log(consoleConfig.staff + "%c❤❤❤\n\n\n", "color: red");
 
       }(consoleConfig));
     }
