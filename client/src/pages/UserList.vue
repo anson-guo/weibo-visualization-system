@@ -11,46 +11,34 @@
       />
       <!-- <el-button class="search" type="primary" @click="searchUserByName">查询</el-button> -->
     </div>
+    <div v-loading="loading">
+      <div class="user-list" v-if="tableData.length">
+        <div
+          class="item"
+          v-for="(item, index) in tableData"
+          :key="index"
+          @click="handleLink(item.id)"
+        >
+          <div class="image">
+            <img :src="item.avatar" alt="用户头像">
+          </div>
+          <div class="user-info">
+            <p class="user-name">
+              <span>{{ item.name }}</span>
+              <span v-if="item.gender === 'm'" class="iconfont icon-nan blue"></span>
+              <span v-else class="iconfont icon-nv pink"></span>
+            </p>
 
-    <!-- 表格，微博用户列表 -->
-    <!-- <el-table :data="tableData" style="width: 100%; min-height: 600px;" v-loading="loading">
-      <el-table-column prop="avatar" label="头像" width="80">
-        <template slot-scope="scope">
-          <img style="height: 50px" :src="scope.row.avatar" alt="头像">
-        </template>
-      </el-table-column>
-      <el-table-column prop="name" label="昵称" width="180"></el-table-column>
-      <el-table-column prop="id" label="Id" width="180"></el-table-column>
-      <el-table-column label="性别" width="60">
-        <template slot-scope="scope">
-          <span v-if="scope.row.gender === 'm'">男</span>
-          <span v-else>女</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="description" width="300" label="描述"></el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button size="mini">访问</el-button>
-        </template>
-      </el-table-column>
-    </el-table>-->
-    <!-- 分页 -->
-    <div class="user-list">
-      <div
-        class="item"
-        v-for="(item, index) in tableData"
-        :key="index"
-        @click="handleLink(item.id)"
-      >
-        <img :src="item.avatar" alt>
-        <div class="user-info">
-          <p>{{ item.name }}</p>
-          <p>{{ item.description }}</p>
+            <p>{{ item.description ? item.description : '暂无相关数据' }}</p>
+          </div>
         </div>
+      </div>
+      <div class="no-data" style="line-height: 605px; text-align: center" v-else>
+        <p>暂无相关数据</p>
       </div>
     </div>
 
-    <div class="block pages">
+    <div class="block pages" v-if="total > 10">
       <el-pagination
         background
         layout="prev, pager, next"
@@ -73,9 +61,9 @@ export default {
   data() {
     return {
       tableData: [],
-      loading: true,
       total: 0,
-      userName: ""
+      userName: "",
+      loading: true
     };
   },
   methods: {
@@ -117,6 +105,11 @@ export default {
      * 异步请求用户列表
      */
     fetchUserList(params) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
       this.loading = true;
       this.$axios
         .get("/api/user", {
@@ -124,7 +117,6 @@ export default {
         })
         .then(res => {
           this.tableData = res.data.data;
-          console.log(this.tableData);
           this.total = res.data.total;
           this.loading = false;
         })
@@ -149,38 +141,61 @@ export default {
 <style lang="scss" scoped>
 @import "../common/css/base.scss";
 .container {
-  width: 70%;
+  width: 100%;
   margin: 0 auto;
   height: 100vh;
   .user-search {
     height: 80px;
-    background: red;
-    padding: 0 10px;
+    background: #c92828;
+    display: flex;
     .input {
       line-height: 80px;
+      width: 60%;
+      margin: 0 auto;
     }
-
-    // .search {
-    //   margin-left: 10px;
-    // }
   }
 
   .user-list {
-    padding: 50px 20px;
+    width: 60%;
+    margin: 0 auto;
     display: flex;
+    min-height: 605px;
     flex-wrap: wrap;
     .item {
       box-sizing: border-box;
       width: 50%;
-      padding: 10px 20px;
-      border: 1px solid red;
-      img {
-        float: left;
-        width: 70px;
-        border-radius: 50%;
+      display: flex;
+      padding: 20px 10px;
+
+      .image {
+        img {
+          width: 70px;
+          border-radius: 50%;
+        }
       }
       .user-info {
-        float: left;
+        padding: 5px 20px;
+        color: rgb(48, 49, 51);
+        font-size: 12px;
+        .user-name {
+          font-size: 16px;
+          span {
+            padding-right: 5px;
+          }
+          .blue {
+            color: lightblue;
+          }
+          .pink {
+            color: pink;
+          }
+          .small-id {
+            font-size: 14px;
+          }
+        }
+        p {
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
       }
     }
   }
@@ -188,25 +203,26 @@ export default {
   .pages {
     margin-top: 20px;
     margin-bottom: 50px;
-    float: right;
+    display: flex;
+    justify-content: center;
+    & /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
+      background: #c92828;
+    }
   }
 }
 
 @media screen and (max-width: $smallSize) {
   .container {
-    width: 100%;
+    .user-search {
+      width: 100%;
+      .input {
+        width: 90%;
+      }
+    }
     .user-list {
-      padding: 30px 10px;
-      display: flex;
+      width: 100%;
       .item {
-        box-sizing: border-box;
-        width: 50%;
-        padding: 10px 0;
-        img {
-          float: left;
-          width: 50px;
-          border-radius: 50%;
-        }
+        width: 100%;
       }
     }
   }
