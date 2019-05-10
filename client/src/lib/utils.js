@@ -148,3 +148,11 @@ export function findNumberWithRange(arr, range) {
   });
   return i;
 }
+
+/**
+ * 传入一个数组 返回一个数组某值出现的次数
+ * 
+ */
+export function countOccurences(arr, value) {
+  return arr.reduce((a, v) => v === value ? a + 1 : a + 0, 0)
+}
