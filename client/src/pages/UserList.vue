@@ -9,7 +9,6 @@
         clearable
         placeholder="请输入用户id"
       />
-      <!-- <el-button class="search" type="primary" @click="searchUserByName">查询</el-button> -->
     </div>
     <div v-loading="loading">
       <div class="user-list" v-if="tableData.length">
