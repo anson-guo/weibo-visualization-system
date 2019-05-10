@@ -5,9 +5,13 @@
 </template>
 
 <script>
+import loadConsole from "./lib/console";
+
 export default {
   name: "app",
-  components: {}
+  beforeCreate() {
+    loadConsole();
+  }
 };
 </script>
 
