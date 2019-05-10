@@ -124,3 +124,53 @@ export function mapNumberRange(num) {
   }
   return rangeString;
 }
+
+/**
+ * 粉丝认证映射关系
+ * 
+ * @parma {number} verified_type
+ * 
+ * 参考链接：https://gist.github.com/chen206/7260648
+ */
+export function mapFanVerified(verified_type) {
+  let verifiedString = '';
+  switch (+verified_type) {
+    case -1:
+      verifiedString = "普通用户";
+      break;
+    case 200:
+      verifiedString = "初级达人";
+      break;
+    case 220:
+      verifiedString = "中级达人";
+      break;
+    case 400:
+      verifiedString = "已故V用户";
+      break;
+    case 0:
+      verifiedString = "个人";
+      break;
+    case 1:
+      verifiedString = "政府";
+      break;
+    case 2:
+      verifiedString = "企业";
+      break;
+    case 3:
+      verifiedString = "媒体";
+      break;
+    case 4:
+      verifiedString = "校园";
+      break;
+    case 5:
+      verifiedString = "网站";
+      break;
+    case 6:
+      verifiedString = "应用";
+      break;
+    case 7:
+      verifiedString = "团体（机构）";
+      break;
+  }
+  return verifiedString;
+}
