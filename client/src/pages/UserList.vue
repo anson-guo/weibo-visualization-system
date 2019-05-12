@@ -41,13 +41,13 @@
       </div>
       <div class="no-data" style="line-height: 605px; text-align: center" v-else>
         <p class="btn-message">
-          没有找到用户数据！您可以选择
+          没有找到用户数据！
           <el-button
             type="text"
             class="add-btn"
             @click="() => {this.userName = ''; this.searchUserByName()}"
           >返回列表</el-button>或者
-          <el-button type="text" class="add-btn" @click="showAddUserWindow">新增</el-button>一条用户数据吧
+          <el-button type="text" class="add-btn" @click="showAddUserWindow">新增</el-button>一条用户数据
         </p>
       </div>
     </div>
@@ -62,7 +62,13 @@
     </div>
 
     <!-- 弹出框 -->
-    <el-dialog title="爬取用户数据" :visible.sync="dialogFormVisible">
+    <el-dialog
+      title="爬取用户数据"
+      :visible.sync="dialogFormVisible"
+      :close-on-click-modal="false"
+      :center="true"
+      @close="cancelForm('ruleForm')"
+    >
       <el-form
         status-icon
         :model="ruleForm"
@@ -70,6 +76,7 @@
         ref="ruleForm"
         label-width="52px"
         class="demo-ruleForm"
+        @submit.native.prevent
       >
         <div>
           <p>
@@ -85,7 +92,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="resetForm('ruleForm')">取 消</el-button>
+        <el-button @click="cancelForm('ruleForm')">取 消</el-button>
         <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
       </div>
     </el-dialog>
@@ -214,7 +221,7 @@ export default {
     /**
      * 取消弹窗表单
      */
-    resetForm(formName) {
+    cancelForm(formName) {
       this.$refs[formName].resetFields();
       this.dialogFormVisible = false;
     },
@@ -245,11 +252,6 @@ export default {
         });
     }
   },
-  watch: {
-    dialogFormVisible() {
-      this.$refs["ruleForm"].resetFields();
-    }
-  },
   mounted() {
     this.$router.push({ path: "/user" });
     this.fetchUserList(null);
@@ -265,17 +267,25 @@ export default {
   height: 100vh;
   .user-search {
     height: 80px;
-    background: #c92828;
+    background: #3f3f3f;
     display: flex;
     .input {
       line-height: 80px;
       width: 60%;
       margin: 0 auto;
     }
+    & /deep/ .el-input__inner {
+      background: #4f4f4f;
+      border: 1px solid #4f4f4f;
+      color: #ffffff;
+    }
   }
 
   .btn-message {
     text-align: center;
+    color: #303133;
+    font-size: 14px;
+
     .add-btn {
       color: #c92828;
     }
@@ -330,6 +340,20 @@ export default {
     .el-dialog__header {
       text-align: center;
     }
+    .el-button--primary {
+      background: #c92828;
+      border-color: #c92828;
+    }
+    .el-button:focus,
+    .el-button:hover {
+      color: #c92828;
+      border-color: lightcoral;
+      background: rgba(201, 40, 40, 0.2);
+    }
+    .el-dialog__headerbtn .el-dialog__close {
+      color: #c92828;
+      font-size: 22px;
+    }
   }
   .pages {
     margin-top: 20px;
@@ -352,8 +376,14 @@ export default {
     }
     .user-list {
       width: 100%;
+      .image {
+        img {
+          width: 60px;
+        }
+      }
       .item {
         width: 100%;
+        padding: 8px 10px;
       }
     }
     & /deep/ .el-dialog {
