@@ -7,18 +7,26 @@
       :timeLineData="timeLineData"
     ></time-line>
 
-    <div :class="{'detail-weibos': true, 'show': isShow, 'close': isClose}">
-      <button @click="closeDetailWeibo">按钮</button>
+    <div :class="{'detail-weibos': true, 'show': isShow, 'close': isClose}" :loading="loading">
+      <button class="close-btn" @click="closeDetailWeibo">按钮</button>
       <h3>{{ source }}</h3>
-      <p>用户一共通过 {{ source }} 发送了 {{ detailWeibos.length}} 条动态</p>
+      <p>
+        用户一共通过
+        <span class="font-red">{{ source }}</span> 发送了
+        <span class="font-weight">{{ detailWeibos.length}}</span> 条动态
+      </p>
       <div v-for="(item, index) of detailWeibos" :key="index">
         <div class="weibo-item">
           <div v-html="item.text"></div>
           <p class="review">
-            <span>{{item.created_at}}</span>
-            <span>{{item.attitudes_count}}</span>
-            <span>{{item.comments_count}}</span>
-            <span>{{item.reposts_count}}</span>
+            <span class="iconfont icon-shijian"></span>
+            <span>{{item.created_at ? item.created_at : 0}}</span>
+            <span class="iconfont icon-dianzan"></span>
+            <span>{{item.attitudes_count ? item.attitudes_count : 0}}</span>
+            <span class="iconfont icon-pinglun"></span>
+            <span>{{item.comments_count ? item.comments_count : 0}}</span>
+            <span class="iconfont icon-web-icon-"></span>
+            <span>{{item.reposts_count ? item.reposts_count : 0}}</span>
           </p>
         </div>
         <hr style="border:0;background-color:#ff6c60;height:2px;">
@@ -32,6 +40,8 @@
 <script>
 import TimeLine from "../components/common-components/TimeLine";
 
+import { Loading } from "element-ui";
+
 export default {
   name: "RelatedApp",
   components: {
@@ -43,7 +53,8 @@ export default {
       detailWeibos: [],
       isShow: false,
       isClose: false,
-      source: ""
+      source: "",
+      loading: true
     };
   },
   methods: {
@@ -74,6 +85,11 @@ export default {
       this.source = item;
       this.detailWeibos = [];
 
+      const loading = this.$loading({
+        target: ".detail-weibos",
+        fullscreen: false
+      });
+
       this.$router.push({
         query: {
           source: item
@@ -91,6 +107,9 @@ export default {
         .then(res => {
           const data = res.data;
           this.detailWeibos = data;
+          this.$nextTick(() => {
+            loading.close();
+          });
         });
     },
 
@@ -117,6 +136,13 @@ export default {
   .time-line {
     float: left;
   }
+  .font-red {
+    color: rgb(255, 108, 96);
+  }
+  .font-weight {
+    font-weight: bold;
+  }
+
   .detail-weibos {
     height: calc(100vh - 60px);
     padding: 5px 20px 5px 10px;
@@ -129,6 +155,11 @@ export default {
     position: fixed;
     right: -400px;
     top: 60px;
+    .close-btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
     @media screen and (max-width: $smallSize) {
       width: 250px;
       right: -250px;
@@ -158,12 +189,29 @@ export default {
     color: #303133;
     pointer-events: none;
   }
-
-  @media screen and (max-width: $smallSize) {
-  }
   .review {
     span {
-      margin-left: 10px;
+      &:nth-of-type(odd) {
+        padding-right: 2px;
+        font-size: 13px;
+      }
+      &:nth-of-type(even) {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  @media screen and (max-width: $smallSize) {
+    .review {
+      span {
+        &:nth-of-type(odd) {
+          padding-right: 2px;
+          font-size: 13px;
+        }
+        &:nth-of-type(even) {
+          margin-right: 8px;
+        }
+      }
     }
   }
 }
