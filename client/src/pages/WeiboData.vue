@@ -19,7 +19,11 @@
 
           <el-tabs v-model="tabActiveName" @tab-click="handleTabsClick">
             <el-tab-pane label="柱状图" name="activity-histogram" :lazy="true">
-              <f2-base-histogram :charData="activityData" container="activity-histogram"></f2-base-histogram>
+              <f2-base-histogram
+                :charData="activityData"
+                container="activity-histogram"
+                :isShowText="true"
+              ></f2-base-histogram>
             </el-tab-pane>
             <el-tab-pane label="折线图" name="activity-linechar" :lazy="true">
               <f2-base-linechar :activityData="activityData" container="activity-linechar"></f2-base-linechar>

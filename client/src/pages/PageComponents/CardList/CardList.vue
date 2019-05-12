@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <el-row :gutter="24">
       <el-col :sm="24" :md="12" :lg="6">
         <div class="grid-content bg-purple card">
@@ -64,6 +64,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  padding: 0 10px;
+}
 .el-col {
   margin-bottom: 10px;
 }

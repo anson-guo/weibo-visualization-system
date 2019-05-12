@@ -26,7 +26,11 @@
           <el-card class="char-card">
             <h3>{{ tabsTitle[2] }}</h3>
             <p>粉丝的粉丝数</p>
-            <f2-base-histogram :charData="fansFansData" container="fans-fans-number"></f2-base-histogram>
+            <f2-base-histogram
+              :charData="fansFansData"
+              container="fans-fans-number"
+              :isShowText="true"
+            ></f2-base-histogram>
           </el-card>
         </el-col>
 
@@ -35,6 +39,7 @@
           <el-card class="char-card">
             <h3>{{ tabsTitle[3] }}</h3>
             <p>粉丝认证统计</p>
+            <f2-donut-label-char :charData="fansVerifiedData" container="fans-verified-number"></f2-donut-label-char>
           </el-card>
         </el-col>
       </el-row>
@@ -44,12 +49,17 @@
 
 <script>
 import F2BasePiechart from "../components/visual-components/F2BasePiechart";
-import F2BaseHistogram from "../components/visual-components/F2BaseHistogram";
 import F2DonutChar from "../components/visual-components/F2DonutChar";
+import F2BaseHistogram from "../components/visual-components/F2BaseHistogram";
+import F2DonutLabelChar from "../components/visual-components/F2DonutLabelChar";
 import SubMenu from "./PageComponents/SubMenu";
 
-import { uniqueObjProperty, findNumberWithRange } from "../lib/utils";
-import { mapNumberRange } from "../lib/const";
+import {
+  uniqueObjProperty,
+  findNumberWithRange,
+  countOccurences
+} from "../lib/utils";
+import { mapNumberRange, mapFanVerified } from "../lib/const";
 
 export default {
   name: "FansData",
@@ -57,6 +67,7 @@ export default {
     F2BasePiechart,
     F2BaseHistogram,
     F2DonutChar,
+    F2DonutLabelChar,
     SubMenu
   },
   data() {
@@ -69,7 +80,8 @@ export default {
       ],
       currentMenuContent: 1,
       allFansArray: [],
-      fansFansData: []
+      fansFansData: [],
+      fansVerifiedData: []
     };
   },
   methods: {
@@ -110,6 +122,22 @@ export default {
           value: findNumberWithRange(follow_count, [keys[i - 1], keys[i]])
         });
       }
+    },
+
+    /**
+     * 粉丝认证统计
+     */
+    getFansVerified() {
+      this.fansVerifiedData = [];
+      const verifieds = this.allFansArray.map(item => item.verified_type);
+      const uniqueKey = new Set(verifieds);
+      uniqueKey.forEach(item => {
+        this.fansVerifiedData.push({
+          const: "const",
+          key: mapFanVerified(item),
+          value: countOccurences(verifieds, +item)
+        });
+      });
     }
   },
   watch: {
@@ -121,6 +149,9 @@ export default {
           break;
         case 3:
           this.getFansFansData();
+          break;
+        case 4:
+          this.getFansVerified();
           break;
       }
     }

@@ -12,10 +12,11 @@
 
 <script>
 export default {
-  name: "FloatImgBtn",
+  name: "FloatButton",
   props: {
     text: {
       type: String,
+      default: ''
     },
     itemWidth: {
       type: Number,

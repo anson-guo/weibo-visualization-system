@@ -8,7 +8,7 @@
     <el-row :gutter="24" class="info">
       <el-col :sm="24" :md="12" :lg="12" v-for="(item, index) of userData" :key="index">
         <p class="item">
-          <span>{{item.label}} :</span>
+          <span>{{item.label}} : </span>
           <span>{{item.value ? item.value : '暂无相关数据'}}</span>
         </p>
       </el-col>
