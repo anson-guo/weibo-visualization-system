@@ -3,7 +3,7 @@
     default-active="1"
     class="el-menu-demo"
     mode="horizontal"
-    background-color="gray"
+    background-color="#4f4f4f"
     text-color="#fff"
     active-text-color="#ffd04b"
     @select="handleSelectMenu"
@@ -17,7 +17,7 @@ export default {
   name: "SubMenu",
   props: {
     tabsTitle: Array
-  },
+  }, 
   methods: {
     handleSelectMenu(index) {
       this.$emit("changeTabs", index);
