@@ -8,7 +8,7 @@
 const mongoose = require('mongoose');
 
 // 连接数据库
-mongoose.connect('mongodb://localhost:27017/weibo01');
+mongoose.connect('mongodb://localhost:27017/weibo02');
 
 // 为这次连接绑定事件
 const db = mongoose.connection;
@@ -24,7 +24,6 @@ const userSchema = mongoose.Schema({
 });
 
 const weiboSchema = mongoose.Schema({
-  id: Number,
   pictures: Array,
   source: String,
   created_at: String,
@@ -37,7 +36,7 @@ const weiboSchema = mongoose.Schema({
 /************** 定义模型Model **************/
 const Models = {
   User: mongoose.model('users', userSchema),
-  Weibo: mongoose.model('weibo', weiboSchema),
+  Weibo: mongoose.model('weibos', weiboSchema),
 };
 
 

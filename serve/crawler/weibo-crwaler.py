@@ -60,7 +60,7 @@ def scapy_page1(uid):
     userInfo = user_info["data"]["userInfo"]
     
     user = {}
-    user["_id"] = userInfo["id"]
+    user["id"] = userInfo["id"]
     user["avatar"] = userInfo["profile_image_url"]
     user["cover"] = userInfo["cover_image_phone"]
     user["description"] = userInfo["description"]
@@ -140,7 +140,7 @@ def scapy_page4(uid,page):
             if "mblog" not in cards[i]:
                 continue
             
-            weibo["_id"] = cards[i]["mblog"]["id"]
+            weibo["id"] = cards[i]["mblog"]["id"]
             weibo["attitudes_count"] = cards[i]["mblog"]["attitudes_count"]
             weibo["comments_count"] = cards[i]["mblog"]["comments_count"]
             weibo["crawled_at"] = time.strftime('%Y-%m-%d %H:%M ',time.localtime(time.time()))
@@ -173,12 +173,12 @@ if __name__ == '__main__':
     uid = sys.argv[1]
     starttime = datetime.datetime.now()
     mydb = myclient["weibo02"]
-    mycol = mydb["user"]
+    mycol = mydb["users"]
 
     user = scapy_page1(uid)
     
     myquery = {}
-    myquery["_id"] = int(uid)
+    myquery["id"] = int(uid)
     # 判断原来是否有该用户
     myfind = mycol.find(myquery)
     is_existence = []
@@ -263,11 +263,11 @@ if __name__ == '__main__':
             for newweibo in newweibos:
                 # 查询要添加的_id
                 myquery = {}
-                myquery["_id"] = newweibo["_id"]
+                myquery["id"] = newweibo["id"]
                 myfind = mycol.find(myquery)
                 weibos = []
                 for x in myfind:
-                    weibos = x["_id"]
+                    weibos = x["id"]
                 if len(weibos) == 0:
                     user_result = mycol.insert_one(newweibo)
 

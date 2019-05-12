@@ -7,33 +7,48 @@
         v-model="userName"
         @keyup.enter.native="searchUserByName"
         clearable
-        placeholder="请输入用户id"
+        placeholder="请输入用户昵称"
       />
     </div>
     <div v-loading="loading">
-      <div class="user-list" v-if="tableData.length">
-        <div
-          class="item"
-          v-for="(item, index) in tableData"
-          :key="index"
-          @click="handleLink(item.id)"
-        >
-          <div class="image">
-            <img :src="item.avatar" alt="用户头像">
-          </div>
-          <div class="user-info">
-            <p class="user-name">
-              <span>{{ item.name }}</span>
-              <span v-if="item.gender === 'm'" class="iconfont icon-nan blue"></span>
-              <span v-else class="iconfont icon-nv pink"></span>
-            </p>
+      <div v-if="tableData.length">
+        <div class="user-list">
+          <div
+            class="item"
+            v-for="(item, index) in tableData"
+            :key="index"
+            @click="handleLink(item.id)"
+          >
+            <div class="image">
+              <img :src="item.avatar" alt="用户头像">
+            </div>
+            <div class="user-info">
+              <p class="user-name">
+                <span>{{ item.name }}</span>
+                <span v-if="item.gender === 'm'" class="iconfont icon-nan blue"></span>
+                <span v-else class="iconfont icon-nv pink"></span>
+              </p>
 
-            <p>{{ item.description ? item.description : '暂无相关数据' }}</p>
+              <p>{{ item.description ? item.description : '暂无相关数据' }}</p>
+            </div>
           </div>
         </div>
+        <p class="btn-message">
+          列表中没有想关注的用户
+          <br>试试
+          <el-button class="add-btn" type="text" @click="showAddUserWindow">新增用户</el-button>
+        </p>
       </div>
       <div class="no-data" style="line-height: 605px; text-align: center" v-else>
-        <p>暂无相关数据</p>
+        <p class="btn-message">
+          没有找到用户数据！您可以选择
+          <el-button
+            type="text"
+            class="add-btn"
+            @click="() => {this.userName = ''; this.searchUserByName()}"
+          >返回列表</el-button>或者
+          <el-button type="text" class="add-btn" @click="showAddUserWindow">新增</el-button>一条用户数据吧
+        </p>
       </div>
     </div>
 
@@ -45,6 +60,35 @@
         @current-change="handlePageChange"
       ></el-pagination>
     </div>
+
+    <!-- 弹出框 -->
+    <el-dialog title="爬取用户数据" :visible.sync="dialogFormVisible">
+      <el-form
+        status-icon
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="52px"
+        class="demo-ruleForm"
+      >
+        <div>
+          <p>
+            <strong>说明：</strong>来访者可以通过此接口获取某个用户的微博数据
+          </p>
+          <p>
+            <strong>注意：</strong>由于微博接口访问限制，请耐心等待
+          </p>
+        </div>
+
+        <el-form-item label="微博id" prop="userId">
+          <el-input v-model="ruleForm.userId" autocomplete="off" placeholder="请输入用户id"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="resetForm('ruleForm')">取 消</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template> 
 
@@ -58,11 +102,24 @@ export default {
     SearchInput
   },
   data() {
+    const checkUserId = (rule, value, callback) => {
+      if (!value.match(/^\d{10}$/)) {
+        return callback(new Error("微博id异常，请检查后重新输入"));
+      }
+      callback();
+    };
     return {
       tableData: [],
       total: 0,
       userName: "",
-      loading: true
+      loading: true,
+      dialogFormVisible: false,
+      ruleForm: {
+        userId: ""
+      },
+      rules: {
+        userId: [{ validator: checkUserId, trigger: "blur" }]
+      }
     };
   },
   methods: {
@@ -86,6 +143,7 @@ export default {
 
       this.fetchUserList(params);
     },
+
     /**
      * 处理用户昵称改变后的搜索
      */
@@ -100,6 +158,7 @@ export default {
         this.fetchUserList({ pagenum: 1, name: user });
       }
     },
+
     /**
      * 异步请求用户列表
      */
@@ -123,11 +182,72 @@ export default {
           console.log(err);
         });
     },
+
     /**
      * 访问对应的用户
      */
     handleLink(id) {
       this.$router.push({ path: `/user-info/${id}/base` });
+    },
+
+    /**
+     * 显示弹窗
+     */
+    showAddUserWindow() {
+      this.dialogFormVisible = true;
+    },
+
+    /**
+     * 提交弹窗表单
+     */
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.dialogFormVisible = false;
+          this.startCrawlById(this.ruleForm.userId);
+        } else {
+          return false;
+        }
+      });
+    },
+
+    /**
+     * 取消弹窗表单
+     */
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      this.dialogFormVisible = false;
+    },
+
+    /**
+     *  启动服务端爬虫脚本
+     */
+    startCrawlById(userId) {
+      const params = {
+        userId
+      };
+      this.$axios
+        .get("/api/user/start-crawler", {
+          params
+        })
+        .then(res => {
+          this.$message({
+            message: "正在爬取数据，请稍后",
+            type: "success",
+            duration: "10000",
+            center: true,
+            showClose: true
+          });
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  watch: {
+    dialogFormVisible() {
+      this.$refs["ruleForm"].resetFields();
     }
   },
   mounted() {
@@ -154,25 +274,32 @@ export default {
     }
   }
 
+  .btn-message {
+    text-align: center;
+    .add-btn {
+      color: #c92828;
+    }
+  }
+
   .user-list {
     width: 60%;
     margin: 0 auto;
-    display: flex;
     min-height: 605px;
-    flex-wrap: wrap;
     .item {
       box-sizing: border-box;
       width: 50%;
-      display: flex;
+      display: inline-block;
       padding: 20px 10px;
 
       .image {
+        float: left;
         img {
           width: 70px;
           border-radius: 50%;
         }
       }
       .user-info {
+        float: left;
         padding: 5px 20px;
         color: rgb(48, 49, 51);
         font-size: 12px;
@@ -199,6 +326,11 @@ export default {
     }
   }
 
+  & /deep/ .el-dialog {
+    .el-dialog__header {
+      text-align: center;
+    }
+  }
   .pages {
     margin-top: 20px;
     margin-bottom: 50px;
@@ -223,6 +355,9 @@ export default {
       .item {
         width: 100%;
       }
+    }
+    & /deep/ .el-dialog {
+      width: 98%;
     }
   }
 }

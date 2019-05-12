@@ -365,4 +365,27 @@ router.get('/api/user-info/id/weibo-imageslist', (req, res) => {
 
 });
 
+
+// ------------------------------------------------- //
+// ------------------------------------------------- //
+// -------------------- node调用python脚本 ---------- //
+// ------------------------------------------------- //
+// ------------------------------------------------- //
+
+router.get('/api/user/start-crawler', (req, res) => {
+
+	const userId = +req.query.userId;
+
+	const cp = require('child_process'); // 使用node提供的child_process可以调用外部命令
+
+	cp.exec('python3 ./crawler/weibo-crwaler.py ' + userId, (err, stdout, stderr) => {
+		if (err) console.log('stderr', err);
+		if (stdout) console.log('stdout', stdout);
+	});
+
+	res.send({
+		state: 0
+	});
+});
+
 module.exports = router;
