@@ -20,14 +20,17 @@ import RelatedApp from './pages/RelatedApp'
 const routes = [
   {
     path: '/',
+    name: 'home',
     component: HomePage // 主页
   },
   {
     path: '/user',
+    name: 'userList',
     component: UserList // 用户列表页
   },
   {
     path: '/user-info/:name',
+    name: 'userInfo',
     component: UserInfoPage, // 用户信息页面
     children: [
       {
@@ -53,7 +56,7 @@ const routes = [
       {
         name: 'RelatedApp',
         path: 'related',
-        component: RelatedApp // 微博数据
+        component: RelatedApp // 时间轴
       },
       {
         name: 'ImageWall',
