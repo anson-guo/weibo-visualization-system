@@ -378,7 +378,7 @@ router.get('/api/user/start-crawler', (req, res) => {
 
 	const cp = require('child_process'); // 使用node提供的child_process可以调用外部命令
 
-	cp.exec('python3 ./crawler/weibo-crwaler.py ' + userId, (err, stdout, stderr) => {
+	cp.exec('python3 ./crawler/weibo-crawler.py ' + userId, (err, stdout, stderr) => {
 		if (err) console.log('stderr', err);
 		if (stdout) console.log('stdout', stdout);
 	});
