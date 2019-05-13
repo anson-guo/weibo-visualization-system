@@ -26,8 +26,6 @@ def get_fieid(text,comp_str):
 def parse_time(date):
     if re.match(r'刚刚', date):
         date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-        # date = time.strftime('%Y-%m-%d %H:%M', time.localtime(time.time()))
-
     if re.match(r'\d+分钟前', date):
         minute = re.match(r'(\d+)', date).group(1)
         date = time.strftime('%Y-%m-%d', time.localtime(time.time() - float(minute) * 60))
