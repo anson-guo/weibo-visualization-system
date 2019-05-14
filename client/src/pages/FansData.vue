@@ -21,14 +21,23 @@
           </el-card>
         </el-col>
 
-        <!-- 粉丝的粉丝数量排序 -->
+        <!-- 粉丝的粉丝数量和关注者数量 -->
         <el-col v-if="currentMenuContent === 3" class="col" :sm="24" :md="16" :lg="16">
           <el-card class="char-card">
-            <h3>{{ tabsTitle[2] }}</h3>
-            <p>粉丝的粉丝数</p>
+            <h3>粉丝的粉丝数量分布</h3>
+            <p>粉丝的粉丝数量分布</p>
             <f2-base-histogram
               :charData="fansFansData"
               container="fans-fans-number"
+              :isShowText="true"
+            ></f2-base-histogram>
+          </el-card>
+          <el-card class="char-card">
+            <h3>粉丝的关注者数量分布</h3>
+            <p>粉丝的关注者数量分布</p>
+            <f2-base-histogram
+              :charData="fansFollowersData"
+              container="fans-follows-number"
               :isShowText="true"
             ></f2-base-histogram>
           </el-card>
@@ -75,13 +84,15 @@ export default {
       tabsTitle: [
         "粉丝年龄分布",
         "粉丝性别分布",
-        "粉丝的粉丝数量统计",
+        "粉丝的相关数量统计",
         "粉丝认证统计"
       ],
       currentMenuContent: 1,
       allFansArray: [],
       fansFansData: [],
-      fansVerifiedData: []
+      fansFollowersData: [],
+      fansVerifiedData: [],
+      fansNumber: "fans-fans"
     };
   },
   methods: {
@@ -115,11 +126,18 @@ export default {
         "100000"
       ];
       const follow_count = this.allFansArray.map(item => item.follow_count);
+      const follower_count = this.allFansArray.map(
+        item => item.followers_count
+      );
 
       for (let i = 0; i < keys.length; i++) {
         this.fansFansData.push({
           key: mapNumberRange(keys[i]),
           value: findNumberWithRange(follow_count, [keys[i - 1], keys[i]])
+        });
+        this.fansFollowersData.push({
+          key: mapNumberRange(keys[i]),
+          value: findNumberWithRange(follower_count, [keys[i - 1], keys[i]])
         });
       }
     },
