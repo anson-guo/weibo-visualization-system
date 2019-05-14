@@ -11,9 +11,9 @@
 
           <p>
             <el-radio-group v-model="period" @change="fetchActivityData">
-              <el-radio label="week">周度</el-radio>
-              <el-radio label="month">月度</el-radio>
-              <el-radio label="year">年度</el-radio>
+              <el-radio label="week">七天总活跃度</el-radio>
+              <el-radio label="month">月总活跃度</el-radio>
+              <el-radio label="year">年总活跃度</el-radio>
             </el-radio-group>
           </p>
 
@@ -183,6 +183,7 @@ export default {
   .col {
     margin-top: 41px;
   }
+
   .char-card {
     h3 {
       font-size: 14px;
@@ -191,6 +192,9 @@ export default {
     p {
       text-align: left;
       font-size: 12px;
+    }
+    & /deep/ .el-radio {
+      padding: 5px 0;
     }
   }
 }
