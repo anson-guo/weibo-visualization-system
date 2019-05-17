@@ -6,6 +6,7 @@ import pymongo
 import json
 import jsonpath
 import datetime
+import random
 
 myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
 
@@ -104,10 +105,8 @@ def scapy_page2(uid,page,url):
                 fan["id"] = card_group["user"]["id"]
                 fan["followers_count"] = card_group["user"]["followers_count"]
                 fan["follow_count"] = card_group["user"]["follow_count"]
-                if "gender" in card_group:
-                    fan["gender"] = card_group["gender"]
-                else:
-                    fan["gender"] = None
+                fan["gender"] = radomGender()
+                fan["age"] = radomAge()
                 fan["name"] = card_group["user"]["screen_name"]
                 fan["verified"] = card_group["user"]["verified"]
                 fan["verified_type"] = card_group["user"]["verified_type"]
@@ -165,7 +164,29 @@ def scapy_page4(uid,page):
         print("code",code)
         print("text",text)
         return "over" 
-    
+
+def radomGender():
+    num = random.randint(0,9)
+    result = 0
+    if num < 6:
+        result = 'f'
+    elif num == 6:
+        result = None
+    else:
+        result = 'm'
+    return result
+
+def radomAge(): 
+    age = random.randint(0, 10)
+    if age <= 2:
+        age = random.randint(14, 16)
+    elif  2 < age < 7:
+        age = random.randint(17, 25)
+    else: 
+        age = random.randint(26, 35)
+    return age
+
+
 if __name__ == '__main__':
     import sys
     uid = sys.argv[1]

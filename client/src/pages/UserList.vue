@@ -37,6 +37,8 @@
           列表中没有想关注的用户
           <br>试试
           <el-button class="add-btn" type="text" @click="showAddUserWindow">新增用户</el-button>
+          <br>
+          <router-link to="/">返回首页</router-link>
         </p>
       </div>
       <div class="no-data" style="line-height: 605px; text-align: center" v-else>
@@ -287,6 +289,7 @@ export default {
     font-size: 14px;
 
     .add-btn {
+      margin: 0;
       color: #c92828;
     }
   }

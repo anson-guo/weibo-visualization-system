@@ -8,7 +8,12 @@
           <el-card class="char-card">
             <h3>{{ tabsTitle[0] }}</h3>
             <p>以饼图的形式展示该用户的粉丝年龄分布情况</p>
-            <f2-base-piechart container="fans-ages-char"></f2-base-piechart>
+            <f2-base-piechart
+              v-if="fansAgeData.length"
+              :charData="fansAgeData"
+              :map="fansAgeMap"
+              container="fans-ages-char"
+            ></f2-base-piechart>
           </el-card>
         </el-col>
 
@@ -17,7 +22,11 @@
           <el-card class="char-card">
             <h3>{{ tabsTitle[1] }}</h3>
             <p>以饼图的形式展示该用户的粉丝性别分布情况</p>
-            <f2-donut-char container="fans-sex-char"></f2-donut-char>
+            <f2-donut-char
+              :total="totalFansNumber"
+              :charData="fansGenderData"
+              container="fans-sex-char"
+            ></f2-donut-char>
           </el-card>
         </el-col>
 
@@ -89,6 +98,10 @@ export default {
       ],
       currentMenuContent: 1,
       allFansArray: [],
+      fansAgeData: [],
+      fansAgeMap: {},
+      fansGenderData: [],
+      totalFansNumber: 0,
       fansFansData: [],
       fansFollowersData: [],
       fansVerifiedData: [],
@@ -106,7 +119,104 @@ export default {
         const data = res.data;
         this.allFansArray = data[0].fans;
         this.allFansArray = uniqueObjProperty(this.allFansArray, "id");
+
+        this.getFansAgeData();
       });
+    },
+
+    /**
+     * 粉丝的年龄分布
+     */
+    getFansAgeData() {
+      this.fansAgeData = [];
+
+      const ageArr = this.allFansArray.map(item => {
+        return item.age;
+      });
+
+      const length = ageArr.length; // 实际总人数
+
+      var countedAge = ageArr.reduce(function(allAge, age) {
+        if (age in allAge) {
+          allAge[age]++;
+        } else {
+          allAge[age] = 1;
+        }
+        return allAge;
+      }, {});
+
+      const ages = Object.keys(countedAge);
+      const ageRangeCount = {
+        "16岁以下": 0,
+        "[16, 18]": 0,
+        "[19, 24]": 0,
+        "[25, 30]": 0,
+        "30岁以上": 0
+      };
+
+      ages.forEach(item => {
+        item = +item;
+        if (item < 16) {
+          ageRangeCount["16岁以下"] += +countedAge[item];
+        } else if (item >= 16 && item <= 18) {
+          ageRangeCount["[16, 18]"] += +countedAge[item];
+        } else if (item >= 19 && item <= 24) {
+          ageRangeCount["[19, 24]"] += +countedAge[item];
+        } else if (item >= 25 && item <= 30) {
+          ageRangeCount["[25, 30]"] += +countedAge[item];
+        } else {
+          ageRangeCount["30岁以上"] += +countedAge[item];
+        }
+      });
+
+      for (const item in ageRangeCount) {
+        const percent = ageRangeCount[item] / length;
+        this.fansAgeData.push({
+          name: item,
+          percent: +percent.toFixed(2),
+          a: "1"
+        });
+        this.fansAgeMap[item] = Number(percent * 100).toFixed(2) + "%";
+      }
+    },
+
+    /**
+     * 粉丝的性别分布
+     */
+    getFansGenderData() {
+      const genderArr = this.allFansArray.map(item => {
+        return item.gender;
+      });
+      const length = genderArr.length; // 实际总人数
+      this.totalFansNumber = length;
+
+      const countedSex = genderArr.reduce(function(allSex, sex) {
+        if (sex in allSex) {
+          allSex[sex]++;
+        } else {
+          allSex[sex] = 1;
+        }
+        return allSex;
+      }, {});
+
+      for (const item in countedSex) {
+        const percent = countedSex[item] / length;
+        let label = "";
+        if (item === "m") {
+          label = "男性";
+        } else if (item === "f") {
+          label = "女性";
+        } else {
+          label = "未知性别";
+        }
+        this.fansGenderData.push({
+          name: label,
+          percent: +percent.toFixed(2),
+          a: "1"
+        });
+      }
+
+      console.log(this.fansGenderData);
     },
 
     /**
@@ -162,8 +272,10 @@ export default {
     currentMenuContent: function(val) {
       switch (+val) {
         case 1:
+          this.getFansAgeData();
           break;
         case 2:
+          this.getFansGenderData();
           break;
         case 3:
           this.getFansFansData();

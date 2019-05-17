@@ -7,32 +7,17 @@
 </template>
 
 <script>
-var data = [
-  {
-    name: "男性",
-    percent: 83.59,
-    a: "1"
-  },
-  {
-    name: "女性",
-    percent: 2.17,
-    a: "1"
-  },
-  {
-    name: "未知性别",
-    percent: 14.24,
-    a: "1"
-  }
-];
 export default {
   name: "F2DonutChar",
   props: {
-    container: String
+    container: String,
+    charData: Array,
+    total: Number
   },
   methods: {
     init() {
       var map = {};
-      data.map(function(obj) {
+      this.charData.map(function(obj) {
         map[obj.name] = obj.percent + "%";
       });
 
@@ -41,7 +26,7 @@ export default {
         pixelRatio: window.devicePixelRatio,
         padding: [20, "auto"]
       });
-      chart.source(data, {
+      chart.source(this.charData, {
         percent: {
           formatter: function formatter(val) {
             return val + "%";
@@ -64,15 +49,17 @@ export default {
       chart
         .interval()
         .position("a*percent")
-        .color("name", ["#FE5D4D", "#3BA4FF", "#737DDE"])
+        .color("name", ["#3BA4FF", "#FE5D4D", "#737DDE"])
         .adjust("stack");
 
       chart.guide().html({
         position: ["50%", "45%"],
         html:
           '<div style="width: 250px;height: 40px;text-align: center;">' +
-          '<div style="font-size: 16px">粉丝总数</div>' +
-          '<div style="font-size: 24px">133</div>' +
+          '<div style="font-size: 16px">粉丝数</div>' +
+          '<div style="font-size: 24px">' +
+          this.total +
+          "</div>" +
           "</div>"
       });
       chart.render();
