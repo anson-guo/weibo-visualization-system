@@ -310,6 +310,8 @@ export default {
       }
       .user-info {
         float: left;
+        width: calc(100% - 70px);
+        box-sizing: border-box;
         padding: 5px 20px;
         color: rgb(48, 49, 51);
         font-size: 12px;

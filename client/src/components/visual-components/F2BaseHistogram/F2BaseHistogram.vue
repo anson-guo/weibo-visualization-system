@@ -13,6 +13,10 @@ export default {
     isShowText: {
       type: Boolean,
       default: false
+    },
+    rotate: {
+      type: Number,
+      default: 9
     }
   },
   methods: {
@@ -30,7 +34,7 @@ export default {
       });
       chart.axis("key", {
         label: {
-          rotate: -Math.PI / 9,
+          rotate: -Math.PI / this.rotate,
           textAlign: "end",
           textBaseline: "middle",
           marginBottom: 20
@@ -55,6 +59,7 @@ export default {
             content: obj.value,
             style: {
               textAlign: "center",
+              fontSize: "11",
               textBaseline: "bottom"
             },
             offsetY: -4

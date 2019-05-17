@@ -52,6 +52,20 @@
           <f2-horizontal-barchart :sourceData="sourceData" container="source-barchar"></f2-horizontal-barchart>
         </el-card>
       </el-col>
+
+      <!-- 用户发博走势统计 -->
+      <el-col v-if="currentMenuContent === 3" class="col" :sm="24" :md="16" :lg="16">
+        <el-card class="char-card">
+          <h3>{{ tabsTitle[2] }}</h3>
+          <p>统计用户的月发博量走势图</p>
+          <f2-base-histogram
+            :charData="trendData"
+            container="activity-histogram"
+            :isShowText="true"
+            :rotate="2"
+          ></f2-base-histogram>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -82,10 +96,11 @@ export default {
       lazyLoad: true,
       activityData: [],
       sourceData: [],
-      tabsTitle: ["微博活跃度统计", "用户发博平台统计"],
+      tabsTitle: ["微博活跃度统计", "用户发博平台统计", "微博走势统计"],
       currentMenuContent: 1,
       sortSourceStatus: false,
-      sortLable: "排序"
+      sortLable: "排序",
+      trendData: []
     };
   },
   methods: {
@@ -167,6 +182,28 @@ export default {
         this.sortLable = "降序";
       }
       this.sourceData = result;
+    },
+
+    /**
+     * 获取微博走势图数据
+     */
+    fetchWeiboTrendData() {
+      this.$axios.get(`/api/user-info/weibo-trend-data`, {}).then(res => {
+        const data = res.data;
+        for (const item in data) {
+          this.trendData.push({
+            key: item,
+            value: data[item]
+          });
+        }
+      });
+    }
+  },
+  watch: {
+    currentMenuContent: function(value) {
+      if (value === 3) {
+        this.fetchWeiboTrendData();
+      }
     }
   },
   created() {

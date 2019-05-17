@@ -202,10 +202,12 @@ function formatTimeLineData(data) {
 
 	data.forEach(item => {
 		if (sourceList.has(item.source)) {
-			timeLineData.push({
-				'content': item.source,
-				'timestamp': item.created_at,
-			});
+			if (item.source) {
+				timeLineData.push({
+					'content': item.source,
+					'timestamp': item.created_at,
+				});
+			}
 			sourceList.delete(item.source);
 		}
 	});
@@ -218,11 +220,13 @@ function formatTimeLineData(data) {
  * 接口位置：用户主页 > 微博数据 > 微博活跃度统计
  * 接口参数：id, tabActiveName
  */
+let allUserWeibos = [];
 router.get('/api/user-info/:id/weibo-activity-data', (req, res) => {
 	const id = +req.params.id;
 	const { period } = req.query;
 
 	models.Weibo.find({ 'user': id }, { 'created_at': 1 }).sort({ 'created_at': 1 }).exec((err, data) => {
+		allUserWeibos = data;
 		const dataArr = data.map(item => {
 			return item.created_at.slice(0, 10);
 		});
@@ -230,6 +234,30 @@ router.get('/api/user-info/:id/weibo-activity-data', (req, res) => {
 		res.send(result);
 	});
 });
+
+/**
+ * 接口名称：微博走势图
+ * 接口位置：用户主页 > 微博数据 > 微博走势图
+ * 结构参数：id
+ */
+router.get('/api/user-info/weibo-trend-data', (req, res) => {
+	const dataArr = allUserWeibos.map(item => {
+		return item.created_at.slice(0, 7);
+	});
+
+	var countedDate = dataArr.reduce(function (allData, date) {
+		if (date in allData) {
+			allData[date]++;
+		}
+		else {
+			allData[date] = 1; 
+		}
+		return allData;
+	}, {});
+
+	res.send(countedDate);
+});
+
 
 /**
  * 根据时间统计次数
@@ -315,6 +343,7 @@ router.get('/api/user-info/:id/weibo-source-data', (req, res) => {
 		res.send(result);
 	});
 });
+
 
 // ------------------------------------------------- //
 // ------------------------------------------------- //
