@@ -7,8 +7,11 @@
       :timeLineData="timeLineData"
     ></time-line>
 
-    <div :class="{'detail-weibos': true, 'show': isShow, 'close': isClose}" :loading="loading">
-      <button class="close-btn" @click="closeDetailWeibo">按钮</button>
+    <div
+      @click="closeDetailWeibo"
+      :class="{'detail-weibos': true, 'show': isShow, 'close': isClose}"
+      :loading="loading"
+    >
       <h3>{{ source }}</h3>
       <p>
         用户一共通过
@@ -29,7 +32,6 @@
             <span>{{item.reposts_count ? item.reposts_count : 0}}</span>
           </p>
         </div>
-        <hr style="border:0;background-color:#ff6c60;height:2px;">
       </div>
     </div>
 
@@ -159,6 +161,7 @@ export default {
       position: absolute;
       top: 0;
       left: 0;
+      z-index: 555;
     }
     @media screen and (max-width: $smallSize) {
       width: 250px;

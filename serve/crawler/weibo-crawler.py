@@ -223,7 +223,7 @@ if __name__ == '__main__':
             myfind = mycol.find(myquery)
             oldfollows = []
             for x in myfind:
-                oldfollows = x["fans"]
+                oldfollows = x["fans"]  
             if len(oldfollows) != 0:
                 if newfans[0] not in oldfollows:
                     newfans.extend(oldfollows)

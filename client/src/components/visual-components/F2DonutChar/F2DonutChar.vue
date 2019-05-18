@@ -56,8 +56,8 @@ export default {
         position: ["50%", "45%"],
         html:
           '<div style="width: 250px;height: 40px;text-align: center;">' +
-          '<div style="font-size: 16px">粉丝数</div>' +
-          '<div style="font-size: 24px">' +
+          '<div class="fans" >粉丝数</div>' +
+          '<div calss="data" >' +
           this.total +
           "</div>" +
           "</div>"
@@ -72,9 +72,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../../common/css/base.scss";
+
 .fans-se-char {
   width: 100%;
   height: 50%;
+}
+
+@media screen and (max-width: $smallSize) {
+  .chart-wrapper {
+    .fans-se-char {
+      & /deep/ .guideWapper {
+        // .fans {}
+      }
+    }
+  }
 }
 </style>
 
