@@ -202,8 +202,6 @@ export default {
           a: "1"
         });
       }
-
-      console.log(this.fansGenderData);
     },
 
     /**
@@ -252,7 +250,7 @@ export default {
           value: findNumberWithRange(follower_count, [keys[i - 1], keys[i]])
         });
       }
-      console.log(this.followersFansData);
+      // console.log(this.followersFansData);
     },
 
     /**

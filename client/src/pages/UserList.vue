@@ -112,7 +112,7 @@ export default {
   },
   data() {
     const checkUserId = (rule, value, callback) => {
-      if (!value.match(/^\d{10}$/)) {
+      if (!value.match(/^\d{8,12}$/)) {
         return callback(new Error("微博id异常，请检查后重新输入"));
       }
       callback();
@@ -232,6 +232,7 @@ export default {
      *  启动服务端爬虫脚本
      */
     startCrawlById(userId) {
+      const _this = this;
       const params = {
         userId
       };
@@ -243,11 +244,15 @@ export default {
           this.$message({
             message: "正在爬取数据，请稍后",
             type: "success",
-            duration: "10000",
+            duration: "3000",
             center: true,
-            showClose: true
+            showClose: true,
+            onClose: function() {
+              _this.ruleForm.userId = "";
+              _this.fetchUserList();
+            }
           });
-          console.log(res);
+          // console.log(res);
         })
         .catch(err => {
           console.log(err);
