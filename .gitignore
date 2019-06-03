@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+
+# macos
+.DS_Store
+serve/.DS_Store
+client/.DS_Store
